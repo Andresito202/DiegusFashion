@@ -520,6 +520,49 @@
     }
 
     // =============================================
+    //  UPDATE EXISTING PRODUCTS (descripcion + colores)
+    // =============================================
+    window._updateExistingProducts = function () {
+        var btn = document.getElementById('btnUpdateProducts');
+        if (!btn) return;
+        btn.classList.add('btn-loading');
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Actualizando...';
+
+        var lookup = {};
+        DATOS_INICIALES.forEach(function (p) {
+            lookup[p.nombre] = { descripcion: p.descripcion || '', colores: p.colores || '' };
+        });
+
+        db.collection('productos').get().then(function (snapshot) {
+            var batch = db.batch();
+            var count = 0;
+            snapshot.forEach(function (doc) {
+                var data = doc.data();
+                if (lookup[data.nombre]) {
+                    batch.update(doc.ref, {
+                        descripcion: lookup[data.nombre].descripcion,
+                        colores: lookup[data.nombre].colores
+                    });
+                    count++;
+                }
+            });
+            if (count === 0) {
+                showToast('No se encontraron productos para actualizar', 'info');
+                return Promise.resolve();
+            }
+            return batch.commit().then(function () {
+                showToast(count + ' productos actualizados con descripción y colores', 'success');
+                loadProducts();
+            });
+        }).catch(function (err) {
+            showToast('Error: ' + err.message, 'error');
+        }).finally(function () {
+            btn.classList.remove('btn-loading');
+            btn.innerHTML = '<i class="fas fa-sync-alt"></i> Actualizar descripciones y colores';
+        });
+    };
+
+    // =============================================
     //  CATEGORIES - LOAD
     // =============================================
     function loadCategories() {
