@@ -1,0 +1,288 @@
+================================================================
+   GUIA COMPLETA - Diegu's Fashion Admin
+   Panel de Administracion + Imagenes + Despliegue
+================================================================
+
+
+================================================================
+1. ESTRUCTURA DEL PROYECTO
+================================================================
+
+DiegusFashion/
+|
+|-- index.html              --> Tienda (lo que ven los clientes)
+|-- admin.html              --> Panel admin (solo tu con login)
+|-- firebase-config.js      --> Conexion a Firebase (no tocar)
+|
+|-- css/
+|   |-- styles.css          --> Estilos de la tienda
+|   |-- admin.css           --> Estilos del panel admin
+|
+|-- js/
+|   |-- main.js             --> Logica de la tienda
+|   |-- admin.js            --> Logica del panel admin
+|
+|-- img/                    --> TODAS las fotos van aqui
+|   |-- logo.png
+|   |-- banner.png
+|   |-- americana-negra.jpg
+|   |-- americana-negra-2.jpg
+|   |-- americana-negra-3.jpg
+|   |-- (... mas fotos ...)
+|
+|-- GUIA-ADMIN.txt          --> Este documento
+
+
+================================================================
+2. COMO NOMBRAR LAS IMAGENES
+================================================================
+
+REGLAS:
+- Solo letras minusculas (sin mayusculas)
+- Sin espacios (usar guion -)
+- Sin tildes ni caracteres especiales
+- Formato: .jpg o .png
+- Maximo 3 fotos por producto (frontal, trasera, lateral)
+
+FORMATO DE NOMBRE:
+   [tipo]-[color].jpg          --> Foto principal (frontal)
+   [tipo]-[color]-2.jpg        --> Foto 2 (trasera)
+   [tipo]-[color]-3.jpg        --> Foto 3 (lateral)
+
+EJEMPLOS ACTUALES:
+   americana-negra.jpg         --> Americana Negra (frontal)
+   americana-negra-2.jpg       --> Americana Negra (trasera)
+   americana-negra-3.jpg       --> Americana Negra (lateral)
+   beisbolera-roja.jpg         --> Beisbolera Roja (frontal)
+   parka-azul.jpg              --> Parka Azul (frontal)
+
+EJEMPLO PRODUCTO NUEVO (Bomber Roja):
+   bomber-roja.jpg             --> Frontal
+   bomber-roja-2.jpg           --> Trasera
+   bomber-roja-3.jpg           --> Lateral
+
+EJEMPLO PRODUCTO NUEVO (Chaqueta Cuero Marron):
+   cuero-marron.jpg            --> Frontal
+   cuero-marron-2.jpg          --> Trasera
+   cuero-marron-3.jpg          --> Lateral
+
+NOMBRES INCORRECTOS (NO HACER):
+   Bomber Roja.jpg             --> MAL (tiene espacios y mayusculas)
+   PARKA_AZUL.JPG              --> MAL (mayusculas y guion bajo)
+   chaqueta nueva (1).jpg      --> MAL (espacios y parentesis)
+   foto whatsapp.jpeg          --> MAL (espacios, nombre generico)
+
+
+================================================================
+3. COMO AGREGAR UN PRODUCTO NUEVO (PASO A PASO)
+================================================================
+
+PASO 1 - Preparar las fotos
+   a) Toma 3 fotos de la chaqueta (frontal, trasera, lateral)
+   b) Renombralas siguiendo el formato:
+      - bomber-roja.jpg
+      - bomber-roja-2.jpg
+      - bomber-roja-3.jpg
+   c) Copia las 3 fotos a la carpeta:
+      E:/todo/Proyectos/DiegusFashion/img/
+
+PASO 2 - Agregar en el admin
+   a) Abre http://localhost:8080/admin.html (local)
+      o https://tusitio.com/admin.html (en produccion)
+   b) Inicia sesion con tu correo y contrasena
+   c) Clic en "+ Agregar Producto"
+   d) Llena los campos:
+      - Nombre: Chaqueta Bomber Roja
+      - Precio: 125000
+      - Categoria: selecciona una o "Otra"
+      - Tallas: S,M,L,XL
+      - Orden: 9 (posicion en la pagina)
+      - Imagen principal: img/bomber-roja.jpg
+      - Imagen 2: img/bomber-roja-2.jpg
+      - Imagen 3: img/bomber-roja-3.jpg
+   e) Clic en "Guardar"
+   f) El producto aparece en la tienda automaticamente
+
+
+================================================================
+4. COMO EDITAR UN PRODUCTO
+================================================================
+
+   a) En el admin, busca el producto
+   b) Clic en el icono del lapiz (editar)
+   c) Cambia lo que necesites (precio, tallas, imagenes, etc.)
+   d) Clic en "Guardar"
+   e) Los cambios se reflejan en la tienda al recargar
+
+
+================================================================
+5. COMO CAMBIAR LA FOTO DE UN PRODUCTO
+================================================================
+
+   a) Pon la nueva foto en la carpeta img/ con nombre correcto
+   b) En el admin, edita el producto (icono lapiz)
+   c) Cambia la ruta de imagen vieja por la nueva:
+      Antes:  img/americana-negra.jpg
+      Ahora:  img/americana-negra-nueva.jpg
+   d) Guardar
+
+   NOTA: Si solo quieres reemplazar la foto sin cambiar nombre,
+   simplemente reemplaza el archivo en la carpeta img/ con el
+   mismo nombre. No necesitas tocar el admin.
+
+
+================================================================
+6. COMO ELIMINAR UN PRODUCTO
+================================================================
+
+   a) En el admin, busca el producto
+   b) Clic en el icono de basura (eliminar)
+   c) Confirma la eliminacion
+   d) El producto desaparece de la tienda
+
+   OPCIONAL: Puedes borrar las fotos de la carpeta img/
+   para no acumular archivos innecesarios.
+
+
+================================================================
+7. COMO CAMBIAR DATOS DEL NEGOCIO
+================================================================
+
+   a) En el admin, clic en "Configuracion" (menu izquierdo)
+   b) Cambia:
+      - Numero de WhatsApp
+      - Numero de Nequi
+      - Cuenta bancaria
+   c) Clic en "Guardar Configuracion"
+   d) Los cambios se reflejan en la tienda
+
+
+================================================================
+8. DESPLIEGUE - COMO SUBIR A INTERNET
+================================================================
+
+OPCION A: HOSTING GRATUITO CON NETLIFY (RECOMENDADO)
+---------------------------------------------------------
+
+PASO 1 - Crear cuenta
+   a) Ve a https://www.netlify.com/
+   b) Crea cuenta gratis (puedes usar tu cuenta Google)
+
+PASO 2 - Subir el proyecto
+   a) En el dashboard de Netlify, busca "Deploy manually"
+      o "Drag and drop your site"
+   b) Arrastra TODA la carpeta DiegusFashion/ ahi
+   c) Netlify te da una URL tipo: diegusfashion.netlify.app
+
+PASO 3 - Dominio personalizado (opcional)
+   a) Si compraste un dominio (ej: diegufashion.com)
+   b) En Netlify: Domain settings -> Add custom domain
+   c) Sigue las instrucciones para apuntar tu dominio
+
+RESULTADO:
+   Clientes ven: https://diegufashion.com
+   Tu admin:     https://diegufashion.com/admin.html
+
+
+OPCION B: HOSTING CON CPANEL (si ya tienes hosting)
+---------------------------------------------------------
+
+PASO 1 - Entrar al cPanel de tu hosting
+PASO 2 - Abrir "Administrador de archivos"
+PASO 3 - Ir a la carpeta public_html/
+PASO 4 - Subir TODOS los archivos del proyecto ahi:
+         - index.html
+         - admin.html
+         - firebase-config.js
+         - carpeta css/ completa
+         - carpeta js/ completa
+         - carpeta img/ completa
+
+RESULTADO:
+   Clientes ven: https://tudominio.com
+   Tu admin:     https://tudominio.com/admin.html
+
+
+================================================================
+9. EL ADMIN EN PRODUCCION - COMO FUNCIONA
+================================================================
+
+PREGUNTA: "Si subo la pagina, el admin queda en local?"
+RESPUESTA: NO. El admin se sube junto con la pagina.
+
+ASI FUNCIONA:
+   - admin.html se sube al hosting igual que index.html
+   - Cuando entras a tusitio.com/admin.html te pide LOGIN
+   - Sin tu correo y contrasena NADIE puede entrar
+   - Firebase Authentication protege el acceso
+   - Los datos van a Firebase (nube de Google), no al hosting
+
+FLUJO:
+   1. Tu entras a tusitio.com/admin.html
+   2. Pones tu correo y contrasena
+   3. Agregas/editas productos desde cualquier computador
+   4. Los cambios se guardan en Firebase (nube)
+   5. Los clientes ven los cambios en tusitio.com al recargar
+   6. Las fotos nuevas SI necesitas subirlas al hosting (carpeta img/)
+
+IMPORTANTE:
+   - El admin funciona desde CUALQUIER computador con internet
+   - No necesitas tener el proyecto en tu PC para administrar
+   - Solo necesitas subir fotos nuevas al hosting cuando agregues productos
+
+
+================================================================
+10. CUANDO AGREGUES PRODUCTO NUEVO EN PRODUCCION
+================================================================
+
+PASO 1 - Subir fotos al hosting
+   a) Entra al cPanel o Netlify
+   b) Sube las fotos nuevas a la carpeta img/
+
+PASO 2 - Agregar producto en el admin
+   a) Entra a tusitio.com/admin.html
+   b) Login
+   c) Agregar producto con las rutas de las fotos
+   d) Guardar
+
+Eso es todo. No necesitas tocar codigo.
+
+
+================================================================
+11. PRUEBAS EN LOCAL (SIN HOSTING)
+================================================================
+
+Para probar en tu computador:
+   a) Abre una terminal/CMD
+   b) Escribe: cd E:/todo/Proyectos/DiegusFashion
+   c) Escribe: npx http-server -p 8080 -c-1 --cors
+   d) Abre en el navegador:
+      - Tienda: http://localhost:8080
+      - Admin:  http://localhost:8080/admin.html
+
+Para detener el servidor: presiona Ctrl+C en la terminal.
+
+
+================================================================
+12. RESUMEN RAPIDO
+================================================================
+
+Agregar producto:
+   1. Fotos en img/ -> 2. Admin -> Agregar -> 3. Guardar
+
+Editar producto:
+   1. Admin -> Lapiz -> 2. Cambiar -> 3. Guardar
+
+Eliminar producto:
+   1. Admin -> Basura -> 2. Confirmar
+
+Cambiar config:
+   1. Admin -> Configuracion -> 2. Cambiar -> 3. Guardar
+
+Subir a internet:
+   1. Netlify o cPanel -> 2. Subir carpeta completa
+
+Probar local:
+   1. npx http-server -> 2. localhost:8080
+
+================================================================

@@ -1,0 +1,326 @@
+================================================================
+   GUIA COMPLETA - COMPRAR DOMINIO + SUBIR A NETLIFY
+   Diegu's Fashion
+================================================================
+
+
+================================================================
+PARTE 1: COMPRAR EL DOMINIO
+================================================================
+
+DONDE COMPRAR (opciones recomendadas):
+   - Namecheap.com   --> Desde $8 USD/ano (el mas barato)
+   - GoDaddy.com     --> Desde $12 USD/ano (el mas conocido)
+   - Google Domains   --> Desde $12 USD/ano (ahora Squarespace)
+   - Hostinger.com   --> Desde $10 USD/ano
+
+RECOMENDACION: Namecheap o Hostinger (baratos y confiables)
+
+PASO A PASO EN NAMECHEAP (ejemplo):
+   1. Ve a https://www.namecheap.com/
+   2. Crea una cuenta (correo + contrasena)
+   3. En la barra de busqueda escribe: diegufashion.com
+   4. Si esta disponible, dale "Add to cart"
+   5. Si NO esta disponible, prueba variaciones:
+      - diegufashion.co
+      - diegusfashion.com
+      - diegufashionbogota.com
+      - diegusfashion.store
+   6. Ve al carrito y paga (tarjeta o PayPal)
+   7. DESACTIVA "Auto-Renew" si no quieres que te cobre automatico
+   8. Listo, el dominio es tuyo por 1 ano
+
+IMPORTANTE:
+   - El dominio se paga cada ano (no es pago unico)
+   - .com es el mas profesional
+   - .store o .shop tambien sirven para tiendas
+   - NO compres servicios extra (hosting, email, SSL, etc.)
+     Netlify te da hosting y SSL gratis
+
+
+================================================================
+PARTE 2: CREAR CUENTA EN NETLIFY
+================================================================
+
+   1. Ve a https://app.netlify.com/signup
+   2. Clic en "Sign up with Google" (usa tu cuenta Google)
+      o crea cuenta con correo y contrasena
+   3. Ya estas dentro del dashboard de Netlify
+
+
+================================================================
+PARTE 3: SUBIR LA PAGINA A NETLIFY
+================================================================
+
+METODO 1 - ARRASTRAR Y SOLTAR (el mas facil)
+
+   1. En tu PC, abre la carpeta:
+      E:/todo/Proyectos/DiegusFashion/
+
+   2. VERIFICA que tenga estos archivos:
+      - index.html
+      - admin.html
+      - firebase-config.js
+      - carpeta css/ (con styles.css y admin.css)
+      - carpeta js/ (con main.js y admin.js)
+      - carpeta img/ (con todas las fotos)
+
+   3. En Netlify, en el dashboard busca:
+      "Want to deploy a new site without connecting to Git?"
+      "Drag and drop your site output folder here"
+
+      Si no lo ves, ve a: Sites -> "Add new site" -> "Deploy manually"
+
+   4. ARRASTRA toda la carpeta DiegusFashion/ al area de Netlify
+
+   5. Espera que suba (puede tardar 1-2 minutos por las fotos)
+
+   6. Netlify te asigna una URL temporal tipo:
+      https://random-name-12345.netlify.app
+
+   7. Abre esa URL para verificar que funciona
+
+   8. Prueba tambien:
+      https://random-name-12345.netlify.app/admin.html
+
+
+METODO 2 - DESDE GITHUB (mas profesional, opcional)
+
+   Si tienes cuenta de GitHub:
+   1. Sube el proyecto a un repositorio de GitHub
+   2. En Netlify: "Add new site" -> "Import from Git"
+   3. Selecciona el repositorio
+   4. Deploy
+   Ventaja: cada vez que hagas push a GitHub, Netlify
+   actualiza automaticamente.
+
+
+================================================================
+PARTE 4: CAMBIAR EL NOMBRE DEL SITIO EN NETLIFY
+================================================================
+
+   Tu URL temporal es algo como: random-name-12345.netlify.app
+   Puedes cambiarla a algo mejor GRATIS:
+
+   1. En Netlify, ve a tu sitio
+   2. Clic en "Site configuration" o "Site settings"
+   3. Busca "Site name" o "Change site name"
+   4. Cambia a: diegusfashion
+   5. Tu URL ahora es: https://diegusfashion.netlify.app
+
+   Esta URL ya funciona y es gratis para siempre.
+   Si no quieres comprar dominio, puedes usar esta.
+
+
+================================================================
+PARTE 5: CONECTAR TU DOMINIO PROPIO A NETLIFY
+================================================================
+
+PASO 1 - Agregar dominio en Netlify
+
+   1. En Netlify, ve a tu sitio
+   2. Clic en "Domain management" o "Set up a custom domain"
+   3. Escribe tu dominio: diegufashion.com
+   4. Clic en "Verify" -> "Add domain"
+   5. Netlify te mostrara que necesitas configurar DNS
+
+PASO 2 - Opcion A: Usar DNS de Netlify (RECOMENDADO - mas facil)
+
+   Netlify te va a decir:
+   "We recommend using Netlify DNS"
+   -> Clic en "Set up Netlify DNS"
+
+   Te va a dar 4 nameservers, algo como:
+      dns1.p06.nsone.net
+      dns2.p06.nsone.net
+      dns3.p06.nsone.net
+      dns4.p06.nsone.net
+
+   Ahora ve a donde compraste el dominio (ej: Namecheap):
+
+   EN NAMECHEAP:
+   1. Entra a tu cuenta -> "Domain List"
+   2. Clic en "Manage" al lado de tu dominio
+   3. Busca "Nameservers"
+   4. Cambia de "Namecheap BasicDNS" a "Custom DNS"
+   5. Pega los 4 nameservers que te dio Netlify:
+      dns1.p06.nsone.net
+      dns2.p06.nsone.net
+      dns3.p06.nsone.net
+      dns4.p06.nsone.net
+   6. Clic en el check verde para guardar
+
+   EN GODADDY:
+   1. Entra a tu cuenta -> "Mis dominios"
+   2. Clic en tu dominio -> "DNS"
+   3. Busca "Servidores de nombres" -> "Cambiar"
+   4. Selecciona "Personalizado"
+   5. Pega los 4 nameservers de Netlify
+   6. Guardar
+
+   EN HOSTINGER:
+   1. Panel -> Dominios -> tu dominio
+   2. DNS / Nameservers -> Cambiar nameservers
+   3. Pega los 4 de Netlify
+   4. Guardar
+
+   ESPERAR: Los cambios de DNS tardan entre 5 minutos y 48 horas.
+   Normalmente funciona en 15-30 minutos.
+
+PASO 2 - Opcion B: Usar registros DNS manuales (si no quieres cambiar nameservers)
+
+   En vez de cambiar nameservers, puedes agregar registros:
+
+   1. En donde compraste el dominio, ve a "DNS avanzado"
+   2. Agrega estos registros:
+
+      Tipo: A
+      Host: @
+      Valor: 75.2.60.5
+      TTL: Automatico
+
+      Tipo: CNAME
+      Host: www
+      Valor: tu-sitio.netlify.app
+      TTL: Automatico
+
+   NOTA: La IP 75.2.60.5 es del load balancer de Netlify.
+   Verifica en tu panel de Netlify cual IP te indica.
+
+
+PASO 3 - Activar HTTPS (SSL gratuito)
+
+   1. En Netlify -> Domain management
+   2. Busca "HTTPS" o "SSL/TLS certificate"
+   3. Clic en "Verify DNS configuration"
+   4. Si el DNS ya propago, clic en "Provision certificate"
+   5. Netlify instala SSL gratis de Let's Encrypt
+   6. Tu sitio ahora tiene el candadito verde:
+      https://diegufashion.com
+
+   NOTA: Si dice "Waiting for DNS propagation", espera
+   unas horas y vuelve a intentar.
+
+
+================================================================
+PARTE 6: VERIFICAR QUE TODO FUNCIONA
+================================================================
+
+   Abre estas URLs y verifica:
+
+   1. https://diegufashion.com
+      -> Debe cargar la tienda con productos
+
+   2. https://diegufashion.com/admin.html
+      -> Debe mostrar la pantalla de login
+
+   3. Inicia sesion en el admin
+      -> Debes ver tus productos
+
+   4. Edita un producto (cambia el precio)
+      -> Recarga la tienda
+      -> El precio debe estar actualizado
+
+   5. Abre la tienda en el celular
+      -> Debe verse bien y responsiva
+
+   Si algo no funciona:
+   - Limpia cache del navegador (Ctrl+Shift+Delete)
+   - Espera 30 min si acabas de configurar DNS
+   - Verifica que todos los archivos se subieron a Netlify
+
+
+================================================================
+PARTE 7: COMO ACTUALIZAR LA PAGINA DESPUES
+================================================================
+
+CUANDO AGREGAS PRODUCTOS NUEVOS (solo datos, sin fotos nuevas):
+   -> Solo usa el admin desde el navegador
+   -> No necesitas tocar Netlify
+
+CUANDO AGREGAS FOTOS NUEVAS:
+   1. En Netlify, ve a tu sitio -> "Deploys"
+   2. Arrastra la carpeta DiegusFashion/ de nuevo
+      (con las fotos nuevas incluidas)
+   3. Netlify reemplaza los archivos automaticamente
+   4. La URL sigue siendo la misma
+
+   ALTERNATIVA: Si usas GitHub, solo haz push y se
+   actualiza automatico.
+
+CUANDO CAMBIAS CODIGO (css, js, html):
+   -> Mismo proceso: arrastra la carpeta a Netlify de nuevo
+
+
+================================================================
+PARTE 8: RESUMEN DE COSTOS
+================================================================
+
+   Hosting Netlify:    $0 (gratis para siempre)
+   SSL/HTTPS:          $0 (gratis con Netlify)
+   Firebase:           $0 (gratis, Plan Spark)
+   Dominio .com:       ~$8-12 USD/ano (unico costo)
+
+   TOTAL: ~$8-12 USD/ano (solo el dominio)
+
+
+================================================================
+PARTE 9: DATOS IMPORTANTES - GUARDAR EN LUGAR SEGURO
+================================================================
+
+   Completa estos datos y guardalos:
+
+   FIREBASE:
+   - Proyecto: DiegusFashion
+   - Consola: https://console.firebase.google.com/
+   - Email admin: ______________________________
+   - Contrasena admin: ________________________
+
+   DOMINIO:
+   - Proveedor: ________________________________
+   - Dominio: __________________________________
+   - Email cuenta: _____________________________
+   - Contrasena: _______________________________
+   - Fecha de vencimiento: _____________________
+
+   NETLIFY:
+   - URL temporal: _________________.netlify.app
+   - Email cuenta: _____________________________
+
+   URLS FINALES:
+   - Tienda: https://__________________________
+   - Admin: https://___________________________/admin.html
+
+
+================================================================
+PARTE 10: SOPORTE Y PROBLEMAS COMUNES
+================================================================
+
+PROBLEMA: "La pagina no carga productos"
+SOLUCION: Verifica que firebase-config.js tiene las claves
+correctas y que Firestore tiene datos.
+
+PROBLEMA: "El admin dice Firebase no configurado"
+SOLUCION: Verifica que firebase-config.js se subio a Netlify
+y que las claves son correctas.
+
+PROBLEMA: "El dominio no funciona"
+SOLUCION: Los DNS pueden tardar hasta 48 horas. Espera.
+Verifica que los nameservers estan bien configurados.
+
+PROBLEMA: "Las fotos no cargan"
+SOLUCION: Verifica que la carpeta img/ se subio completa
+a Netlify y que los nombres coinciden con los del admin.
+
+PROBLEMA: "No puedo entrar al admin"
+SOLUCION: Ve a Firebase Console -> Authentication -> Usuarios
+y verifica que tu usuario existe. Si olvidaste la contrasena,
+puedes cambiarla ahi.
+
+PROBLEMA: "Quiero cambiar mi contrasena del admin"
+SOLUCION: Firebase Console -> Authentication -> Usuarios ->
+clic en tu usuario -> Cambiar contrasena.
+
+================================================================
+   FIN DE LA GUIA
+================================================================

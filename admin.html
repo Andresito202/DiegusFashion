@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Diegu's Fashion</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="css/admin.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ========== LOGIN ========== -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-card">
+            <img src="img/logo.png" alt="Logo" class="login-logo">
+            <h3 class="login-title">Diegu's Fashion</h3>
+            <p class="login-subtitle">Panel de Administración</p>
+            <form id="loginForm">
+                <input type="email" id="loginEmail" class="login-input" placeholder="Correo electrónico" required>
+                <input type="password" id="loginPassword" class="login-input" placeholder="Contraseña" required>
+                <button type="submit" class="login-btn" id="loginBtn">
+                    <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
+                </button>
+            </form>
+            <p id="loginError" class="login-error"></p>
+        </div>
+    </div>
+
+    <!-- ========== ADMIN PANEL ========== -->
+    <div id="adminPanel" class="admin-layout" style="display:none;">
+
+        <!-- Botón toggle sidebar (móvil) -->
+        <button class="sidebar-toggle" id="sidebarToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Sidebar -->
+        <aside class="admin-sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-brand">
+                    Diegu's Fashion
+                    <small>Panel Admin</small>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-item active" data-section="productos">
+                    <i class="fas fa-box"></i> Productos
+                </div>
+                <div class="nav-item" data-section="categorias">
+                    <i class="fas fa-tags"></i> Categorías
+                </div>
+                <div class="nav-item" data-section="config">
+                    <i class="fas fa-cog"></i> Configuración
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="btn-logout" id="btnLogout">
+                    <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main">
+
+            <!-- === Sección Productos === -->
+            <section id="seccion-productos" class="admin-section">
+                <div class="seed-banner" id="seedBanner" style="display:none;">
+                    <div>
+                        <strong><i class="fas fa-database"></i> Base de datos vacía</strong>
+                        <p>Carga los 8 productos actuales a Firebase para empezar a trabajar desde el panel.</p>
+                    </div>
+                    <button class="btn-seed" id="btnSeed">
+                        <i class="fas fa-upload"></i> Cargar datos iniciales
+                    </button>
+                </div>
+
+                <div class="section-header">
+                    <h2>Productos</h2>
+                    <button class="btn-primary-admin" id="btnAgregarProducto">
+                        <i class="fas fa-plus"></i> Agregar Producto
+                    </button>
+                </div>
+
+                <div id="productosGrid" class="admin-products-grid">
+                    <div class="empty-state">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>Cargando productos...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- === Sección Categorías === -->
+            <section id="seccion-categorias" class="admin-section" style="display:none;">
+                <div class="section-header">
+                    <h2>Categorías</h2>
+                    <button class="btn-primary-admin" id="btnAgregarCategoria">
+                        <i class="fas fa-plus"></i> Agregar Categoría
+                    </button>
+                </div>
+                <p class="form-hint" style="margin-bottom:1rem;">Administra las categorías de productos. El icono y nombre se muestran en la página principal.</p>
+                <div id="categoriasGrid" class="admin-categorias-grid">
+                    <div class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Cargando...</p></div>
+                </div>
+            </section>
+
+            <!-- === Sección Configuración === -->
+            <section id="seccion-config" class="admin-section" style="display:none;">
+                <div class="section-header">
+                    <h2>Configuración del Negocio</h2>
+                </div>
+                <div class="config-card">
+                    <h5><i class="fas fa-store"></i> Datos de Contacto y Pago</h5>
+                    <form id="formConfig">
+                        <div class="form-group">
+                            <label>WhatsApp (con código de país)</label>
+                            <input type="text" id="cfgWhatsapp" class="form-control-admin" placeholder="573137439870">
+                            <p class="form-hint">Ejemplo: 573137439870 (57 = Colombia)</p>
+                        </div>
+                        <div class="form-group">
+                            <label>Número Nequi</label>
+                            <input type="text" id="cfgNequi" class="form-control-admin" placeholder="300 123 4567">
+                        </div>
+                        <div class="form-group">
+                            <label>Cuenta Bancaria</label>
+                            <input type="text" id="cfgCuenta" class="form-control-admin" placeholder="Bancolombia - Ahorros 123-456789-00">
+                        </div>
+                        <button type="submit" class="btn-primary-admin" style="margin-top:8px;">
+                            <i class="fas fa-save"></i> Guardar Configuración
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- ========== MODAL PRODUCTO ========== -->
+    <div id="modalProducto" class="admin-modal-overlay">
+        <div class="admin-modal">
+            <div class="admin-modal-header">
+                <h4 id="modalProductoTitulo">Agregar Producto</h4>
+                <button class="admin-modal-close" id="btnCerrarModal"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="formProducto">
+                <div class="admin-modal-body">
+                    <div class="form-group">
+                        <label>Nombre del producto</label>
+                        <input type="text" id="prodNombre" class="form-control-admin" placeholder="Chaqueta Americana Negra" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Precio (COP)</label>
+                            <input type="number" id="prodPrecio" class="form-control-admin" placeholder="117000" required min="1">
+                        </div>
+                        <div class="form-group">
+                            <label>Categoría</label>
+                            <select id="prodCategoria" class="form-control-admin" required>
+                                <option value="">Seleccionar...</option>
+                                <option value="americana">Americana</option>
+                                <option value="beisbolera">Beisbolera</option>
+                                <option value="parka">Parka</option>
+                                <option value="unicolor">Unicolor</option>
+                                <option value="combinada">Combinada</option>
+                                <option value="lenador">Leñadora</option>
+                                <option value="otra">Otra</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="categoriaOtraGroup" class="form-group" style="display:none;">
+                        <label>Nombre de la nueva categoría</label>
+                        <input type="text" id="prodCategoriaOtra" class="form-control-admin" placeholder="Ej: Bomber">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Tallas (separadas por coma)</label>
+                            <input type="text" id="prodTallas" class="form-control-admin" placeholder="S,M,L,XL" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Orden (posición)</label>
+                            <input type="number" id="prodOrden" class="form-control-admin" placeholder="1" min="1" value="1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Imagen principal</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="prodImg1" class="form-control-admin" placeholder="Pega aquí la URL de la imagen...">
+                            <a href="https://imgbb.com/" target="_blank" rel="noopener noreferrer" class="btn-imgbb" title="Subir imagen a ImgBB">
+                                <i class="fas fa-cloud-upload-alt"></i> Subir a ImgBB
+                            </a>
+                        </div>
+                        <p class="form-hint"><i class="fas fa-info-circle"></i> En ImgBB cambia el dropdown a <strong>"Enlaces directos"</strong> y copia esa URL (termina en .jpg o .png). NO copies "Enlaces del visor".</p>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Imagen 2 - Trasera</label>
+                            <div class="img-upload-row">
+                                <input type="text" id="prodImg2" class="form-control-admin" placeholder="URL imagen 2...">
+                                <a href="https://imgbb.com/" target="_blank" rel="noopener noreferrer" class="btn-imgbb btn-imgbb-sm" title="Subir a ImgBB">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Imagen 3 - Lateral</label>
+                            <div class="img-upload-row">
+                                <input type="text" id="prodImg3" class="form-control-admin" placeholder="URL imagen 3...">
+                                <a href="https://imgbb.com/" target="_blank" rel="noopener noreferrer" class="btn-imgbb btn-imgbb-sm" title="Subir a ImgBB">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Imagen 4 - Detalle (opcional)</label>
+                        <div class="img-upload-row">
+                            <input type="text" id="prodImg4" class="form-control-admin" placeholder="URL imagen 4...">
+                            <a href="https://imgbb.com/" target="_blank" rel="noopener noreferrer" class="btn-imgbb btn-imgbb-sm" title="Subir a ImgBB">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="admin-modal-footer">
+                    <button type="button" class="btn-secondary-admin" id="btnCancelarModal">Cancelar</button>
+                    <button type="submit" class="btn-primary-admin" id="btnGuardarProducto">
+                        <i class="fas fa-save"></i> Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========== CONFIRM DELETE ========== -->
+    <div id="confirmDelete" class="confirm-overlay">
+        <div class="confirm-box">
+            <div class="confirm-icon"><i class="fas fa-trash-alt"></i></div>
+            <h5>Eliminar Producto</h5>
+            <p id="confirmMsg">¿Estás seguro de eliminar este producto?</p>
+            <div class="confirm-actions">
+                <button class="btn-confirm-cancel" id="btnCancelDelete">Cancelar</button>
+                <button class="btn-confirm-delete" id="btnConfirmDelete">
+                    <i class="fas fa-trash"></i> Eliminar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== MODAL CATEGORÍA ========== -->
+    <div id="modalCategoria" class="admin-modal-overlay">
+        <div class="admin-modal">
+            <div class="admin-modal-header">
+                <h4 id="modalCategoriaTitulo">Agregar Categoría</h4>
+                <button class="admin-modal-close" id="btnCerrarCategoria"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="formCategoria">
+                <div class="admin-modal-body">
+                    <div class="form-group">
+                        <label>Nombre de la categoría</label>
+                        <input type="text" id="catNombre" class="form-control-admin" placeholder="Ej: Bomber, Cortavientos..." required>
+                    </div>
+                    <div class="form-group">
+                        <label>Slug (identificador único)</label>
+                        <input type="text" id="catSlug" class="form-control-admin" placeholder="Se genera automático" required>
+                        <p class="form-hint">Solo letras minúsculas y guiones. Se genera del nombre.</p>
+                    </div>
+                    <div class="form-group">
+                        <label>Orden de aparición</label>
+                        <input type="number" id="catOrden" class="form-control-admin" placeholder="1" min="1" value="1">
+                    </div>
+                    <div class="form-group">
+                        <label>Icono de la categoría <small>(clic para seleccionar)</small></label>
+                        <div class="icon-selected-display" id="iconSelectedDisplay">
+                            <i id="iconSelectedPreview" class="fas fa-tag"></i>
+                            <span id="iconSelectedName">fas fa-tag</span>
+                        </div>
+                        <div id="iconPickerGrid" class="icon-picker-grid">
+                            <div class="icon-picker-item" data-icon="fas fa-vest"><i class="fas fa-vest"></i><span>Americana</span></div>
+                            <div class="icon-picker-item" data-icon="fas fa-vest-patches"><i class="fas fa-vest-patches"></i><span>Parches</span></div>
+                            <div class="icon-picker-item" data-icon="fas fa-tshirt"><i class="fas fa-tshirt"></i><span>Camiseta</span></div>
+                            <div class="icon-picker-item" data-icon="fas fa-baseball-ball"><i class="fas fa-baseball-ball"></i><span>Beisbolera</span></div>
+                            <div class="icon-picker-item" data-icon="fas fa-cloud-rain"><i class="fas fa-cloud-rain"></i><span>Parka</span></div>
+                            <div class="icon-picker-item" data-icon="fas fa-palette"><i class="fas fa-palette"></i><span>Unicolor</span></div>
+                            <div class="icon-picker-item" data-icon="fas fa-swatchbook"><i class="fas fa-swatchbook"></i><span>Combinada</span></div>
+                            <div class="icon-picker-item" data-icon="fas fa-tree"><i class="fas fa-tree"></i><span>Leñadora</span></div>
+                            <div class="icon-picker-item" data-icon="fas fa-snowflake"><i class="fas fa-snowflake"></i><span>Invierno</span></div>
+                            <div class="icon-picker-item" data-icon="fas fa-wind"><i class="fas fa-wind"></i><span>Cortavientos</span></div>
+                            <div class="icon-picker-item" data-icon="fas fa-umbrella"><i class="fas fa-umbrella"></i><span>Impermeable</span></div>
+                            <div class="icon-picker-item" data-icon="fas fa-fire"><i class="fas fa-fire"></i><span>Trending</span></div>
+                            <div class="icon-picker-item" data-icon="fas fa-bolt"><i class="fas fa-bolt"></i><span>Sport</span></div>
+                            <div class="icon-picker-item" data-icon="fas fa-shield-alt"><i class="fas fa-shield-alt"></i><span>Protección</span></div>
+                            <div class="icon-picker-item" data-icon="fas fa-gem"><i class="fas fa-gem"></i><span>Premium</span></div>
+                            <div class="icon-picker-item" data-icon="fas fa-crown"><i class="fas fa-crown"></i><span>Exclusiva</span></div>
+                            <div class="icon-picker-item" data-icon="fas fa-star"><i class="fas fa-star"></i><span>Destacada</span></div>
+                            <div class="icon-picker-item" data-icon="fas fa-user-tie"><i class="fas fa-user-tie"></i><span>Formal</span></div>
+                            <div class="icon-picker-item" data-icon="fas fa-mountain"><i class="fas fa-mountain"></i><span>Outdoor</span></div>
+                            <div class="icon-picker-item" data-icon="fas fa-hiking"><i class="fas fa-hiking"></i><span>Aventura</span></div>
+                            <div class="icon-picker-item" data-icon="fas fa-mitten"><i class="fas fa-mitten"></i><span>Guantes</span></div>
+                            <div class="icon-picker-item" data-icon="fas fa-hat-cowboy"><i class="fas fa-hat-cowboy"></i><span>Cowboy</span></div>
+                            <div class="icon-picker-item" data-icon="fas fa-feather-alt"><i class="fas fa-feather-alt"></i><span>Ligera</span></div>
+                            <div class="icon-picker-item" data-icon="fas fa-layer-group"><i class="fas fa-layer-group"></i><span>Capas</span></div>
+                            <div class="icon-picker-item" data-icon="fas fa-tag"><i class="fas fa-tag"></i><span>General</span></div>
+                        </div>
+                        <input type="hidden" id="catIcono" value="fas fa-tag">
+                    </div>
+                </div>
+                <div class="admin-modal-footer">
+                    <button type="button" class="btn-secondary-admin" id="btnCancelarCategoria">Cancelar</button>
+                    <button type="submit" class="btn-primary-admin" id="btnGuardarCategoria">
+                        <i class="fas fa-save"></i> Guardar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========== TOAST ========== -->
+    <div id="toast" class="admin-toast"></div>
+
+    <!-- Firebase CDN (compat mode) -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

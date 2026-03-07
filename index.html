@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diegu's Fashion - Chaquetas por Mayor y Detal en Bogotá</title>
+    <meta name="description" content="Confecciones Diegu's Fashion - Chaquetas por Mayor y Detal. C.C. Gran San, Cra. 10 #9-21, San Victorino, Bogotá D.C. 2° Piso Puesto 745. Americanas, Beisboleras, Parkas y más.">
+    <meta name="keywords" content="chaquetas bogota, chaquetas por mayor, chaquetas detal, san victorino, gran san, americana, beisbolera, parka, confecciones diegu fashion">
+    <meta name="author" content="Confecciones Diegu's Fashion">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="Content-Security-Policy" content="frame-ancestors 'none';">
+    <link rel="canonical" href="https://www.diegufashion.com/">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="img/logo.png">
+    <link rel="apple-touch-icon" href="img/logo.png">
+    <!-- Open Graph (redes sociales / WhatsApp) -->
+    <meta property="og:title" content="Diegu's Fashion - Chaquetas por Mayor y Detal">
+    <meta property="og:description" content="Chaquetas Americanas, Beisboleras, Parkas y más. C.C. Gran San, San Victorino, Bogotá. Envíos a todo Colombia.">
+    <meta property="og:image" content="https://www.diegufashion.com/img/banner.png">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_CO">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Diegu's Fashion - Chaquetas por Mayor y Detal">
+    <meta name="twitter:description" content="Chaquetas Americanas, Beisboleras, Parkas y más. C.C. Gran San, San Victorino, Bogotá.">
+    <meta name="twitter:image" content="https://www.diegufashion.com/img/banner.png">
+    <!-- Fuentes y librerías -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- SEO: h1 principal (visible solo para buscadores) -->
+    <h1 class="visually-hidden">Diegu's Fashion - Chaquetas por Mayor y Detal en Bogotá, San Victorino</h1>
+
+    <!-- Datos estructurados para Google (LocalBusiness) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ClothingStore",
+        "name": "Confecciones Diegu's Fashion",
+        "description": "Chaquetas por Mayor y Detal - Americanas, Beisboleras, Parkas y más",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "C.C. Gran San, Cra. 10 #9-21, 2° Piso Puesto 745",
+            "addressLocality": "Bogotá",
+            "addressRegion": "Cundinamarca",
+            "addressCountry": "CO"
+        },
+        "telephone": "+573137439870",
+        "image": "https://www.diegufashion.com/img/logo.png",
+        "priceRange": "$89.000 - $135.000 COP"
+    }
+    </script>
+
+    <!-- Header / Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top nav-pro">
+        <div class="container">
+            <a class="navbar-brand brand-pro" href="#">
+                <span class="brand-main">DIEGU'S</span>
+                <span class="brand-sub">FASHION</span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto gap-1">
+                    <li class="nav-item"><a class="nav-link nav-link-pro active" href="#inicio">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link nav-link-pro" href="#categorias">Categorías</a></li>
+                    <li class="nav-item"><a class="nav-link nav-link-pro" href="#productos">Productos</a></li>
+                    <li class="nav-item"><a class="nav-link nav-link-pro" href="#contacto">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Banner Principal -->
+    <section id="inicio" class="banner-wrapper">
+        <div class="banner-logo-wrapper">
+            <img src="img/logo.png" alt="Diegu's Fashion Logo" class="banner-logo">
+        </div>
+        <img src="img/banner.png" alt="Catálogo de Chaquetas - Diegu's Fashion" class="banner-img">
+    </section>
+
+    <!-- Categorías con scroll horizontal -->
+    <section id="categorias" class="pt-5 pb-3" style="background: var(--claro);">
+        <div class="container">
+            <h2 class="section-title text-center mb-2">Nuestras Categorías</h2>
+            <div class="categorias-scroll">
+                <div class="categoria-item" onclick="filtrarCategoria('todas', event)">
+                    <div class="categoria-icon"><i class="fas fa-th-large"></i></div>
+                    <span>Todas</span>
+                </div>
+                <div class="categoria-item" onclick="filtrarCategoria('americana', event)">
+                    <div class="categoria-icon"><i class="fas fa-vest"></i></div>
+                    <span>Americanas</span>
+                </div>
+                <div class="categoria-item" onclick="filtrarCategoria('beisbolera', event)">
+                    <div class="categoria-icon"><i class="fas fa-baseball-ball"></i></div>
+                    <span>Beisboleras</span>
+                </div>
+                <div class="categoria-item" onclick="filtrarCategoria('parka', event)">
+                    <div class="categoria-icon"><i class="fas fa-cloud-rain"></i></div>
+                    <span>Parkas</span>
+                </div>
+                <div class="categoria-item" onclick="filtrarCategoria('unicolor', event)">
+                    <div class="categoria-icon"><i class="fas fa-palette"></i></div>
+                    <span>Unicolor</span>
+                </div>
+                <div class="categoria-item" onclick="filtrarCategoria('combinada', event)">
+                    <div class="categoria-icon"><i class="fas fa-swatchbook"></i></div>
+                    <span>Combinadas</span>
+                </div>
+                <div class="categoria-item" onclick="filtrarCategoria('lenador', event)">
+                    <div class="categoria-icon"><i class="fas fa-tree"></i></div>
+                    <span>Leñadoras</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Productos -->
+    <section id="productos" class="py-3">
+        <div class="container">
+            <h2 class="section-title text-center mb-3">Nuestra Colección</h2>
+            <div class="row g-4" id="productos-grid">
+
+                <!-- Producto 1 -->
+                <div class="col-6 col-md-4 col-lg-3 producto-card" data-categoria="americana">
+                    <div class="card h-100">
+                        <div class="card-img-wrapper">
+                            <img src="img/americana-negra.jpg" class="card-img-top" alt="Chaqueta Americana Negra">
+                            <span class="badge-disponible">Disponible</span>
+                            <button class="btn-vista-rapida" onclick="verDetalle('Chaqueta Americana Negra')">Vista Rápida</button>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">Chaqueta Americana Negra</h6>
+                            <p class="card-price">$117.000</p>
+                            <p class="text-muted small mb-0">Tallas: S - M - L - XL</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto 2 -->
+                <div class="col-6 col-md-4 col-lg-3 producto-card" data-categoria="beisbolera">
+                    <div class="card h-100">
+                        <div class="card-img-wrapper">
+                            <img src="img/beisbolera-roja.jpg" class="card-img-top" alt="Chaqueta Beisbolera Roja">
+                            <span class="badge-disponible">Disponible</span>
+                            <button class="btn-vista-rapida" onclick="verDetalle('Chaqueta Beisbolera Roja')">Vista Rápida</button>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">Chaqueta Beisbolera Roja</h6>
+                            <p class="card-price">$95.000</p>
+                            <p class="text-muted small mb-0">Tallas: S - M - L - XL</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto 3 -->
+                <div class="col-6 col-md-4 col-lg-3 producto-card" data-categoria="parka">
+                    <div class="card h-100">
+                        <div class="card-img-wrapper">
+                            <img src="img/parka-azul.jpg" class="card-img-top" alt="Parka Impermeable Azul">
+                            <span class="badge-disponible">Disponible</span>
+                            <button class="btn-vista-rapida" onclick="verDetalle('Parka Impermeable Azul')">Vista Rápida</button>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">Parka Impermeable Azul</h6>
+                            <p class="card-price">$135.000</p>
+                            <p class="text-muted small mb-0">Tallas: M - L - XL</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto 4 -->
+                <div class="col-6 col-md-4 col-lg-3 producto-card" data-categoria="unicolor">
+                    <div class="card h-100">
+                        <div class="card-img-wrapper">
+                            <img src="img/unicolor-gris.jpg" class="card-img-top" alt="Chaqueta Unicolor Gris">
+                            <span class="badge-disponible">Disponible</span>
+                            <button class="btn-vista-rapida" onclick="verDetalle('Chaqueta Unicolor Gris')">Vista Rápida</button>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">Chaqueta Unicolor Gris</h6>
+                            <p class="card-price">$89.000</p>
+                            <p class="text-muted small mb-0">Tallas: S - M - L - XL - XXL</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto 5 -->
+                <div class="col-6 col-md-4 col-lg-3 producto-card" data-categoria="combinada">
+                    <div class="card h-100">
+                        <div class="card-img-wrapper">
+                            <img src="img/combinada-negra.jpg" class="card-img-top" alt="Chaqueta Combinada Negro/Blanco">
+                            <span class="badge-disponible">Disponible</span>
+                            <button class="btn-vista-rapida" onclick="verDetalle('Chaqueta Combinada Negro/Blanco')">Vista Rápida</button>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">Chaqueta Combinada Negro/Blanco</h6>
+                            <p class="card-price">$110.000</p>
+                            <p class="text-muted small mb-0">Tallas: S - M - L - XL</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto 6 -->
+                <div class="col-6 col-md-4 col-lg-3 producto-card" data-categoria="lenador">
+                    <div class="card h-100">
+                        <div class="card-img-wrapper">
+                            <img src="img/lenadora-cafe.jpg" class="card-img-top" alt="Chaqueta Leñadora Café">
+                            <span class="badge-disponible">Disponible</span>
+                            <button class="btn-vista-rapida" onclick="verDetalle('Chaqueta Leñadora Café')">Vista Rápida</button>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">Chaqueta Leñadora Café</h6>
+                            <p class="card-price">$105.000</p>
+                            <p class="text-muted small mb-0">Tallas: M - L - XL</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto 7 -->
+                <div class="col-6 col-md-4 col-lg-3 producto-card" data-categoria="americana">
+                    <div class="card h-100">
+                        <div class="card-img-wrapper">
+                            <img src="img/americana-cafe.jpg" class="card-img-top" alt="Chaqueta Americana Café">
+                            <span class="badge-disponible">Disponible</span>
+                            <button class="btn-vista-rapida" onclick="verDetalle('Chaqueta Americana Café')">Vista Rápida</button>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">Chaqueta Americana Café</h6>
+                            <p class="card-price">$120.000</p>
+                            <p class="text-muted small mb-0">Tallas: S - M - L - XL</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Producto 8 -->
+                <div class="col-6 col-md-4 col-lg-3 producto-card" data-categoria="beisbolera">
+                    <div class="card h-100">
+                        <div class="card-img-wrapper">
+                            <img src="img/beisbolera-azul.jpg" class="card-img-top" alt="Chaqueta Beisbolera Azul">
+                            <span class="badge-disponible">Disponible</span>
+                            <button class="btn-vista-rapida" onclick="verDetalle('Chaqueta Beisbolera Azul')">Vista Rápida</button>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-title">Chaqueta Beisbolera Azul</h6>
+                            <p class="card-price">$98.000</p>
+                            <p class="text-muted small mb-0">Tallas: S - M - L - XL</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Panel Producto Fullscreen (Estilo Top Gun - 2 columnas) -->
+    <div id="drawerOverlay" class="drawer-overlay" onclick="cerrarDrawer()"></div>
+    <div id="drawerDetalle" class="drawer-panel">
+        <!-- Botón cerrar -->
+        <button class="drawer-close-btn" onclick="cerrarDrawer()">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <div class="drawer-layout">
+            <!-- COLUMNA IZQUIERDA: Imágenes con scroll -->
+            <div class="drawer-col-imgs" id="drawerColImgs">
+                <div id="drawerGaleria" class="drawer-galeria-vertical">
+                    <!-- Se llena dinámicamente con imágenes apiladas -->
+                </div>
+            </div>
+
+            <!-- COLUMNA DERECHA: Info fija (no hace scroll) -->
+            <div class="drawer-col-info">
+                <div class="drawer-info-scroll">
+                    <span id="modalProductoCategoria" class="modal-categoria-tag"></span>
+                    <h4 id="modalProductoNombre" class="modal-producto-titulo">Nombre del Producto</h4>
+                    <h3 id="modalProductoPrecio" class="modal-producto-precio"></h3>
+                    <p class="modal-estado"><i class="fas fa-check-circle"></i> Disponible - Envío a todo Colombia</p>
+
+                    <hr class="modal-divider">
+
+                    <!-- Talla -->
+                    <div class="mb-3">
+                        <label class="modal-label">TALLA</label>
+                        <div id="modalTallas" class="d-flex flex-wrap gap-2"></div>
+                    </div>
+
+                    <!-- Cantidad -->
+                    <div class="mb-3">
+                        <label class="modal-label">CANTIDAD</label>
+                        <div class="modal-cantidad-wrapper">
+                            <button class="modal-qty-btn" type="button" onclick="cambiarCantidad(-1)">-</button>
+                            <input type="number" id="cantidad" class="modal-qty-input" value="1" min="1" max="50">
+                            <button class="modal-qty-btn" type="button" onclick="cambiarCantidad(1)">+</button>
+                        </div>
+                    </div>
+
+                    <hr class="modal-divider">
+
+                    <!-- Método de pago -->
+                    <div class="mb-3">
+                        <label class="modal-label">MÉTODO DE PAGO</label>
+                        <div class="modal-pago-opciones">
+                            <label class="modal-pago-item">
+                                <input type="radio" name="metodoPago" id="pagoNequi" value="nequi" checked onchange="togglePagoOpciones()">
+                                <span class="modal-pago-box">
+                                    <i class="fas fa-mobile-alt"></i>
+                                    <span>Nequi<br><small>300 123 4567</small></span>
+                                </span>
+                            </label>
+                            <label class="modal-pago-item">
+                                <input type="radio" name="metodoPago" id="pagoCuenta" value="cuenta" onchange="togglePagoOpciones()">
+                                <span class="modal-pago-box">
+                                    <i class="fas fa-university"></i>
+                                    <span>Bancolombia<br><small>123-456789-00</small></span>
+                                </span>
+                            </label>
+                            <label class="modal-pago-item">
+                                <input type="radio" name="metodoPago" id="pagoContraEntrega" value="contra_entrega" onchange="togglePagoOpciones()">
+                                <span class="modal-pago-box">
+                                    <i class="fas fa-truck"></i>
+                                    <span>Contra<br><small>Entrega</small></span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Comprobante (Nequi / Cuenta) -->
+                    <div id="camposComprobante" style="display:none;">
+                        <div class="modal-seccion-pago">
+                            <h6 class="modal-label"><i class="fas fa-receipt"></i> REALIZAR PAGO</h6>
+                            <div id="btnAbrirNequi" class="mb-2 d-grid" style="display:none">
+                                <button type="button" class="btn-nequi-abrir" onclick="abrirNequi()">
+                                    <i class="fas fa-mobile-alt"></i> Abrir Nequi para pagar
+                                </button>
+                                <p class="small text-muted mt-1 mb-0 text-center">Se abrirá la app Nequi en tu celular</p>
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label small fw-bold">A nombre de quién llega la consignación:</label>
+                                <input type="text" id="nombreConsignante" class="modal-input" placeholder="Nombre completo">
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label small fw-bold">Adjunta tu comprobante:</label>
+                                <input type="file" id="comprobanteArchivo" class="modal-input" accept="image/*" onchange="previsualizarComprobante()">
+                            </div>
+                            <div id="comprobantePreview" class="mb-2 text-center" style="display:none;">
+                                <img id="comprobanteImg" src="" class="img-fluid border" style="max-height:100px;" alt="Comprobante">
+                            </div>
+                            <div class="modal-alerta-pago">
+                                <i class="fas fa-shield-alt"></i> Todo pago será <strong>verificado</strong> antes de procesar el pedido.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Campos de entrega -->
+                    <div id="camposEntrega" style="display:none;">
+                        <div class="modal-seccion-pago">
+                            <h6 class="modal-label"><i class="fas fa-truck"></i> DATOS DE ENTREGA</h6>
+                            <div class="mb-2">
+                                <input type="text" id="direccionEntrega" class="modal-input" placeholder="Dirección de entrega">
+                            </div>
+                            <div class="mb-2">
+                                <input type="text" id="nombreRecibe" class="modal-input" placeholder="¿Quién recibe?">
+                            </div>
+                            <div class="mb-2">
+                                <select id="formaPagoEntrega" class="modal-input">
+                                    <option value="">¿Cómo paga al recibir?</option>
+                                    <option value="Efectivo">Efectivo</option>
+                                    <option value="Transferencia Nequi">Transferencia Nequi</option>
+                                    <option value="Consignación Bancolombia">Consignación Bancolombia</option>
+                                </select>
+                            </div>
+                            <div class="mb-2">
+                                <input type="text" id="horarioEntrega" class="modal-input" placeholder="Horario de entrega">
+                            </div>
+                            <div class="modal-alerta-pago" style="background:#FEF3C7; color:#92400E;">
+                                <i class="fas fa-exclamation-triangle"></i> Se verificará el pago antes de entregar.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botón Hacer Pedido -->
+                    <button class="btn-hacer-pedido" onclick="enviarWhatsApp()">
+                        <i class="fab fa-whatsapp"></i> HACER PEDIDO
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Alerta Profesional -->
+    <div class="modal fade" id="modalAlerta" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content border-0 shadow-lg" style="border-radius:16px; overflow:hidden;">
+                <div class="modal-body text-center p-4">
+                    <div id="alertaIcono" class="mb-3"></div>
+                    <h6 id="alertaTitulo" class="fw-bold mb-2"></h6>
+                    <p id="alertaMensaje" class="small text-muted mb-3"></p>
+                    <button type="button" class="btn btn-sm fw-bold px-4" id="alertaBtn" data-bs-dismiss="modal" style="border-radius:20px;">Entendido</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Profesional -->
+    <footer id="contacto" class="footer-pro">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Col 1: Marca -->
+                <div class="footer-col">
+                    <h5 class="footer-titulo">Diegu's Fashion</h5>
+                    <p class="footer-desc">Confecciones de chaquetas por Mayor y Detal. Calidad, estilo y los mejores precios en Bogotá.</p>
+                    <p class="footer-owner"><i class="fas fa-user"></i> Diego Mosquera</p>
+                    <div class="footer-redes">
+                        <a href="https://wa.me/573137439870" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        <!-- <a href="https://instagram.com/diegufashion" target="_blank"><i class="fab fa-instagram"></i></a> -->
+                        <!-- <a href="https://facebook.com/diegufashion" target="_blank"><i class="fab fa-facebook"></i></a> -->
+                    </div>
+                </div>
+
+                <!-- Col 2: Contacto -->
+                <div class="footer-col">
+                    <h6 class="footer-subtitulo">Contacto</h6>
+                    <div class="footer-item">
+                        <i class="fab fa-whatsapp"></i>
+                        <a href="https://wa.me/573137439870" target="_blank">313 743 98 70</a>
+                    </div>
+                    <div class="footer-item">
+                        <i class="fab fa-whatsapp"></i>
+                        <a href="https://wa.me/573135526226" target="_blank">313 552 62 26</a>
+                    </div>
+                    <div class="footer-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>diegufashion@gmail.com</span>
+                    </div>
+                </div>
+
+                <!-- Col 3: Ubicación -->
+                <div class="footer-col">
+                    <h6 class="footer-subtitulo">Ubicación</h6>
+                    <div class="footer-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>C.C. Gran San, Cra. 10 #9-21<br>San Victorino, Bogotá D.C.<br>2° Piso, Puesto 745</span>
+                    </div>
+                    <div class="footer-nav-btns">
+                        <a href="https://www.google.com/maps/search/?api=1&query=Centro+Comercial+Gran+San+San+Victorino+Bogota" target="_blank" class="footer-nav-btn">
+                            <i class="fas fa-map-marked-alt"></i> Google Maps
+                        </a>
+                        <a href="https://waze.com/ul?q=Centro+Comercial+Gran+San+San+Victorino+Bogota&navigate=yes" target="_blank" class="footer-nav-btn">
+                            <i class="fab fa-waze"></i> Waze
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Col 4: Medios de Pago -->
+                <div class="footer-col">
+                    <h6 class="footer-subtitulo">Medios de Pago</h6>
+                    <div class="footer-item"><i class="fas fa-mobile-alt"></i> <span>Nequi</span></div>
+                    <div class="footer-item"><i class="fas fa-university"></i> <span>Bancolombia</span></div>
+                    <div class="footer-item"><i class="fas fa-truck"></i> <span>Pago Contra Entrega</span></div>
+                    <div class="footer-item"><i class="fas fa-shipping-fast"></i> <span>Envíos a todo Colombia</span></div>
+                </div>
+            </div>
+
+            <!-- Línea divisoria + Copyright -->
+            <div class="footer-bottom">
+                <p>&copy; 2026 Confecciones Diegu's Fashion. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botón flotante WhatsApp -->
+    <a href="https://wa.me/573137439870?text=Hola%2C%20quiero%20información%20sobre%20chaquetas" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+        <span class="whatsapp-label">¿Necesitas ayuda?</span>
+    </a>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <!-- Firebase (carga productos y config desde la nube) -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
