@@ -1,0 +1,28 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Productos: lectura pública, escritura solo admin autenticado
+    match /productos/{docId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // Categorías: lectura pública, escritura solo admin autenticado
+    match /categorias/{docId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // Config: lectura pública (WhatsApp, Nequi), escritura solo admin
+    match /config/{docId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // Bloquear todo lo demás
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

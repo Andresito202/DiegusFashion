@@ -388,21 +388,20 @@
 
     // --- Enviar pedido por WhatsApp ---
     window.enviarWhatsApp = function () {
-        // Validar color si hay colores disponibles
+        // Obtener producto del catálogo
         var producto = CATALOGO[_productoActual.nombre];
-        if (producto && producto.colores && producto.colores.trim() && !_productoActual.color) {
+        if (!producto) {
+            mostrarAlerta('error', 'Error', 'Producto no válido.');
+            return;
+        }
+
+        // Validar color si hay colores disponibles
+        if (producto.colores && producto.colores.trim() && !_productoActual.color) {
             mostrarAlerta('warning', 'Selecciona color', 'Por favor selecciona un color antes de continuar.');
             return;
         }
         if (!_productoActual.talla) {
             mostrarAlerta('warning', 'Selecciona talla', 'Por favor selecciona una talla antes de continuar.');
-            return;
-        }
-
-        // Obtener precio REAL del catálogo
-        var producto = CATALOGO[_productoActual.nombre];
-        if (!producto) {
-            mostrarAlerta('error', 'Error', 'Producto no válido.');
             return;
         }
 
