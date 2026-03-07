@@ -520,6 +520,65 @@
     }
 
     // =============================================
+    //  SYNC CATEGORIES TO FIREBASE
+    // =============================================
+    window._syncCategories = function () {
+        var btn = document.getElementById('btnSyncCats');
+        if (!btn) return;
+        btn.classList.add('btn-loading');
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sincronizando...';
+
+        var categoriasIniciales = [
+            { nombre: 'Americana', slug: 'americana', icono: 'fas fa-vest', orden: 1 },
+            { nombre: 'Beisbolera', slug: 'beisbolera', icono: 'fas fa-baseball-ball', orden: 2 },
+            { nombre: 'Parka', slug: 'parka', icono: 'fas fa-cloud-rain', orden: 3 },
+            { nombre: 'Unicolor', slug: 'unicolor', icono: 'fas fa-palette', orden: 4 },
+            { nombre: 'Combinada', slug: 'combinada', icono: 'fas fa-swatchbook', orden: 5 },
+            { nombre: 'Leñadora', slug: 'lenador', icono: 'fas fa-tree', orden: 6 }
+        ];
+
+        // Primero ver cuáles ya existen
+        db.collection('categorias').get().then(function (snapshot) {
+            var existentes = {};
+            snapshot.forEach(function (doc) {
+                existentes[doc.data().slug] = true;
+            });
+
+            var batch = db.batch();
+            var count = 0;
+            categoriasIniciales.forEach(function (c) {
+                if (!existentes[c.slug]) {
+                    var ref = db.collection('categorias').doc();
+                    batch.set(ref, {
+                        nombre: c.nombre,
+                        slug: c.slug,
+                        icono: c.icono,
+                        orden: c.orden,
+                        creado: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                    count++;
+                }
+            });
+
+            if (count === 0) {
+                showToast('Todas las categorías ya están en Firebase', 'info');
+                loadCategories();
+                return Promise.resolve();
+            }
+
+            return batch.commit().then(function () {
+                showToast(count + ' categorías agregadas a Firebase', 'success');
+                loadCategories();
+            });
+        }).catch(function (err) {
+            showToast('Error: ' + err.message, 'error');
+        }).finally(function () {
+            btn.classList.remove('btn-loading');
+            btn.innerHTML = '<i class="fas fa-sync-alt"></i> Traer categorías de la página';
+        });
+    };
+
+    // =============================================
     //  UPDATE EXISTING PRODUCTS (descripcion + colores)
     // =============================================
     window._updateExistingProducts = function () {

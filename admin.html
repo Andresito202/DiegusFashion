@@ -104,6 +104,16 @@
 
             <!-- === Sección Categorías === -->
             <section id="seccion-categorias" class="admin-section" style="display:none;">
+                <div class="seed-banner" id="syncCatsBanner" style="display:flex; background:linear-gradient(135deg,#1a1a2e,#16213e);">
+                    <div>
+                        <strong><i class="fas fa-tags"></i> Sincronizar categorías</strong>
+                        <p>Trae las categorías que ya están en la página (Americana, Beisbolera, Parka, etc.) para administrarlas aquí.</p>
+                    </div>
+                    <button class="btn-seed" id="btnSyncCats" onclick="window._syncCategories()" style="background:#22C55E;">
+                        <i class="fas fa-sync-alt"></i> Traer categorías de la página
+                    </button>
+                </div>
+
                 <div class="section-header">
                     <h2>Categorías</h2>
                     <button class="btn-primary-admin" id="btnAgregarCategoria">
