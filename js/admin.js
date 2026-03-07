@@ -11,14 +11,14 @@
 
     // --- Datos iniciales para seed ---
     var DATOS_INICIALES = [
-        { nombre: 'Chaqueta Americana Negra', precio: 117000, tallas: 'S,M,L,XL', categoria: 'americana', imagenes: ['img/americana-negra.jpg', 'img/americana-negra-2.jpg', 'img/americana-negra-3.jpg'], orden: 1 },
-        { nombre: 'Chaqueta Beisbolera Roja', precio: 95000, tallas: 'S,M,L,XL', categoria: 'beisbolera', imagenes: ['img/beisbolera-roja.jpg', 'img/beisbolera-roja-2.jpg', 'img/beisbolera-roja-3.jpg'], orden: 2 },
-        { nombre: 'Parka Impermeable Azul', precio: 135000, tallas: 'M,L,XL', categoria: 'parka', imagenes: ['img/parka-azul.jpg', 'img/parka-azul-2.jpg', 'img/parka-azul-3.jpg'], orden: 3 },
-        { nombre: 'Chaqueta Unicolor Gris', precio: 89000, tallas: 'S,M,L,XL,XXL', categoria: 'unicolor', imagenes: ['img/unicolor-gris.jpg', 'img/unicolor-gris-2.jpg', 'img/unicolor-gris-3.jpg'], orden: 4 },
-        { nombre: 'Chaqueta Combinada Negro/Blanco', precio: 110000, tallas: 'S,M,L,XL', categoria: 'combinada', imagenes: ['img/combinada-negra.jpg', 'img/combinada-negra-2.jpg', 'img/combinada-negra-3.jpg'], orden: 5 },
-        { nombre: 'Chaqueta Leñadora Café', precio: 105000, tallas: 'M,L,XL', categoria: 'lenador', imagenes: ['img/lenadora-cafe.jpg', 'img/lenadora-cafe-2.jpg', 'img/lenadora-cafe-3.jpg'], orden: 6 },
-        { nombre: 'Chaqueta Americana Café', precio: 120000, tallas: 'S,M,L,XL', categoria: 'americana', imagenes: ['img/americana-cafe.jpg', 'img/americana-cafe-2.jpg', 'img/americana-cafe-3.jpg'], orden: 7 },
-        { nombre: 'Chaqueta Beisbolera Azul', precio: 98000, tallas: 'S,M,L,XL', categoria: 'beisbolera', imagenes: ['img/beisbolera-azul.jpg', 'img/beisbolera-azul-2.jpg', 'img/beisbolera-azul-3.jpg'], orden: 8 }
+        { nombre: 'Chaqueta Americana Negra', precio: 117000, tallas: 'S,M,L,XL', colores: 'Negro', descripcion: 'Chaqueta americana de corte clásico en color negro. Tela resistente con forro interior. Ideal para uso diario y ocasiones semi-formales.', categoria: 'americana', imagenes: ['img/americana-negra.jpg', 'img/americana-negra-2.jpg', 'img/americana-negra-3.jpg'], orden: 1 },
+        { nombre: 'Chaqueta Beisbolera Roja', precio: 95000, tallas: 'S,M,L,XL', colores: 'Rojo,Negro', descripcion: 'Beisbolera deportiva en combinación rojo y negro. Cuerpo en tela resistente con mangas en contraste. Cierre frontal y bolsillos laterales.', categoria: 'beisbolera', imagenes: ['img/beisbolera-roja.jpg', 'img/beisbolera-roja-2.jpg'], orden: 2 },
+        { nombre: 'Parka Impermeable Azul', precio: 135000, tallas: 'M,L,XL', colores: 'Azul,Negro', descripcion: 'Parka impermeable con capucha ajustable. Tela exterior repelente al agua con forro térmico. Perfecta para temporada de lluvias.', categoria: 'parka', imagenes: ['img/parka-azul.jpg', 'img/parka-azul-2.jpg', 'img/parka-azul-3.jpg'], orden: 3 },
+        { nombre: 'Chaqueta Unicolor Gris', precio: 89000, tallas: 'S,M,L,XL,XXL', colores: 'Gris,Negro,Azul Oscuro', descripcion: 'Chaqueta unicolor de diseño minimalista. Tela suave y ligera, ideal para el día a día. Disponible en varios colores sólidos.', categoria: 'unicolor', imagenes: ['img/unicolor-gris.jpg', 'img/unicolor-gris-2.jpg', 'img/unicolor-gris-3.jpg'], orden: 4 },
+        { nombre: 'Chaqueta Combinada Negro/Blanco', precio: 110000, tallas: 'S,M,L,XL', colores: 'Negro/Blanco,Negro/Gris', descripcion: 'Chaqueta combinada en dos tonos con diseño moderno. Paneles en contraste que aportan estilo urbano. Cierre y bolsillos funcionales.', categoria: 'combinada', imagenes: ['img/combinada-negra.jpg', 'img/combinada-negra-2.jpg', 'img/combinada-negra-3.jpg'], orden: 5 },
+        { nombre: 'Chaqueta Leñadora Café', precio: 105000, tallas: 'M,L,XL', colores: 'Café,Rojo/Negro', descripcion: 'Chaqueta estilo leñadora con patrón de cuadros. Tela gruesa tipo franela con forro interior. Corte holgado y cómodo.', categoria: 'lenador', imagenes: ['img/lenadora-cafe.jpg', 'img/lenadora-cafe-2.jpg', 'img/lenadora-cafe-3.jpg'], orden: 6 },
+        { nombre: 'Chaqueta Americana Café', precio: 120000, tallas: 'S,M,L,XL', colores: 'Café,Camel', descripcion: 'Americana elegante en tono café. Corte entallado con solapas clásicas. Forro interior satinado. Ideal para ocasiones formales.', categoria: 'americana', imagenes: ['img/americana-cafe.jpg', 'img/americana-cafe-2.jpg', 'img/americana-cafe-3.jpg'], orden: 7 },
+        { nombre: 'Chaqueta Beisbolera Azul', precio: 98000, tallas: 'S,M,L,XL', colores: 'Azul,Azul/Blanco', descripcion: 'Beisbolera en tono azul con acabados deportivos. Cuello tipo bomber y puños elásticos. Ligera y versátil para el uso diario.', categoria: 'beisbolera', imagenes: ['img/beisbolera-azul.jpg', 'img/beisbolera-azul-2.jpg', 'img/beisbolera-azul-3.jpg'], orden: 8 }
     ];
 
     // =============================================
@@ -231,6 +231,7 @@
         var precio = p.precio ? '$' + p.precio.toLocaleString('es-CO') : '$0';
         var cat = p.categoria || '';
         var tallas = p.tallas || '';
+        var colores = p.colores || '';
 
         return '<div class="admin-product-card">' +
             '<div class="admin-product-img"><img src="' + escapeHtml(img) + '" alt="' + escapeHtml(p.nombre) + '"></div>' +
@@ -238,6 +239,7 @@
                 '<h6>' + escapeHtml(p.nombre) + '</h6>' +
                 '<p class="admin-product-price">' + precio + '</p>' +
                 '<p class="admin-product-meta">' + escapeHtml(cat) + ' &middot; ' + escapeHtml(tallas) + '</p>' +
+                (colores ? '<p class="admin-product-meta"><i class="fas fa-palette" style="margin-right:4px;font-size:0.65rem;"></i>' + escapeHtml(colores) + '</p>' : '') +
             '</div>' +
             '<div class="admin-product-actions">' +
                 '<button class="btn-admin-edit" onclick="window._editarProducto(\'' + id + '\')"><i class="fas fa-pen"></i></button>' +
@@ -261,6 +263,8 @@
         document.getElementById('formProducto').reset();
         document.getElementById('prodOrden').value = '1';
         document.getElementById('categoriaOtraGroup').style.display = 'none';
+        document.getElementById('prodDescripcion').value = '';
+        document.getElementById('prodColores').value = '';
         document.getElementById('prodImg1').value = '';
         document.getElementById('prodImg2').value = '';
         document.getElementById('prodImg3').value = '';
@@ -275,6 +279,8 @@
                 document.getElementById('prodPrecio').value = p.precio || '';
                 document.getElementById('prodTallas').value = p.tallas || '';
                 document.getElementById('prodOrden').value = p.orden || 1;
+                document.getElementById('prodDescripcion').value = p.descripcion || '';
+                document.getElementById('prodColores').value = p.colores || '';
 
                 // Set category
                 var catSelect = document.getElementById('prodCategoria');
@@ -319,6 +325,8 @@
         var nombre = document.getElementById('prodNombre').value.trim();
         var precio = parseInt(document.getElementById('prodPrecio').value);
         var tallas = document.getElementById('prodTallas').value.trim();
+        var colores = document.getElementById('prodColores').value.trim();
+        var descripcion = document.getElementById('prodDescripcion').value.trim();
         var orden = parseInt(document.getElementById('prodOrden').value) || 1;
         var categoria = document.getElementById('prodCategoria').value;
 
@@ -354,6 +362,8 @@
             nombre: nombre,
             precio: precio,
             tallas: tallas,
+            colores: colores,
+            descripcion: descripcion,
             categoria: categoria,
             orden: orden,
             imagenes: imagenes,
@@ -459,6 +469,8 @@
                 nombre: p.nombre,
                 precio: p.precio,
                 tallas: p.tallas,
+                colores: p.colores || '',
+                descripcion: p.descripcion || '',
                 categoria: p.categoria,
                 imagenes: p.imagenes,
                 orden: p.orden,

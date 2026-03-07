@@ -18,14 +18,14 @@
 
     // --- Catálogo (se actualiza desde Firebase si está configurado) ---
     var CATALOGO = {
-        'Chaqueta Americana Negra': { precio: 117000, tallas: 'S,M,L,XL', categoria: 'americana' },
-        'Chaqueta Beisbolera Roja': { precio: 95000, tallas: 'S,M,L,XL', categoria: 'beisbolera' },
-        'Parka Impermeable Azul': { precio: 135000, tallas: 'M,L,XL', categoria: 'parka' },
-        'Chaqueta Unicolor Gris': { precio: 89000, tallas: 'S,M,L,XL,XXL', categoria: 'unicolor' },
-        'Chaqueta Combinada Negro/Blanco': { precio: 110000, tallas: 'S,M,L,XL', categoria: 'combinada' },
-        'Chaqueta Leñadora Café': { precio: 105000, tallas: 'M,L,XL', categoria: 'lenador' },
-        'Chaqueta Americana Café': { precio: 120000, tallas: 'S,M,L,XL', categoria: 'americana' },
-        'Chaqueta Beisbolera Azul': { precio: 98000, tallas: 'S,M,L,XL', categoria: 'beisbolera' }
+        'Chaqueta Americana Negra': { precio: 117000, tallas: 'S,M,L,XL', colores: 'Negro', descripcion: 'Chaqueta americana de corte clásico en color negro. Tela resistente con forro interior.', categoria: 'americana' },
+        'Chaqueta Beisbolera Roja': { precio: 95000, tallas: 'S,M,L,XL', colores: 'Rojo,Negro', descripcion: 'Beisbolera deportiva en combinación rojo y negro. Cierre frontal y bolsillos laterales.', categoria: 'beisbolera' },
+        'Parka Impermeable Azul': { precio: 135000, tallas: 'M,L,XL', colores: 'Azul,Negro', descripcion: 'Parka impermeable con capucha ajustable y forro térmico. Perfecta para temporada de lluvias.', categoria: 'parka' },
+        'Chaqueta Unicolor Gris': { precio: 89000, tallas: 'S,M,L,XL,XXL', colores: 'Gris,Negro,Azul Oscuro', descripcion: 'Chaqueta unicolor de diseño minimalista. Tela suave y ligera, ideal para el día a día.', categoria: 'unicolor' },
+        'Chaqueta Combinada Negro/Blanco': { precio: 110000, tallas: 'S,M,L,XL', colores: 'Negro/Blanco,Negro/Gris', descripcion: 'Chaqueta combinada en dos tonos con diseño moderno y estilo urbano.', categoria: 'combinada' },
+        'Chaqueta Leñadora Café': { precio: 105000, tallas: 'M,L,XL', colores: 'Café,Rojo/Negro', descripcion: 'Chaqueta estilo leñadora con patrón de cuadros. Tela gruesa tipo franela con forro interior.', categoria: 'lenador' },
+        'Chaqueta Americana Café': { precio: 120000, tallas: 'S,M,L,XL', colores: 'Café,Camel', descripcion: 'Americana elegante en tono café con corte entallado y solapas clásicas. Forro interior satinado.', categoria: 'americana' },
+        'Chaqueta Beisbolera Azul': { precio: 98000, tallas: 'S,M,L,XL', colores: 'Azul,Azul/Blanco', descripcion: 'Beisbolera en tono azul con acabados deportivos. Cuello tipo bomber y puños elásticos.', categoria: 'beisbolera' }
     };
 
     // --- Mapa de íconos por categoría ---
@@ -43,6 +43,7 @@
     let _productoActual = {
         nombre: '',
         talla: '',
+        color: '',
         cantidad: 1
     };
 
@@ -119,6 +120,8 @@
                 nuevoCatalogo[p.nombre] = {
                     precio: p.precio,
                     tallas: p.tallas,
+                    colores: p.colores || '',
+                    descripcion: p.descripcion || '',
                     categoria: p.categoria
                 };
                 nuevasImagenes[p.nombre] = p.imagenes || [];
@@ -231,6 +234,7 @@
 
         _productoActual.nombre = nombre;
         _productoActual.talla = '';
+        _productoActual.color = '';
         _productoActual.cantidad = 1;
 
         var precioFormateado = producto.precio.toLocaleString('es-CO');
@@ -239,6 +243,38 @@
         document.getElementById('modalProductoPrecio').textContent = '$' + precioFormateado;
         document.getElementById('modalProductoCategoria').textContent = capitalizarCategoria(producto.categoria);
         document.getElementById('cantidad').value = 1;
+
+        // Descripción
+        var descEl = document.getElementById('modalProductoDescripcion');
+        if (producto.descripcion) {
+            descEl.textContent = producto.descripcion;
+            descEl.style.display = 'block';
+        } else {
+            descEl.textContent = '';
+            descEl.style.display = 'none';
+        }
+
+        // Colores
+        var coloresSection = document.getElementById('coloresSection');
+        var coloresContainer = document.getElementById('modalColores');
+        coloresContainer.innerHTML = '';
+        if (producto.colores && producto.colores.trim()) {
+            coloresSection.style.display = 'block';
+            producto.colores.split(',').forEach(function (color) {
+                var btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'color-btn';
+                btn.textContent = color.trim();
+                btn.onclick = function () {
+                    document.querySelectorAll('.color-btn').forEach(function (b) { b.classList.remove('seleccionado'); });
+                    this.classList.add('seleccionado');
+                    _productoActual.color = color.trim();
+                };
+                coloresContainer.appendChild(btn);
+            });
+        } else {
+            coloresSection.style.display = 'none';
+        }
 
         // Galería de imágenes apiladas verticalmente
         var imagenes = IMAGENES[nombre] || [];
@@ -352,6 +388,12 @@
 
     // --- Enviar pedido por WhatsApp ---
     window.enviarWhatsApp = function () {
+        // Validar color si hay colores disponibles
+        var producto = CATALOGO[_productoActual.nombre];
+        if (producto && producto.colores && producto.colores.trim() && !_productoActual.color) {
+            mostrarAlerta('warning', 'Selecciona color', 'Por favor selecciona un color antes de continuar.');
+            return;
+        }
         if (!_productoActual.talla) {
             mostrarAlerta('warning', 'Selecciona talla', 'Por favor selecciona una talla antes de continuar.');
             return;
@@ -423,6 +465,9 @@
         var mensaje = '\uD83E\uDDE5 *PEDIDO - Diegu\'s Fashion*\n';
         mensaje += '\uD83D\uDCC5 *Fecha:* ' + timestamp + '\n\n';
         mensaje += '\uD83D\uDCE6 *Producto:* ' + _productoActual.nombre + '\n';
+        if (_productoActual.color) {
+            mensaje += '\uD83C\uDFA8 *Color:* ' + _productoActual.color + '\n';
+        }
         mensaje += '\uD83D\uDCCF *Talla:* ' + _productoActual.talla + '\n';
         mensaje += '\uD83D\uDD22 *Cantidad:* ' + cantidad + '\n';
         mensaje += '\uD83D\uDCB0 *Precio unitario:* $' + precioReal.toLocaleString('es-CO') + '\n';

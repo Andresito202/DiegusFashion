@@ -557,6 +557,11 @@ body {
     border-color: var(--admin-accent);
 }
 
+textarea.form-control-admin {
+    resize: vertical;
+    min-height: 70px;
+}
+
 .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;

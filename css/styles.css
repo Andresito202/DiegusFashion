@@ -836,6 +836,44 @@ body {
     border-color: var(--oscuro);
 }
 
+/* Descripción del producto */
+.modal-descripcion {
+    font-size: 0.82rem;
+    color: #555;
+    line-height: 1.6;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+/* Botones de color */
+.color-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    height: 36px;
+    border-radius: 20px;
+    border: 1.5px solid #ccc;
+    background: #fff;
+    color: #333;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.75rem;
+    padding: 0 14px;
+}
+
+.color-btn:hover {
+    border-color: var(--oscuro);
+    color: var(--oscuro);
+}
+
+.color-btn.seleccionado {
+    background: var(--oscuro);
+    border-color: var(--oscuro);
+    color: #fff;
+}
+
 /* Tallas estilo Top Gun (cuadradas) */
 .talla-btn {
     display: inline-flex;
