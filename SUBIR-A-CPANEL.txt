@@ -1,0 +1,148 @@
+================================================================
+   COMO SUBIR DiegusFashion-HOSTING.zip A CPANEL
+================================================================
+
+ARCHIVO A SUBIR: DiegusFashion-HOSTING.zip (2.56 MB)
+UBICACION: E:\todo\Proyectos\DiegusFashion-HOSTING.zip
+
+
+================================================================
+PASO 1 - ENTRAR A CPANEL
+================================================================
+
+   1. Abre tu navegador
+   2. Ve a: https://tudominio.com:2083
+      o entra desde el panel de tu proveedor de hosting
+   3. Ingresa tu usuario y contrasena de cPanel
+   4. Ya estas en el dashboard
+
+
+================================================================
+PASO 2 - ABRIR ADMINISTRADOR DE ARCHIVOS
+================================================================
+
+   1. En cPanel busca "Administrador de archivos" (File Manager)
+   2. Haz clic para abrirlo
+   3. Navega a la carpeta public_html/
+      (es la carpeta raiz de tu sitio web)
+
+
+================================================================
+PASO 3 - SUBIR EL ZIP
+================================================================
+
+   1. Estando dentro de public_html/
+   2. Clic en "Cargar" (Upload) en la barra superior
+   3. Arrastra el archivo DiegusFashion-HOSTING.zip
+      o clic en "Seleccionar archivo" y buscalo en:
+      E:\todo\Proyectos\DiegusFashion-HOSTING.zip
+   4. Espera a que suba (2.56 MB, tarda unos segundos)
+   5. Cuando diga 100%, regresa a public_html/
+
+
+================================================================
+PASO 4 - EXTRAER EL ZIP
+================================================================
+
+   1. En public_html/ veras el archivo DiegusFashion-HOSTING.zip
+   2. Clic derecho sobre el archivo
+   3. Selecciona "Extraer" (Extract)
+   4. En la ventana que sale, asegurate que diga: /public_html
+   5. Clic en "Extract Files"
+   6. Espera unos segundos
+
+
+================================================================
+PASO 5 - VERIFICAR
+================================================================
+
+   Dentro de public_html/ debes ver:
+
+   public_html/
+   |-- index.html
+   |-- admin.html
+   |-- firebase-config.js
+   |-- .htaccess
+   |-- css/
+   |   |-- styles.css
+   |   |-- admin.css
+   |-- js/
+   |   |-- main.js
+   |   |-- admin.js
+   |-- img/
+   |   |-- logo.png
+   |   |-- banner.png
+   |   |-- (fotos de productos)
+
+   IMPORTANTE: Los archivos deben estar DIRECTAMENTE en
+   public_html/, NO dentro de una subcarpeta.
+
+   Si quedo asi: public_html/DiegusFashion/index.html
+   --> Mueve todo el contenido a public_html/ directamente
+
+
+================================================================
+PASO 6 - ELIMINAR EL ZIP
+================================================================
+
+   1. En public_html/ busca DiegusFashion-HOSTING.zip
+   2. Clic derecho --> Eliminar
+   3. No lo necesitas mas en el servidor
+
+
+================================================================
+PASO 7 - PROBAR
+================================================================
+
+   1. Abre: https://tudominio.com
+      --> Debe cargar la tienda con productos
+
+   2. Abre: https://tudominio.com/admin.html
+      --> Debe mostrar la pantalla de login
+
+   3. Inicia sesion en el admin
+      --> Debes ver tus productos
+
+   4. Ve a Configuracion y actualiza los datos reales
+
+
+================================================================
+PASO 8 - PUBLICAR REGLAS DE FIREBASE (obligatorio)
+================================================================
+
+   1. Abre: https://console.firebase.google.com/
+   2. Entra al proyecto diegusfashion-98961
+   3. Menu izquierdo --> Firestore Database --> Rules
+   4. Borra todo lo que hay y pega esto:
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAdmin() {
+      return request.auth != null
+          && request.auth.uid == '7msFXakLaNgYzOURykfynC2Py972';
+    }
+    match /productos/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    match /categorias/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    match /config/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+
+   5. Clic en "Publicar"
+
+
+================================================================
+   LISTO - TU PAGINA ESTA EN LINEA
+================================================================

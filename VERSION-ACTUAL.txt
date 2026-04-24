@@ -1,0 +1,257 @@
+================================================================
+   DIEGU'S FASHION - DOCUMENTO DE VERSION
+   Version: 2.0 | Fecha: Marzo 2026
+================================================================
+
+
+================================================================
+1. DESCRIPCION DEL PROYECTO
+================================================================
+
+Diegu's Fashion es una tienda online de chaquetas por mayor y
+detal ubicada en el C.C. Gran San, San Victorino, Bogota D.C.
+
+Pagina web tipo catalogo con panel de administracion, pedidos
+por WhatsApp y pagos por Nequi, cuenta bancaria o contra entrega.
+
+Toda la informacion (productos, categorias, config) se almacena
+en Firebase Firestore y se actualiza en TIEMPO REAL.
+
+
+================================================================
+2. ESTRUCTURA DE ARCHIVOS
+================================================================
+
+DiegusFashion/
+|
+|-- index.html              --> Tienda publica (lo que ven los clientes)
+|-- admin.html              --> Panel de administracion (protegido con login)
+|-- firebase-config.js      --> Configuracion de conexion a Firebase
+|-- firestore.rules         --> Reglas de seguridad de Firestore
+|-- .htaccess               --> Configuracion servidor (seguridad, cache, GZIP)
+|-- .gitignore              --> Archivos excluidos de Git
+|-- VERSION-ACTUAL.txt      --> Este documento
+|-- FUNCIONAMIENTO.txt      --> Como funciona el sistema
+|
+|-- css/
+|   |-- styles.css          --> Estilos de la tienda publica
+|   |-- admin.css           --> Estilos del panel admin
+|
+|-- js/
+|   |-- main.js             --> Logica de la tienda publica
+|   |-- admin.js            --> Logica del panel admin
+|
+|-- img/
+|   |-- logo.png            --> Logo de la marca
+|   |-- banner.png          --> Banner principal
+|   |-- [producto].jpg      --> Fotos de productos (hasta 4 por producto)
+
+
+================================================================
+3. TECNOLOGIAS UTILIZADAS
+================================================================
+
+FRONTEND:
+- HTML5 semantico con meta tags SEO (OG, Twitter Card, Schema.org)
+- CSS3 con variables CSS y diseno responsive (mobile first)
+- JavaScript vanilla (sin frameworks)
+- Bootstrap 5.3 (grid y utilidades)
+- Font Awesome 6.4 (iconos)
+- Google Fonts - Poppins
+
+BACKEND / BASE DE DATOS:
+- Firebase Firestore (base de datos en la nube, tiempo real)
+- Firebase Authentication (login del admin con email/password)
+- Firebase CDN compat v10.7.0
+
+SERVIDOR:
+- .htaccess para Apache/cPanel
+- Compresion GZIP
+- Cache de navegador (CSS/JS 1 mes, imagenes 6 meses)
+- Headers de seguridad (HSTS, X-Frame-Options, nosniff, etc.)
+
+IMAGENES:
+- Archivos locales en carpeta img/
+- Soporte para URLs externas (ImgBB u otro CDN)
+- Hasta 4 imagenes por producto
+
+
+================================================================
+4. COLECCIONES EN FIREBASE FIRESTORE
+================================================================
+
+COLECCION: productos
+- nombre (string)          Ej: "Chaqueta Americana Negra"
+- precio (number)          Ej: 117000
+- tallas (string)          Ej: "S,M,L,XL"
+- colores (string)         Ej: "Negro,Negro Mate"
+- descripcion (string)     Texto descriptivo de la prenda
+- categoria (string)       Ej: "americana"
+- imagenes (array)         Ej: ["img/americana-negra.jpg", ...]
+- orden (number)           Posicion en el catalogo
+- creado (timestamp)       Fecha de creacion
+- actualizado (timestamp)  Fecha de ultima edicion
+
+COLECCION: categorias
+- nombre (string)          Ej: "Americana"
+- slug (string)            Ej: "americana"
+- icono (string)           Ej: "fas fa-vest"
+- orden (number)           Posicion en la barra de categorias
+- creado (timestamp)
+- actualizado (timestamp)
+
+COLECCION: config (documento: "negocio")
+- whatsapp (string)        Ej: "573137439870"
+- whatsapp2 (string)       Ej: "573135526226"
+- nequi (string)           Ej: "3004521300"
+- cuenta (string)          Ej: "Bancolombia - Ahorros 123-456789-00"
+- email (string)           Ej: "diegufashion@gmail.com"
+- instagram (string)       URL de Instagram
+- facebook (string)        URL de Facebook
+- direccion (string)       Direccion del local
+
+
+================================================================
+5. PRODUCTOS ACTUALES (8 chaquetas)
+================================================================
+
+1. Chaqueta Americana Negra      | $117.000 | S,M,L,XL
+2. Chaqueta Beisbolera Roja       | $95.000  | S,M,L,XL
+3. Parka Impermeable Azul         | $135.000 | S,M,L,XL
+4. Chaqueta Unicolor Gris         | $89.000  | S,M,L,XL,XXL
+5. Chaqueta Combinada Negro/Blanco| $110.000 | S,M,L,XL
+6. Chaqueta Lenadora Cafe         | $105.000 | M,L,XL
+7. Chaqueta Americana Cafe        | $120.000 | S,M,L,XL
+8. Chaqueta Beisbolera Azul       | $98.000  | S,M,L,XL
+
+Cada producto tiene:
+- 2 a 4 imagenes multi-angulo
+- Descripcion basada en las imagenes reales
+- Colores disponibles
+- Tallas disponibles
+
+
+================================================================
+6. CATEGORIAS ACTUALES (6)
+================================================================
+
+1. Americana    | fas fa-vest          | Orden 1
+2. Beisbolera   | fas fa-baseball-ball | Orden 2
+3. Parka        | fas fa-cloud-rain    | Orden 3
+4. Unicolor     | fas fa-palette       | Orden 4
+5. Combinada    | fas fa-swatchbook    | Orden 5
+6. Lenadora     | fas fa-tree          | Orden 6
+
+
+================================================================
+7. SEGURIDAD IMPLEMENTADA
+================================================================
+
+FIREBASE:
+- Reglas Firestore restringidas a un UID admin especifico
+- Solo el admin puede escribir (productos, categorias, config)
+- Lectura publica para que la tienda funcione
+- Authentication con email/password (un solo usuario admin)
+
+SERVIDOR (.htaccess):
+- Bloqueo de archivos sensibles (.env, .gitignore, .md, .txt, .json)
+- Headers: X-Content-Type-Options, X-Frame-Options, X-XSS-Protection
+- Referrer-Policy strict-origin-when-cross-origin
+- Permissions-Policy (bloquea camara, microfono, geolocalizacion)
+- Strict-Transport-Security (HSTS 1 ano)
+- Proteccion de firebase-config.js contra acceso externo directo
+
+CODIGO:
+- CONFIG dentro de IIFE (no accesible desde consola)
+- Sanitizacion de datos en admin antes de guardar
+- escapeHtml en toda renderizacion dinamica (previene XSS)
+- admin.html con meta robots noindex, nofollow
+
+
+================================================================
+8. FUNCIONALIDADES DE LA PAGINA PUBLICA
+================================================================
+
+- Banner principal con logo
+- Barra de categorias con scroll horizontal (dinamica desde Firebase)
+- Grid de productos responsive (1-4 columnas segun pantalla)
+- Filtro por categoria con animacion
+- Vista Rapida (drawer lateral) con:
+  - Galeria de imagenes multi-angulo
+  - Nombre, precio, categoria
+  - Descripcion de la prenda
+  - Selector de color (pills)
+  - Selector de talla (pills)
+  - Selector de cantidad
+  - Metodo de pago (Nequi, Bancolombia, Contra entrega)
+  - Boton "Abrir Nequi" (abre la app en celular)
+  - Campo comprobante de pago
+  - Envio de pedido por WhatsApp
+- Footer con contacto, redes, ubicacion, medios de pago
+- Boton flotante de WhatsApp
+- Links a Google Maps y Waze
+- SEO completo (meta OG, Twitter Card, Schema.org)
+- Actualizacion en TIEMPO REAL desde Firebase (onSnapshot)
+
+
+================================================================
+9. FUNCIONALIDADES DEL PANEL ADMIN
+================================================================
+
+- Login protegido con Firebase Authentication
+- Seccion PRODUCTOS:
+  - Listar todos los productos
+  - Agregar nuevo producto
+  - Editar producto existente
+  - Eliminar producto con confirmacion
+  - Vista Previa antes de guardar (tarjeta + drawer)
+  - Boton "Cargar datos iniciales" (seed)
+  - Boton "Actualizar descripciones y colores" (batch update)
+- Seccion CATEGORIAS:
+  - Listar categorias
+  - Agregar nueva categoria
+  - Editar categoria (nombre, slug, icono, orden)
+  - Eliminar categoria
+  - Boton "Traer categorias de la pagina" (sync)
+- Seccion CONFIGURACION:
+  - Datos de Pago: Nequi, Cuenta bancaria
+  - Contacto: WhatsApp principal, WhatsApp secundario, Email
+  - Redes: Instagram, Facebook
+  - Direccion del local
+  - Panel "Datos actuales en la pagina" (preview en tiempo real)
+  - Guardar configuracion
+
+
+================================================================
+10. DATOS DE ACCESO
+================================================================
+
+FIREBASE:
+- Proyecto: diegusfashion-98961
+- Consola: https://console.firebase.google.com/
+- UID Admin: 7msFXakLaNgYzOURykfynC2Py972
+
+ARCHIVOS DE CONFIGURACION:
+- Firebase: firebase-config.js
+- Reglas: firestore.rules (publicar en consola de Firebase)
+- Servidor: .htaccess (funciona en cPanel/Apache)
+
+
+================================================================
+11. PENDIENTE PARA PRODUCCION
+================================================================
+
+- [ ] Comprimir logo.png (473KB -> ~50KB via TinyPNG)
+- [ ] Reemplazar fotos placeholder por fotos reales de productos
+- [ ] Actualizar precios reales en Firebase
+- [ ] Configurar datos reales de Nequi y cuenta bancaria
+- [ ] Agregar URLs reales de Instagram y Facebook
+- [ ] Comprar dominio (diegufashion.com o similar)
+- [ ] Subir a hosting (Netlify o cPanel)
+- [ ] Publicar firestore.rules en la consola de Firebase
+- [ ] Activar SSL/HTTPS en el hosting
+- [ ] Verificar todo en celular y escritorio
+
+================================================================
+   FIN DEL DOCUMENTO DE VERSION
+================================================================

@@ -2,22 +2,29 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Productos: lectura pública, escritura solo admin autenticado
+    // UID del administrador — REEMPLAZA con tu UID real de Firebase Auth
+    // Para obtenerlo: Firebase Console → Authentication → Users → copia el UID
+    function isAdmin() {
+      return request.auth != null
+          && request.auth.uid == '7msFXakLaNgYzOURykfynC2Py972';
+    }
+
+    // Productos: lectura pública, escritura solo admin
     match /productos/{docId} {
       allow read: if true;
-      allow write: if request.auth != null;
+      allow write: if isAdmin();
     }
 
-    // Categorías: lectura pública, escritura solo admin autenticado
+    // Categorías: lectura pública, escritura solo admin
     match /categorias/{docId} {
       allow read: if true;
-      allow write: if request.auth != null;
+      allow write: if isAdmin();
     }
 
-    // Config: lectura pública (WhatsApp, Nequi), escritura solo admin
+    // Config (Nequi, cuenta, WhatsApp): lectura pública, escritura solo admin
     match /config/{docId} {
       allow read: if true;
-      allow write: if request.auth != null;
+      allow write: if isAdmin();
     }
 
     // Bloquear todo lo demás

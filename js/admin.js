@@ -83,7 +83,7 @@
         // Product form submit
         document.getElementById('formProducto').addEventListener('submit', function (e) {
             e.preventDefault();
-            saveProduct();
+            window._previsualizarProducto();
         });
 
         // Category "otra"
@@ -319,6 +319,96 @@
     }
 
     // =============================================
+    //  PRODUCTS - PREVIEW
+    // =============================================
+    window._previsualizarProducto = function () {
+        var nombre = document.getElementById('prodNombre').value.trim();
+        var precio = parseInt(document.getElementById('prodPrecio').value);
+        var tallas = document.getElementById('prodTallas').value.trim();
+        var colores = document.getElementById('prodColores').value.trim();
+        var descripcion = document.getElementById('prodDescripcion').value.trim();
+        var categoria = document.getElementById('prodCategoria').value;
+        var img1 = document.getElementById('prodImg1').value.trim();
+        var img2 = document.getElementById('prodImg2').value.trim();
+        var img3 = document.getElementById('prodImg3').value.trim();
+        var img4 = document.getElementById('prodImg4').value.trim();
+
+        if (categoria === 'otra') {
+            categoria = document.getElementById('prodCategoriaOtra').value.trim().toLowerCase();
+        }
+
+        // Validar mínimos
+        if (!nombre || !precio || !tallas || !categoria) {
+            showToast('Completa nombre, precio, tallas y categoría antes de previsualizar', 'error');
+            return;
+        }
+
+        var precioFmt = precio ? '$' + precio.toLocaleString('es-CO') : '';
+        var tallasFmt = tallas.replace(/,/g, ' - ');
+        var imgSrc = img1 || 'img/logo.png';
+
+        // --- Tarjeta del catálogo ---
+        var cardHtml = '<img class="pv-img" src="' + escapeHtml(imgSrc) + '" alt="' + escapeHtml(nombre) + '" onerror="this.src=\'img/logo.png\'">' +
+            '<div class="pv-body">' +
+                '<p class="pv-name">' + escapeHtml(nombre) + '</p>' +
+                '<p class="pv-price">' + precioFmt + '</p>' +
+                '<p class="pv-tallas">Tallas: ' + escapeHtml(tallasFmt) + '</p>' +
+            '</div>';
+        document.getElementById('previewCard').innerHTML = cardHtml;
+
+        // --- Vista Rápida (drawer) ---
+        var drawerHtml = '';
+
+        // Imágenes en fila
+        var imgs = [img1, img2, img3, img4].filter(function (i) { return i; });
+        if (imgs.length > 0) {
+            drawerHtml += '<div class="pv-imgs-row">';
+            imgs.forEach(function (src) {
+                drawerHtml += '<img src="' + escapeHtml(src) + '" alt="Vista" onerror="this.style.display=\'none\'">';
+            });
+            drawerHtml += '</div>';
+        }
+
+        drawerHtml += '<p class="pv-cat">' + escapeHtml(categoria) + '</p>';
+        drawerHtml += '<h4 class="pv-title">' + escapeHtml(nombre) + '</h4>';
+        drawerHtml += '<p class="pv-price-big">' + precioFmt + '</p>';
+        drawerHtml += '<p class="pv-status"><i class="fas fa-check-circle"></i> Disponible - Envío a todo Colombia</p>';
+
+        if (descripcion) {
+            drawerHtml += '<p class="pv-desc">' + escapeHtml(descripcion) + '</p>';
+        }
+
+        drawerHtml += '<hr class="pv-divider">';
+
+        // Colores
+        if (colores) {
+            drawerHtml += '<p class="pv-label">Color</p><div class="pv-pills">';
+            colores.split(',').forEach(function (c) {
+                drawerHtml += '<span class="pv-pill color-pill">' + escapeHtml(c.trim()) + '</span>';
+            });
+            drawerHtml += '</div>';
+        }
+
+        // Tallas
+        drawerHtml += '<p class="pv-label">Talla</p><div class="pv-pills">';
+        tallas.split(',').forEach(function (t) {
+            drawerHtml += '<span class="pv-pill talla-pill">' + escapeHtml(t.trim()) + '</span>';
+        });
+        drawerHtml += '</div>';
+
+        document.getElementById('previewDrawer').innerHTML = drawerHtml;
+
+        // Mostrar modal preview
+        document.getElementById('modalPreview').classList.add('visible');
+
+        // Asignar evento al botón confirmar
+        document.getElementById('btnConfirmarGuardar').onclick = function () {
+            document.getElementById('modalPreview').classList.remove('visible');
+            saveProduct();
+        };
+    };
+
+    // =============================================
     //  PRODUCTS - SAVE
     // =============================================
     function saveProduct() {
@@ -343,7 +433,7 @@
             return;
         }
 
-        var btn = document.getElementById('btnGuardarProducto');
+        var btn = document.getElementById('btnConfirmarGuardar');
         btn.classList.add('btn-loading');
         btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Guardando...';
 
@@ -427,21 +517,115 @@
     //  CONFIG
     // =============================================
     function loadConfig() {
-        db.collection('config').doc('negocio').get().then(function (doc) {
+        db.collection('config').doc('negocio').onSnapshot(function (doc) {
             if (doc.exists) {
                 var data = doc.data();
                 document.getElementById('cfgWhatsapp').value = data.whatsapp || '';
+                document.getElementById('cfgWhatsapp2').value = data.whatsapp2 || '';
                 document.getElementById('cfgNequi').value = data.nequi || '';
                 document.getElementById('cfgCuenta').value = data.cuenta || '';
+                document.getElementById('cfgEmail').value = data.email || '';
+                document.getElementById('cfgInstagram').value = data.instagram || '';
+                document.getElementById('cfgFacebook').value = data.facebook || '';
+                document.getElementById('cfgDireccion').value = data.direccion || '';
+                // Mostrar preview de datos actuales
+                renderConfigPreview(data);
             }
         });
     }
 
+    function renderConfigPreview(data) {
+        var preview = document.getElementById('configPreview');
+        if (!preview) return;
+        var wa1 = data.whatsapp || '—';
+        var wa2 = data.whatsapp2 || '—';
+        var nequi = data.nequi || '—';
+        var cuenta = data.cuenta || '—';
+        var email = data.email || '—';
+        var instagram = data.instagram || '—';
+        var facebook = data.facebook || '—';
+        var direccion = data.direccion || '—';
+
+        // Formatear WhatsApp para mostrar
+        function fmtWa(num) {
+            if (!num || num === '—') return '—';
+            var d = num.replace(/[^0-9]/g, '');
+            if (d.length === 12 && d.startsWith('57')) {
+                return d.substring(2, 5) + ' ' + d.substring(5, 8) + ' ' + d.substring(8, 10) + ' ' + d.substring(10);
+            }
+            return num;
+        }
+
+        preview.innerHTML =
+            '<table style="width:100%;border-collapse:collapse;">' +
+            '<tr><td style="padding:6px 8px;font-weight:600;width:140px;"><i class="fab fa-whatsapp" style="color:#25D366;margin-right:6px;"></i>WhatsApp 1</td><td style="padding:6px 8px;">' + escapeHtml(fmtWa(wa1)) + '</td></tr>' +
+            '<tr><td style="padding:6px 8px;font-weight:600;"><i class="fab fa-whatsapp" style="color:#25D366;margin-right:6px;"></i>WhatsApp 2</td><td style="padding:6px 8px;">' + escapeHtml(fmtWa(wa2)) + '</td></tr>' +
+            '<tr><td style="padding:6px 8px;font-weight:600;"><i class="fas fa-mobile-alt" style="color:#6C2EB9;margin-right:6px;"></i>Nequi</td><td style="padding:6px 8px;">' + escapeHtml(nequi) + '</td></tr>' +
+            '<tr><td style="padding:6px 8px;font-weight:600;"><i class="fas fa-university" style="color:#0D47A1;margin-right:6px;"></i>Cuenta</td><td style="padding:6px 8px;">' + escapeHtml(cuenta) + '</td></tr>' +
+            '<tr><td style="padding:6px 8px;font-weight:600;"><i class="fas fa-envelope" style="color:#EA4335;margin-right:6px;"></i>Email</td><td style="padding:6px 8px;">' + escapeHtml(email) + '</td></tr>' +
+            '<tr><td style="padding:6px 8px;font-weight:600;"><i class="fab fa-instagram" style="color:#E1306C;margin-right:6px;"></i>Instagram</td><td style="padding:6px 8px;">' + escapeHtml(instagram) + '</td></tr>' +
+            '<tr><td style="padding:6px 8px;font-weight:600;"><i class="fab fa-facebook" style="color:#1877F2;margin-right:6px;"></i>Facebook</td><td style="padding:6px 8px;">' + escapeHtml(facebook) + '</td></tr>' +
+            '<tr><td style="padding:6px 8px;font-weight:600;"><i class="fas fa-map-marker-alt" style="color:#EF4444;margin-right:6px;"></i>Dirección</td><td style="padding:6px 8px;">' + escapeHtml(direccion) + '</td></tr>' +
+            '</table>';
+    }
+
     function saveConfig() {
+        var rawWhatsapp = document.getElementById('cfgWhatsapp').value.trim();
+        var rawWhatsapp2 = document.getElementById('cfgWhatsapp2').value.trim();
+        var rawNequi = document.getElementById('cfgNequi').value.trim();
+        var rawCuenta = document.getElementById('cfgCuenta').value.trim();
+        var rawEmail = document.getElementById('cfgEmail').value.trim();
+        var rawInstagram = document.getElementById('cfgInstagram').value.trim();
+        var rawFacebook = document.getElementById('cfgFacebook').value.trim();
+        var rawDireccion = document.getElementById('cfgDireccion').value.trim();
+
+        // Sanitizar: WhatsApp solo dígitos
+        var whatsapp = rawWhatsapp.replace(/[^0-9]/g, '');
+        if (whatsapp.length < 10 || whatsapp.length > 15) {
+            showToast('WhatsApp principal debe tener entre 10 y 15 dígitos', 'error');
+            return;
+        }
+
+        // WhatsApp 2 opcional
+        var whatsapp2 = rawWhatsapp2.replace(/[^0-9]/g, '');
+        if (rawWhatsapp2 && (whatsapp2.length < 10 || whatsapp2.length > 15)) {
+            showToast('WhatsApp secundario debe tener entre 10 y 15 dígitos', 'error');
+            return;
+        }
+
+        // Sanitizar: Nequi solo dígitos y espacios
+        var nequi = rawNequi.replace(/[^0-9\s]/g, '');
+        if (nequi.replace(/\s/g, '').length < 7) {
+            showToast('Número Nequi no válido', 'error');
+            return;
+        }
+
+        // Sanitizar: Cuenta
+        var cuenta = rawCuenta.replace(/[<>"'`;]/g, '').substring(0, 200);
+        if (cuenta.length < 5) {
+            showToast('Datos de cuenta bancaria muy cortos', 'error');
+            return;
+        }
+
+        // Sanitizar: Email
+        var email = rawEmail.replace(/[<>"'`;]/g, '').substring(0, 100);
+
+        // Sanitizar: URLs de redes
+        var instagram = rawInstagram.replace(/[<>"'`;]/g, '').substring(0, 200);
+        var facebook = rawFacebook.replace(/[<>"'`;]/g, '').substring(0, 200);
+
+        // Sanitizar: Dirección
+        var direccion = rawDireccion.replace(/[<>"'`;]/g, '').substring(0, 300);
+
         var data = {
-            whatsapp: document.getElementById('cfgWhatsapp').value.trim(),
-            nequi: document.getElementById('cfgNequi').value.trim(),
-            cuenta: document.getElementById('cfgCuenta').value.trim()
+            whatsapp: whatsapp,
+            whatsapp2: whatsapp2,
+            nequi: nequi,
+            cuenta: cuenta,
+            email: email,
+            instagram: instagram,
+            facebook: facebook,
+            direccion: direccion
         };
 
         db.collection('config').doc('negocio').set(data)
@@ -482,8 +666,13 @@
         var configRef = db.collection('config').doc('negocio');
         batch.set(configRef, {
             whatsapp: '573137439870',
-            nequi: '300 123 4567',
-            cuenta: 'Bancolombia - Ahorros 123-456789-00'
+            whatsapp2: '573135526226',
+            nequi: '3004521300',
+            cuenta: 'Bancolombia - Ahorros 123-456789-00',
+            email: 'diegufashion@gmail.com',
+            instagram: '',
+            facebook: '',
+            direccion: 'C.C. Gran San, Cra. 10 #9-21, San Victorino, Bogotá D.C. 2° Piso, Puesto 745'
         });
 
         // Categorías iniciales

@@ -79,36 +79,47 @@
         'Chaqueta Beisbolera Azul': ['img/beisbolera-azul.jpg', 'img/beisbolera-azul-2.jpg', 'img/beisbolera-azul-3.jpg']
     };
 
-    // --- Mapa de iconos desde Firebase ---
+    // --- Mapa de iconos y nombres desde Firebase ---
     var ICONOS_FIREBASE = {};
+    var NOMBRES_CATEGORIAS = {};
 
-    // --- Cargar datos desde Firebase (si está configurado) ---
+    // --- Cargar datos desde Firebase en TIEMPO REAL ---
+    var categoriasFirebase = [];
+
     function cargarDesdeFirebase() {
         if (!window.db) return;
 
-        // Cargar config del negocio
-        db.collection('config').doc('negocio').get().then(function (doc) {
+        // Escuchar config del negocio en tiempo real
+        db.collection('config').doc('negocio').onSnapshot(function (doc) {
             if (doc.exists) {
                 var data = doc.data();
                 if (data.whatsapp) CONFIG.whatsapp = data.whatsapp;
                 if (data.nequi) CONFIG.nequi = data.nequi;
                 if (data.cuenta) CONFIG.cuenta = data.cuenta;
+                actualizarContactoEnPagina(data);
             }
         });
 
-        // Cargar categorías desde Firebase
-        db.collection('categorias').orderBy('orden', 'asc').get().then(function (snapshot) {
-            if (!snapshot.empty) {
-                snapshot.forEach(function (doc) {
-                    var c = doc.data();
-                    ICONOS_FIREBASE[c.slug] = c.icono || 'fas fa-tag';
-                    ICONOS_CATEGORIAS[c.slug] = c.icono || 'fas fa-tag';
-                });
+        // Escuchar categorías en tiempo real
+        db.collection('categorias').orderBy('orden', 'asc').onSnapshot(function (snapshot) {
+            categoriasFirebase = [];
+            ICONOS_FIREBASE = {};
+            snapshot.forEach(function (doc) {
+                var c = doc.data();
+                ICONOS_FIREBASE[c.slug] = c.icono || 'fas fa-tag';
+                ICONOS_CATEGORIAS[c.slug] = c.icono || 'fas fa-tag';
+                NOMBRES_CATEGORIAS[c.slug] = c.nombre || c.slug;
+                categoriasFirebase.push(c);
+            });
+            // Re-renderizar categorías con los productos actuales
+            var grid = document.getElementById('productos-grid');
+            if (grid && grid.querySelector('.producto-card')) {
+                renderizarCategorias(null, categoriasFirebase);
             }
-        }).then(function () {
-            // Cargar productos después de tener las categorías
-            return db.collection('productos').orderBy('orden', 'asc').get();
-        }).then(function (snapshot) {
+        });
+
+        // Escuchar productos en tiempo real
+        db.collection('productos').orderBy('orden', 'asc').onSnapshot(function (snapshot) {
             if (snapshot.empty) return;
 
             var nuevoCatalogo = {};
@@ -132,7 +143,7 @@
             IMAGENES = nuevasImagenes;
 
             renderizarProductos(productos);
-            renderizarCategorias(productos);
+            renderizarCategorias(productos, categoriasFirebase);
         });
     }
 
@@ -176,28 +187,34 @@
     }
 
     // --- Renderizar categorías dinámicamente ---
-    function renderizarCategorias(productos) {
+    function renderizarCategorias(productos, categoriasFirebase) {
         var scroll = document.querySelector('.categorias-scroll');
         if (!scroll) return;
-
-        // Extraer categorías únicas
-        var categoriasMap = {};
-        productos.forEach(function (p) {
-            if (p.categoria && !categoriasMap[p.categoria]) {
-                categoriasMap[p.categoria] = true;
-            }
-        });
 
         scroll.innerHTML = '';
 
         // Botón "Todas" siempre primero
         scroll.innerHTML += crearBotonCategoria('todas', 'Todas', ICONOS_CATEGORIAS['todas'] || 'fas fa-th-large');
 
-        Object.keys(categoriasMap).forEach(function (slug) {
-            var nombre = capitalizarCategoria(slug);
-            var icono = ICONOS_CATEGORIAS[slug] || 'fas fa-tag';
-            scroll.innerHTML += crearBotonCategoria(slug, nombre, icono);
-        });
+        // Si hay categorías de Firebase, usarlas (con nombre, icono y orden reales)
+        if (categoriasFirebase && categoriasFirebase.length > 0) {
+            categoriasFirebase.forEach(function (cat) {
+                scroll.innerHTML += crearBotonCategoria(cat.slug, cat.nombre, cat.icono || 'fas fa-tag');
+            });
+        } else if (productos && productos.length > 0) {
+            // Fallback: extraer categorías únicas de los productos
+            var categoriasMap = {};
+            productos.forEach(function (p) {
+                if (p.categoria && !categoriasMap[p.categoria]) {
+                    categoriasMap[p.categoria] = true;
+                }
+            });
+            Object.keys(categoriasMap).forEach(function (slug) {
+                var nombre = NOMBRES_CATEGORIAS[slug] || capitalizarCategoria(slug);
+                var icono = ICONOS_CATEGORIAS[slug] || 'fas fa-tag';
+                scroll.innerHTML += crearBotonCategoria(slug, nombre, icono);
+            });
+        }
 
         // Activar "Todas"
         var primero = scroll.querySelector('.categoria-item');
@@ -510,7 +527,88 @@
     };
 
     // --- Utilidades internas ---
+    // --- Actualizar datos de contacto en la página en tiempo real ---
+    function actualizarContactoEnPagina(data) {
+        // Formatear número para mostrar
+        function fmtTel(num) {
+            if (!num) return '';
+            var d = num.replace(/[^0-9]/g, '');
+            if (d.length === 12 && d.startsWith('57')) {
+                return d.substring(2, 5) + ' ' + d.substring(5, 8) + ' ' + d.substring(8, 10) + ' ' + d.substring(10);
+            }
+            return d;
+        }
+
+        // Nequi y cuenta en drawer de pago
+        var lblNequi = document.getElementById('lblNequi');
+        if (lblNequi && data.nequi) lblNequi.textContent = data.nequi;
+        var lblCuenta = document.getElementById('lblCuenta');
+        if (lblCuenta && data.cuenta) lblCuenta.textContent = data.cuenta;
+
+        // WhatsApp principal — footer + botón flotante
+        if (data.whatsapp) {
+            var waUrl = 'https://wa.me/' + data.whatsapp.replace(/[^0-9]/g, '');
+            var footerWa1 = document.getElementById('footerWa1');
+            if (footerWa1) {
+                footerWa1.innerHTML = '<i class="fab fa-whatsapp"></i> <a href="' + waUrl + '" target="_blank" rel="noopener noreferrer">' + fmtTel(data.whatsapp) + '</a>';
+            }
+            var footerWaIcon = document.getElementById('footerWaIcon');
+            if (footerWaIcon) footerWaIcon.href = waUrl;
+            var whatsappFloat = document.getElementById('whatsappFloat');
+            if (whatsappFloat) whatsappFloat.href = waUrl + '?text=Hola%2C%20quiero%20información%20sobre%20chaquetas';
+        }
+
+        // WhatsApp secundario
+        var footerWa2 = document.getElementById('footerWa2');
+        if (footerWa2) {
+            if (data.whatsapp2) {
+                var wa2Url = 'https://wa.me/' + data.whatsapp2.replace(/[^0-9]/g, '');
+                footerWa2.innerHTML = '<i class="fab fa-whatsapp"></i> <a href="' + wa2Url + '" target="_blank" rel="noopener noreferrer">' + fmtTel(data.whatsapp2) + '</a>';
+                footerWa2.style.display = '';
+            } else {
+                footerWa2.style.display = 'none';
+            }
+        }
+
+        // Email
+        var footerEmail = document.getElementById('footerEmail');
+        if (footerEmail && data.email) {
+            footerEmail.innerHTML = '<i class="fas fa-envelope"></i> <span>' + data.email + '</span>';
+        }
+
+        // Instagram
+        var footerIgIcon = document.getElementById('footerIgIcon');
+        if (footerIgIcon) {
+            if (data.instagram) {
+                footerIgIcon.href = data.instagram;
+                footerIgIcon.style.display = '';
+            } else {
+                footerIgIcon.style.display = 'none';
+            }
+        }
+
+        // Facebook
+        var footerFbIcon = document.getElementById('footerFbIcon');
+        if (footerFbIcon) {
+            if (data.facebook) {
+                footerFbIcon.href = data.facebook;
+                footerFbIcon.style.display = '';
+            } else {
+                footerFbIcon.style.display = 'none';
+            }
+        }
+
+        // Dirección
+        var footerDireccion = document.getElementById('footerDireccion');
+        if (footerDireccion && data.direccion) {
+            footerDireccion.textContent = data.direccion;
+        }
+    }
+
     function capitalizarCategoria(cat) {
+        // Primero buscar en los nombres cargados de Firebase
+        if (NOMBRES_CATEGORIAS[cat]) return NOMBRES_CATEGORIAS[cat];
+        // Fallback hardcodeado
         var nombres = {
             'americana': 'Americana',
             'beisbolera': 'Beisbolera',

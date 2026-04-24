@@ -14,6 +14,17 @@
     Header set X-Frame-Options "DENY"
     Header set X-XSS-Protection "1; mode=block"
     Header set Referrer-Policy "strict-origin-when-cross-origin"
+    Header set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+    Header set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+</IfModule>
+
+# Bloquear acceso directo a firebase-config.js desde navegadores externos
+# (solo funciona embebido en la página, no como descarga directa)
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTP_REFERER} !^https?://(www\.)?diegufashion\.com [NC]
+    RewriteCond %{HTTP_REFERER} !^$
+    RewriteRule firebase-config\.js$ - [F,L]
 </IfModule>
 
 # === Compresion GZIP ===

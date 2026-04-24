@@ -132,13 +132,8 @@
                     <h2>Configuración del Negocio</h2>
                 </div>
                 <div class="config-card">
-                    <h5><i class="fas fa-store"></i> Datos de Contacto y Pago</h5>
+                    <h5><i class="fas fa-credit-card"></i> Datos de Pago</h5>
                     <form id="formConfig">
-                        <div class="form-group">
-                            <label>WhatsApp (con código de país)</label>
-                            <input type="text" id="cfgWhatsapp" class="form-control-admin" placeholder="573137439870">
-                            <p class="form-hint">Ejemplo: 573137439870 (57 = Colombia)</p>
-                        </div>
                         <div class="form-group">
                             <label>Número Nequi</label>
                             <input type="text" id="cfgNequi" class="form-control-admin" placeholder="300 123 4567">
@@ -147,10 +142,46 @@
                             <label>Cuenta Bancaria</label>
                             <input type="text" id="cfgCuenta" class="form-control-admin" placeholder="Bancolombia - Ahorros 123-456789-00">
                         </div>
-                        <button type="submit" class="btn-primary-admin" style="margin-top:8px;">
+
+                        <h5 style="margin-top:20px;"><i class="fas fa-address-book"></i> Contacto y Redes</h5>
+                        <div class="form-group">
+                            <label>WhatsApp principal (con código de país)</label>
+                            <input type="text" id="cfgWhatsapp" class="form-control-admin" placeholder="573137439870">
+                            <p class="form-hint">Ejemplo: 573137439870 (57 = Colombia). Se usa para pedidos y botón flotante.</p>
+                        </div>
+                        <div class="form-group">
+                            <label>WhatsApp secundario (opcional)</label>
+                            <input type="text" id="cfgWhatsapp2" class="form-control-admin" placeholder="573135526226">
+                        </div>
+                        <div class="form-group">
+                            <label>Correo electrónico</label>
+                            <input type="email" id="cfgEmail" class="form-control-admin" placeholder="diegufashion@gmail.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Instagram (URL completa)</label>
+                            <input type="text" id="cfgInstagram" class="form-control-admin" placeholder="https://instagram.com/diegufashion">
+                        </div>
+                        <div class="form-group">
+                            <label>Facebook (URL completa)</label>
+                            <input type="text" id="cfgFacebook" class="form-control-admin" placeholder="https://facebook.com/diegufashion">
+                        </div>
+                        <div class="form-group">
+                            <label>Dirección del local</label>
+                            <input type="text" id="cfgDireccion" class="form-control-admin" placeholder="C.C. Gran San, Cra. 10 #9-21, San Victorino, Bogotá D.C. 2° Piso Puesto 745">
+                        </div>
+
+                        <button type="submit" class="btn-primary-admin" style="margin-top:12px;">
                             <i class="fas fa-save"></i> Guardar Configuración
                         </button>
                     </form>
+                </div>
+
+                <!-- Datos actuales en la página -->
+                <div class="config-card" style="margin-top:16px;">
+                    <h5><i class="fas fa-globe"></i> Datos actuales en la página</h5>
+                    <div id="configPreview" style="font-size:0.85rem;color:#64748B;">
+                        <p><i class="fas fa-spinner fa-spin"></i> Cargando datos...</p>
+                    </div>
                 </div>
             </section>
 
@@ -253,8 +284,8 @@
                 </div>
                 <div class="admin-modal-footer">
                     <button type="button" class="btn-secondary-admin" id="btnCancelarModal">Cancelar</button>
-                    <button type="submit" class="btn-primary-admin" id="btnGuardarProducto">
-                        <i class="fas fa-save"></i> Guardar
+                    <button type="button" class="btn-primary-admin" id="btnPrevisualizarProducto" onclick="window._previsualizarProducto()">
+                        <i class="fas fa-eye"></i> Vista Previa
                     </button>
                 </div>
             </form>
@@ -341,6 +372,41 @@
                     </button>
                 </div>
             </form>
+        </div>
+    </div>
+
+    <!-- ========== MODAL VISTA PREVIA ========== -->
+    <div id="modalPreview" class="admin-modal-overlay">
+        <div class="admin-modal" style="max-width:750px;">
+            <div class="admin-modal-header">
+                <h4><i class="fas fa-eye"></i> Vista Previa del Producto</h4>
+                <button class="admin-modal-close" onclick="document.getElementById('modalPreview').classList.remove('visible')"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="admin-modal-body" style="padding:0;">
+                <!-- Preview como se ve en la página -->
+                <div class="preview-layout">
+                    <!-- Tarjeta del catálogo -->
+                    <div class="preview-card-section">
+                        <p class="preview-section-label"><i class="fas fa-th-large"></i> Tarjeta en el catálogo</p>
+                        <div class="preview-card-wrapper">
+                            <div id="previewCard" class="preview-product-card"></div>
+                        </div>
+                    </div>
+                    <!-- Vista rápida (drawer) -->
+                    <div class="preview-drawer-section">
+                        <p class="preview-section-label"><i class="fas fa-expand"></i> Vista Rápida (detalle)</p>
+                        <div id="previewDrawer" class="preview-drawer"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="admin-modal-footer" style="justify-content:space-between;">
+                <button type="button" class="btn-secondary-admin" onclick="document.getElementById('modalPreview').classList.remove('visible')">
+                    <i class="fas fa-arrow-left"></i> Volver a editar
+                </button>
+                <button type="button" class="btn-primary-admin" id="btnConfirmarGuardar" style="background:linear-gradient(135deg,#059669,#10B981);">
+                    <i class="fas fa-check"></i> Confirmar y Guardar
+                </button>
+            </div>
         </div>
     </div>
 

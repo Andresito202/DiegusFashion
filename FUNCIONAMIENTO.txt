@@ -1,0 +1,362 @@
+================================================================
+   DIEGU'S FASHION - MANUAL DE FUNCIONAMIENTO
+   Version: 2.0 | Fecha: Marzo 2026
+================================================================
+
+
+================================================================
+1. COMO FUNCIONA EL SISTEMA (VISION GENERAL)
+================================================================
+
+El sistema tiene 3 partes:
+
+   PAGINA PUBLICA (index.html)
+   --> Lo que ven los clientes
+   --> Lee datos de Firebase en tiempo real
+   --> No necesita recargar para ver cambios
+
+   PANEL ADMIN (admin.html)
+   --> Solo tu con email y contrasena
+   --> Agregas, editas, eliminas productos y categorias
+   --> Configuras datos de contacto y pago
+   --> Los cambios se reflejan AL INSTANTE en la pagina
+
+   FIREBASE (nube de Google)
+   --> Guarda todos los datos (productos, categorias, config)
+   --> Protegido: solo tu UID puede escribir
+   --> Lectura publica para que la tienda funcione
+
+FLUJO:
+   Tu cambias algo en Admin --> Firebase se actualiza -->
+   La pagina publica lo detecta --> Se muestra al instante
+
+
+================================================================
+2. COMO ENTRAR AL ADMIN
+================================================================
+
+EN LOCAL (para pruebas):
+   1. Abre terminal/CMD
+   2. cd E:/todo/Proyectos/DiegusFashion
+   3. npx http-server -p 8080 -c-1 --cors
+   4. Abre: http://localhost:8080/admin.html
+
+EN PRODUCCION (cuando este publicado):
+   1. Abre: https://tudominio.com/admin.html
+   2. Pon tu email y contrasena de Firebase
+   3. Ya estas dentro
+
+NOTA: El admin funciona desde CUALQUIER computador o celular
+con internet. No necesitas tener el proyecto instalado.
+
+
+================================================================
+3. COMO ADMINISTRAR PRODUCTOS
+================================================================
+
+AGREGAR PRODUCTO NUEVO:
+   1. En admin, seccion Productos
+   2. Clic en "+ Agregar Producto"
+   3. Llena los campos:
+      - Nombre de la prenda
+      - Precio (solo numeros, sin puntos ni signos)
+      - Categoria (selecciona o crea nueva)
+      - Tallas separadas por coma: S,M,L,XL
+      - Colores separados por coma: Negro,Rojo,Azul
+      - Descripcion de la prenda
+      - Orden (posicion en el catalogo)
+      - Hasta 4 URLs de imagenes
+   4. Clic en "Vista Previa"
+      --> Ves como queda la tarjeta y la vista rapida
+   5. Si te gusta, clic en "Confirmar y Guardar"
+   6. El producto aparece en la pagina AL INSTANTE
+
+EDITAR PRODUCTO:
+   1. Busca el producto en la lista
+   2. Clic en el icono del lapiz
+   3. Cambia lo que necesites
+   4. Vista Previa --> Confirmar y Guardar
+
+ELIMINAR PRODUCTO:
+   1. Clic en el icono de basura
+   2. Confirma la eliminacion
+   3. Desaparece de la pagina al instante
+
+VISTA PREVIA:
+   Antes de guardar cualquier producto, el sistema te muestra:
+   - Como se ve la TARJETA en el catalogo
+   - Como se ve la VISTA RAPIDA (drawer con detalle)
+   Si no te gusta, puedes volver a editar sin guardar.
+
+
+================================================================
+4. COMO ADMINISTRAR CATEGORIAS
+================================================================
+
+Las categorias aparecen como botones en la barra horizontal
+de la pagina. Los clientes las usan para filtrar productos.
+
+AGREGAR CATEGORIA:
+   1. Seccion Categorias en admin
+   2. Clic en "+ Agregar Categoria"
+   3. Llena:
+      - Nombre: lo que ve el cliente (Ej: "Bomber")
+      - Slug: identificador sin espacios (Ej: "bomber")
+      - Icono: clase de Font Awesome (Ej: "fas fa-rocket")
+      - Orden: posicion en la barra
+   4. Guardar
+
+EDITAR CATEGORIA:
+   1. Clic en lapiz --> Cambia --> Guardar
+
+ELIMINAR CATEGORIA:
+   1. Clic en basura --> Confirmar
+   NOTA: Los productos con esa categoria NO se eliminan,
+   solo dejan de tener una categoria asignada.
+
+ICONOS DISPONIBLES:
+   Busca iconos en: https://fontawesome.com/icons
+   Copia la clase, por ejemplo: "fas fa-shirt"
+   Pega en el campo Icono al crear la categoria.
+
+BOTONES ESPECIALES:
+   - "Traer categorias de la pagina": importa las categorias
+     que ya existen en los productos a Firebase
+   - "Actualizar descripciones y colores": actualiza productos
+     existentes en Firebase con los datos del codigo fuente
+
+
+================================================================
+5. COMO CONFIGURAR DATOS DEL NEGOCIO
+================================================================
+
+En admin, seccion Configuracion:
+
+DATOS DE PAGO:
+   - Numero Nequi: el numero que ven los clientes para pagar
+   - Cuenta Bancaria: datos de Bancolombia u otro banco
+
+CONTACTO Y REDES:
+   - WhatsApp principal: numero con codigo de pais (573...)
+     Se usa para: boton flotante, pedidos, footer
+   - WhatsApp secundario: segundo numero (opcional)
+     Se muestra en el footer si esta configurado
+   - Correo electronico: se muestra en el footer
+   - Instagram: URL completa (https://instagram.com/...)
+     Si esta vacio, el icono no se muestra en la pagina
+   - Facebook: URL completa (https://facebook.com/...)
+     Si esta vacio, el icono no se muestra en la pagina
+   - Direccion del local: se muestra en el footer
+
+Clic en "Guardar Configuracion".
+
+PANEL DE PREVIEW:
+   Debajo del formulario hay una tabla "Datos actuales en la
+   pagina" que muestra en tiempo real los valores guardados.
+   Asi verificas que los datos son correctos.
+
+IMPORTANTE:
+   - WhatsApp solo acepta digitos (10-15 digitos con codigo de pais)
+   - Nequi solo acepta digitos y espacios
+   - Los datos se actualizan AL INSTANTE en la pagina publica
+
+
+================================================================
+6. COMO FUNCIONA EL TIEMPO REAL
+================================================================
+
+La pagina usa Firebase onSnapshot (escucha en tiempo real).
+Esto significa:
+
+   - NO necesitas recargar la pagina para ver cambios
+   - Cambias precio en admin --> el precio cambia en la pagina
+   - Agregas producto en admin --> aparece en la pagina
+   - Cambias el Nequi --> se actualiza en la pagina
+   - Agregas Instagram --> el icono aparece en el footer
+
+Esto funciona mientras la pagina este abierta. Si el cliente
+abre la pagina DESPUES del cambio, ya ve los datos nuevos.
+
+
+================================================================
+7. COMO FUNCIONAN LAS IMAGENES
+================================================================
+
+OPCION A - IMAGENES LOCALES (carpeta img/):
+   - Nombrar: tipo-color.jpg (Ej: bomber-roja.jpg)
+   - Ruta en admin: img/bomber-roja.jpg
+   - Hasta 4 imagenes por producto
+   - Si cambias de hosting, debes subir la carpeta img/
+
+OPCION B - IMAGENES EXTERNAS (ImgBB u otro):
+   - Sube la foto a https://imgbb.com/
+   - Copia el "Direct link" (URL que termina en .jpg o .png)
+   - Pega la URL completa en el campo de imagen del admin
+   - Ventaja: no ocupas espacio en el hosting
+
+REGLAS DE NOMBRES (para imagenes locales):
+   - Solo letras minusculas
+   - Sin espacios (usar guion -)
+   - Sin tildes ni caracteres especiales
+   - Formato: .jpg o .png
+   - Ejemplos correctos:
+     bomber-roja.jpg
+     bomber-roja-2.jpg
+     cuero-marron-3.jpg
+   - Ejemplos INCORRECTOS:
+     Bomber Roja.jpg (espacios y mayusculas)
+     foto whatsapp.jpeg (nombre generico)
+
+
+================================================================
+8. COMO FUNCIONA EL PEDIDO POR WHATSAPP
+================================================================
+
+Cuando un cliente quiere comprar:
+
+   1. Hace clic en "Vista Rapida" en un producto
+   2. Selecciona color, talla y cantidad
+   3. Selecciona metodo de pago:
+      - Nequi: muestra boton "Abrir Nequi" (abre la app)
+      - Bancolombia: muestra campo para comprobante
+      - Contra Entrega: no pide comprobante
+   4. Si es Nequi o Bancolombia:
+      - Ingresa nombre del consignante
+      - Sube foto del comprobante
+   5. Ingresa direccion de entrega
+   6. Clic en "Enviar Pedido"
+   7. Se abre WhatsApp con un mensaje formateado que incluye:
+      - Producto, talla, color, cantidad
+      - Precio total
+      - Metodo de pago
+      - Datos del pago (Nequi o cuenta)
+      - Direccion de entrega
+   8. El cliente envia el mensaje y adjunta el comprobante
+
+
+================================================================
+9. COMO SUBIR A INTERNET (DESPLIEGUE)
+================================================================
+
+OPCION A - NETLIFY (recomendado, gratis):
+   1. Crea cuenta en https://app.netlify.com/
+   2. Dashboard --> "Deploy manually"
+   3. Arrastra la carpeta DiegusFashion/ completa
+   4. Netlify te da URL: https://diegusfashion.netlify.app
+   5. Si tienes dominio propio:
+      - Domain management --> Add custom domain
+      - Configura nameservers en tu proveedor de dominio
+      - Activa HTTPS (SSL gratuito de Let's Encrypt)
+
+OPCION B - CPANEL (si ya tienes hosting):
+   1. Entra a cPanel --> Administrador de archivos
+   2. Ve a public_html/
+   3. Sube TODOS los archivos del proyecto
+   4. Listo: https://tudominio.com
+
+DESPUES DE SUBIR:
+   1. Publica las reglas de seguridad en Firebase:
+      Firebase Console --> Firestore --> Rules --> pega el
+      contenido de firestore.rules --> Publicar
+   2. Verifica que admin.html funciona con login
+   3. Verifica productos en la tienda
+   4. Prueba en celular
+
+
+================================================================
+10. COMO ACTUALIZAR EN PRODUCCION
+================================================================
+
+CAMBIOS DE DATOS (productos, categorias, config):
+   --> Solo usa el admin desde el navegador
+   --> Los cambios se reflejan al instante
+   --> NO necesitas tocar archivos ni hosting
+
+FOTOS NUEVAS (si usas imagenes locales):
+   --> Sube las fotos nuevas al hosting (img/)
+   --> Luego agrega el producto en el admin con la ruta
+
+CAMBIOS DE CODIGO (css, js, html):
+   --> Sube los archivos modificados al hosting
+   --> Si usas Netlify: arrastra la carpeta de nuevo
+   --> Si usas GitHub + Netlify: haz push y se actualiza solo
+
+
+================================================================
+11. PROBLEMAS COMUNES Y SOLUCIONES
+================================================================
+
+"La pagina no carga productos"
+   --> Verifica firebase-config.js con las claves correctas
+   --> Verifica que Firestore tiene datos (Firebase Console)
+
+"El admin dice Firebase no configurado"
+   --> Verifica que firebase-config.js se subio al hosting
+
+"No puedo guardar productos/config"
+   --> Verifica que las reglas de Firestore tienen tu UID
+   --> Firebase Console --> Firestore --> Rules
+
+"Las fotos no cargan"
+   --> Verifica que img/ se subio al hosting
+   --> Verifica que los nombres coinciden (minusculas, sin espacios)
+
+"No puedo entrar al admin"
+   --> Firebase Console --> Authentication --> Usuarios
+   --> Verifica que tu usuario existe
+   --> Puedes cambiar contrasena ahi
+
+"El dominio no funciona"
+   --> Los DNS tardan hasta 48 horas. Espera.
+   --> Verifica nameservers en tu proveedor de dominio
+
+"Los cambios del admin no se ven en la pagina"
+   --> Deberian verse al instante (tiempo real)
+   --> Si no, recarga la pagina (Ctrl+F5)
+   --> Verifica conexion a internet
+
+
+================================================================
+12. COSTOS
+================================================================
+
+   Hosting Netlify:    $0 (gratis)
+   SSL/HTTPS:          $0 (gratis con Netlify)
+   Firebase Firestore: $0 (gratis, Plan Spark)
+   Firebase Auth:      $0 (gratis)
+   Dominio .com:       ~$8-12 USD/ano (unico costo)
+   ImgBB (imagenes):   $0 (gratis)
+
+   TOTAL: ~$8-12 USD/ano (solo el dominio)
+
+
+================================================================
+13. DATOS IMPORTANTES - GUARDAR EN LUGAR SEGURO
+================================================================
+
+   FIREBASE:
+   - Proyecto: diegusfashion-98961
+   - Consola: https://console.firebase.google.com/
+   - Email admin: ______________________________
+   - Contrasena: _______________________________
+   - UID admin: 7msFXakLaNgYzOURykfynC2Py972
+
+   DOMINIO:
+   - Proveedor: ________________________________
+   - Dominio: __________________________________
+   - Email: ____________________________________
+   - Contrasena: _______________________________
+
+   HOSTING:
+   - Plataforma: _______________________________
+   - URL: ______________________________________
+   - Email: ____________________________________
+
+   URLS FINALES:
+   - Tienda: https://__________________________
+   - Admin: https://___________________________/admin.html
+
+
+================================================================
+   FIN DEL MANUAL DE FUNCIONAMIENTO
+================================================================
