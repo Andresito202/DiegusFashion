@@ -28,7 +28,22 @@
         return limpio;
     }
 
-    function corregirMojibake(texto) {\n        if (typeof texto !== 'string') return texto;\n        var c = String.fromCharCode;\n        [\n            [c(0x00C3, 0x00A1), c(0x00E1)], [c(0x00C3, 0x00A9), c(0x00E9)],\n            [c(0x00C3, 0x00AD), c(0x00ED)], [c(0x00C3, 0x00B3), c(0x00F3)],\n            [c(0x00C3, 0x00BA), c(0x00FA)], [c(0x00C3, 0x00B1), c(0x00F1)],\n            [c(0x00C3, 0x00BC), c(0x00FC)], [c(0x00C2, 0x00BF), c(0x00BF)],\n            [c(0x00C2, 0x00A1), c(0x00A1)], [c(0x00C2, 0x00B0), c(0x00B0)]\n        ].forEach(function (par) {\n            texto = texto.split(par[0]).join(par[1]);\n        });\n        return texto;\n    }\n\n    function normalizarTextoObjeto(obj) {
+    function corregirMojibake(texto) {
+        if (typeof texto !== 'string') return texto;
+        var c = String.fromCharCode;
+        [
+            [c(0x00C3, 0x00A1), c(0x00E1)], [c(0x00C3, 0x00A9), c(0x00E9)],
+            [c(0x00C3, 0x00AD), c(0x00ED)], [c(0x00C3, 0x00B3), c(0x00F3)],
+            [c(0x00C3, 0x00BA), c(0x00FA)], [c(0x00C3, 0x00B1), c(0x00F1)],
+            [c(0x00C3, 0x00BC), c(0x00FC)], [c(0x00C2, 0x00BF), c(0x00BF)],
+            [c(0x00C2, 0x00A1), c(0x00A1)], [c(0x00C2, 0x00B0), c(0x00B0)]
+        ].forEach(function (par) {
+            texto = texto.split(par[0]).join(par[1]);
+        });
+        return texto;
+    }
+
+    function normalizarTextoObjeto(obj) {
         Object.keys(obj).forEach(function (key) {
             if (typeof obj[key] === 'string') obj[key] = corregirMojibake(obj[key]);
             if (Array.isArray(obj[key])) obj[key] = obj[key].map(corregirMojibake);
@@ -389,7 +404,7 @@
         var inicio = Date.now();
         window.location = nequiApp;
         setTimeout(function () {
-            // Si pasó más de 2s sin salir, es que no tiene la app â†’ abrir web
+            // Si pasó más de 2s sin salir, es que no tiene la app -> abrir web
             if (Date.now() - inicio < 2500) {
                 window.open(nequiWeb, '_blank');
             }

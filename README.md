@@ -1,6 +1,10 @@
 ﻿# Diegu's Fashion - Tienda online de chaquetas por mayor y detal
 
-Sitio web tipo catalogo para Diegu's Fashion, una tienda de chaquetas por mayor y detal en Ciudad generica. El proyecto incluye pagina publica, panel administrativo, catalogo dinamico, configuracion del negocio y pedidos por WhatsApp.
+Diegu's Fashion es una tienda online tipo catalogo para venta de chaquetas por mayor y detal. El proyecto combina una pagina publica responsive, un panel administrativo protegido, gestion dinamica de productos y categorias, configuracion comercial editable y generacion de pedidos por WhatsApp.
+
+## Descripcion para portafolio
+
+Aplicacion web estatica conectada a Firebase para administrar un catalogo comercial en tiempo real. Incluye tienda publica, panel de administracion, CRUD de productos y categorias, configuracion de contacto/pagos, flujo de pedido por WhatsApp, estructura lista para hosting en cPanel y documentacion tecnica del proyecto.
 
 ## URL local
 
@@ -25,7 +29,7 @@ py -3.13 -m http.server 8000 --bind 127.0.0.1
 
 No requiere instalacion de dependencias para ejecutarse localmente como sitio estatico.
 
-## Que incluye
+## Caracteristicas principales
 
 - Catalogo publico de productos.
 - Categorias dinamicas.
@@ -38,6 +42,14 @@ No requiere instalacion de dependencias para ejecutarse localmente como sitio es
 - Configuracion de WhatsApp, Nequi, cuenta bancaria, email, redes y direccion.
 - Datos en tiempo real con Firebase Firestore.
 - Archivos preparados para despliegue en cPanel/Apache.
+
+## Valor del proyecto
+
+- Centraliza la gestion de catalogo sin depender de un backend propio.
+- Permite actualizar productos y categorias desde un panel visual.
+- Reduce friccion de compra al generar pedidos directos por WhatsApp.
+- Esta preparado para despliegue rapido en hosting tradicional.
+- Incluye documentacion tecnica, guia de funcionamiento y paquete comprimido para produccion.
 
 ## Estructura principal
 

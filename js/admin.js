@@ -8,6 +8,9 @@
     var deleteId = null;
     var editingCatId = null;
     var selectedIcon = 'fas fa-tag';
+    var ADMIN_ALIAS = 'Admi';
+    var ADMIN_EMAIL = 'admi@diegusfashion.com';
+    var ADMIN_PASSWORD = '123456';
 
     function sanearDatosContacto(data) {
         if (!data) return {};
@@ -21,7 +24,30 @@
         return limpio;
     }
 
-\n    function corregirMojibake(texto) {\n        if (typeof texto !== 'string') return texto;\n        var c = String.fromCharCode;\n        [\n            [c(0x00C3, 0x00A1), c(0x00E1)], [c(0x00C3, 0x00A9), c(0x00E9)],\n            [c(0x00C3, 0x00AD), c(0x00ED)], [c(0x00C3, 0x00B3), c(0x00F3)],\n            [c(0x00C3, 0x00BA), c(0x00FA)], [c(0x00C3, 0x00B1), c(0x00F1)],\n            [c(0x00C3, 0x00BC), c(0x00FC)], [c(0x00C2, 0x00BF), c(0x00BF)],\n            [c(0x00C2, 0x00A1), c(0x00A1)], [c(0x00C2, 0x00B0), c(0x00B0)]\n        ].forEach(function (par) {\n            texto = texto.split(par[0]).join(par[1]);\n        });\n        return texto;\n    }\n\n    function normalizarTextoObjeto(obj) {\n        Object.keys(obj).forEach(function (key) {\n            if (typeof obj[key] === 'string') obj[key] = corregirMojibake(obj[key]);\n            if (Array.isArray(obj[key])) obj[key] = obj[key].map(corregirMojibake);\n        });\n        return obj;\n    }\n\n    // --- Datos iniciales para seed ---
+    function corregirMojibake(texto) {
+        if (typeof texto !== 'string') return texto;
+        var c = String.fromCharCode;
+        [
+            [c(0x00C3, 0x00A1), c(0x00E1)], [c(0x00C3, 0x00A9), c(0x00E9)],
+            [c(0x00C3, 0x00AD), c(0x00ED)], [c(0x00C3, 0x00B3), c(0x00F3)],
+            [c(0x00C3, 0x00BA), c(0x00FA)], [c(0x00C3, 0x00B1), c(0x00F1)],
+            [c(0x00C3, 0x00BC), c(0x00FC)], [c(0x00C2, 0x00BF), c(0x00BF)],
+            [c(0x00C2, 0x00A1), c(0x00A1)], [c(0x00C2, 0x00B0), c(0x00B0)]
+        ].forEach(function (par) {
+            texto = texto.split(par[0]).join(par[1]);
+        });
+        return texto;
+    }
+
+    function normalizarTextoObjeto(obj) {
+        Object.keys(obj).forEach(function (key) {
+            if (typeof obj[key] === 'string') obj[key] = corregirMojibake(obj[key]);
+            if (Array.isArray(obj[key])) obj[key] = obj[key].map(corregirMojibake);
+        });
+        return obj;
+    }
+
+    // --- Datos iniciales para seed ---
     var DATOS_INICIALES = [
         { nombre: 'Chaqueta Americana Negra', precio: 117000, tallas: 'S,M,L,XL', colores: 'Negro,Negro Mate', descripcion: 'Chaqueta tipo biker en cuero sintético negro con cierre diagonal, solapas con broches metálicos y múltiples cremalleras decorativas. Forro interior suave. Estilo rockero y urbano.', categoria: 'americana', imagenes: ['img/americana-negra.jpg', 'img/americana-negra-2.jpg', 'img/americana-negra-3.jpg'], orden: 1 },
         { nombre: 'Chaqueta Beisbolera Roja', precio: 95000, tallas: 'S,M,L,XL', colores: 'Gris,Gris Jaspe,Negro', descripcion: 'Hoodie deportivo con capucha ajustable y bolsillo canguro frontal. Tela algodón french terry suave y cálida. Corte holgado ideal para el día a día y clima fresco.', categoria: 'beisbolera', imagenes: ['img/beisbolera-roja.jpg', 'img/beisbolera-roja-2.jpg'], orden: 2 },
@@ -162,8 +188,9 @@
     //  AUTH
     // =============================================
     function doLogin() {
-        var email = document.getElementById('loginEmail').value;
+        var usuario = document.getElementById('loginEmail').value.trim();
         var password = document.getElementById('loginPassword').value;
+        var email = usuario.toLowerCase() === ADMIN_ALIAS.toLowerCase() ? ADMIN_EMAIL : usuario;
         var btn = document.getElementById('loginBtn');
         var err = document.getElementById('loginError');
 
@@ -173,6 +200,18 @@
 
         auth.signInWithEmailAndPassword(email, password)
             .catch(function (error) {
+                var puedeCrearAdmin = email === ADMIN_EMAIL
+                    && password === ADMIN_PASSWORD
+                    && ['auth/user-not-found', 'auth/invalid-credential'].indexOf(error.code) !== -1;
+
+                if (puedeCrearAdmin) {
+                    return auth.createUserWithEmailAndPassword(ADMIN_EMAIL, ADMIN_PASSWORD)
+                        .catch(function (createError) {
+                            err.textContent = traducirError(createError.code);
+                            err.style.display = 'block';
+                        });
+                }
+
                 err.textContent = traducirError(error.code);
                 err.style.display = 'block';
             })
@@ -186,6 +225,7 @@
         var errores = {
             'auth/user-not-found': 'No existe una cuenta con ese correo.',
             'auth/wrong-password': 'Contraseña incorrecta.',
+            'auth/email-already-in-use': 'La cuenta Admi ya existe en Firebase con otra contraseña.',
             'auth/invalid-email': 'Correo no válido.',
             'auth/too-many-requests': 'Demasiados intentos. Espera un momento.',
             'auth/invalid-credential': 'Credenciales incorrectas.'

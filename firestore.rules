@@ -6,7 +6,10 @@ service cloud.firestore {
     // Para obtenerlo: Firebase Console → Authentication → Users → copia el UID
     function isAdmin() {
       return request.auth != null
-          && request.auth.uid == '7msFXakLaNgYzOURykfynC2Py972';
+          && (
+            request.auth.uid == '7msFXakLaNgYzOURykfynC2Py972'
+            || request.auth.token.email == 'admi@diegusfashion.com'
+          );
     }
 
     // Productos: lectura pública, escritura solo admin
