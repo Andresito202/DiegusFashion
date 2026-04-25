@@ -1,154 +1,84 @@
-﻿# Diegu's Fashion - Tienda online de chaquetas por mayor y detal
+# Diegu's Fashion
 
-Diegu's Fashion es una tienda online tipo catalogo para venta de chaquetas por mayor y detal. El proyecto combina una pagina publica responsive, un panel administrativo protegido, gestion dinamica de productos y categorias, configuracion comercial editable y generacion de pedidos por WhatsApp.
+Tienda online administrable para venta de chaquetas por mayor y detal. El proyecto resuelve dos frentes: una experiencia publica enfocada en catalogo y conversion por WhatsApp, y un panel administrativo para gestionar productos, categorias y datos comerciales sin editar codigo.
 
-## Descripcion para portafolio
+## Resumen para portafolio
 
-Aplicacion web estatica conectada a Firebase para administrar un catalogo comercial en tiempo real. Incluye tienda publica, panel de administracion, CRUD de productos y categorias, configuracion de contacto/pagos, flujo de pedido por WhatsApp, estructura lista para hosting en cPanel y documentacion tecnica del proyecto.
+Aplicacion web estatica conectada a Firebase para administrar un catalogo comercial en tiempo real. Incluye storefront responsive, panel admin, CRUD de productos y categorias, configuracion del negocio, flujo de pedido por WhatsApp y despliegue simple en hosting tradicional.
 
-## URL local
+## Alcance funcional
 
-```text
-http://127.0.0.1:8000/
-```
+- Catalogo publico con categorias, vista rapida, tallas, colores, precios e imagenes.
+- Generacion de pedidos por WhatsApp con datos del producto y metodo de pago.
+- Panel administrativo protegido con Firebase Authentication.
+- Administracion de productos, categorias y configuracion comercial.
+- Persistencia en Firebase Firestore con actualizacion en tiempo real.
+- Estructura preparada para publicar en cPanel/Apache.
 
-Panel administrativo:
+## Arquitectura
 
-```text
-http://127.0.0.1:8000/admin.html
-```
+- `index.html`: tienda publica servida como sitio estatico.
+- `admin.html`: panel administrativo desacoplado de la vista publica.
+- `js/main.js`: logica del catalogo, renderizado y flujo de pedido.
+- `js/admin.js`: autenticacion y operaciones CRUD del panel.
+- `firebase-config.js`: inicializacion de Firebase.
+- `firestore.rules`: reglas de acceso para lectura publica y escritura de administrador.
 
-## Como levantar en local
+## Stack tecnico
 
-Desde la carpeta del proyecto:
+- HTML5
+- CSS3
+- JavaScript vanilla
+- Bootstrap 5
+- Font Awesome
+- Firebase Authentication
+- Firebase Firestore
+- Apache/cPanel
+
+## Ejecucion local
 
 ```powershell
 cd E:\todo\Proyectos\DiegusFashion
 py -3.13 -m http.server 8000 --bind 127.0.0.1
 ```
 
-No requiere instalacion de dependencias para ejecutarse localmente como sitio estatico.
+URLs locales:
 
-## Caracteristicas principales
+- Publico: `http://127.0.0.1:8000/`
+- Admin: `http://127.0.0.1:8000/admin.html`
 
-- Catalogo publico de productos.
-- Categorias dinamicas.
-- Vista rapida de producto con imagenes, precio, descripcion, tallas y colores.
-- Seleccion de cantidad y metodo de pago.
-- Pedido por WhatsApp.
-- Panel de administracion protegido con Firebase Authentication.
-- Administracion de productos.
-- Administracion de categorias.
-- Configuracion de WhatsApp, Nequi, cuenta bancaria, email, redes y direccion.
-- Datos en tiempo real con Firebase Firestore.
-- Archivos preparados para despliegue en cPanel/Apache.
+## Despliegue
 
-## Valor del proyecto
+El proyecto esta pensado para despliegue estatico en `public_html`. El repositorio incluye:
 
-- Centraliza la gestion de catalogo sin depender de un backend propio.
-- Permite actualizar productos y categorias desde un panel visual.
-- Reduce friccion de compra al generar pedidos directos por WhatsApp.
-- Esta preparado para despliegue rapido en hosting tradicional.
-- Incluye documentacion tecnica, guia de funcionamiento y paquete comprimido para produccion.
+- `DiegusFashion-HOSTING.zip`
+- `.htaccess`
+- `SUBIR-A-CPANEL.txt`
+- `INFORME-TECNICO-DIEGUSFASHION.md`
 
 ## Estructura principal
 
 ```text
 DiegusFashion/
-|-- index.html                         Pagina publica
-|-- admin.html                         Panel administrativo
-|-- firebase-config.js                 Conexion a Firebase
-|-- firestore.rules                    Reglas de seguridad Firestore
-|-- .htaccess                          Configuracion Apache/cPanel
-|-- README.md                          Resumen del proyecto
-|-- INFORME-TECNICO-DIEGUSFASHION.md   Informe tecnico detallado
-|-- VERSION-ACTUAL.txt                 Documento de version
-|-- FUNCIONAMIENTO.txt                 Manual funcional
-|-- SUBIR-A-CPANEL.txt                 Guia de despliegue
-|-- DiegusFashion-HOSTING.zip          Paquete listo para hosting
-|
+|-- index.html
+|-- admin.html
+|-- firebase-config.js
+|-- firestore.rules
+|-- .htaccess
+|-- README.md
+|-- INFORME-TECNICO-DIEGUSFASHION.md
+|-- FUNCIONAMIENTO.txt
+|-- VERSION-ACTUAL.txt
+|-- SUBIR-A-CPANEL.txt
+|-- DiegusFashion-HOSTING.zip
 |-- css/
-|   |-- styles.css                     Estilos de la tienda
-|   |-- admin.css                      Estilos del panel
-|
 |-- js/
-|   |-- main.js                        Logica publica
-|   |-- admin.js                       Logica administrativa
-|
 |-- img/
-|   |-- logo.png
-|   |-- banner.png
-|   |-- fotos de productos
 ```
 
-## Tecnologias
+## Enfoque de ingenieria
 
-- HTML5
-- CSS3
-- JavaScript vanilla
-- Bootstrap 5.3
-- Font Awesome 6.4
-- Google Fonts
-- Firebase Firestore
-- Firebase Authentication
-- Apache/cPanel mediante `.htaccess`
-
-## Firebase
-
-Proyecto configurado:
-
-```text
-diegusfashion-98961
-```
-
-Colecciones esperadas:
-
-- `productos`
-- `categorias`
-- `config/negocio`
-
-Las reglas de `firestore.rules` permiten lectura publica para el catalogo y escritura solo para el UID administrador configurado.
-
-## Flujo de compra
-
-1. El cliente abre el catalogo.
-2. Filtra por categoria o revisa productos.
-3. Abre la vista rapida.
-4. Selecciona color, talla, cantidad y metodo de pago.
-5. El sistema genera un mensaje de pedido.
-6. Se abre WhatsApp con el mensaje listo para enviar.
-
-## Despliegue
-
-El proyecto esta pensado para subirse como sitio estatico a `public_html` en cPanel.
-
-Pasos resumidos:
-
-1. Subir `DiegusFashion-HOSTING.zip`.
-2. Extraer directamente en `public_html`.
-3. Verificar que `index.html` quede en la raiz.
-4. Publicar `firestore.rules` en Firebase Console.
-5. Probar la pagina publica y `admin.html`.
-6. Configurar datos reales desde el panel.
-
-Ver detalles en:
-
-```text
-SUBIR-A-CPANEL.txt
-```
-
-## Documentacion
-
-El informe tecnico completo esta en:
-
-```text
-INFORME-TECNICO-DIEGUSFASHION.md
-```
-
-Tambien se incluyen:
-
-- `FUNCIONAMIENTO.txt`
-- `VERSION-ACTUAL.txt`
-- `SUBIR-A-CPANEL.txt`
-
-
+- Separacion clara entre experiencia publica y administracion.
+- Modelo de datos simple y operativo para negocio pequeno o mediano.
+- Dependencias reducidas para facilitar mantenimiento y despliegue.
+- Documentacion operativa incluida dentro del repositorio.
