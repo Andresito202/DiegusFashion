@@ -1,4 +1,4 @@
-﻿/* ============================================
+/* ============================================
    Diegu's Fashion - Admin Panel Logic
    ============================================ */
 (function () {
@@ -21,16 +21,16 @@
         return limpio;
     }
 
-    // --- Datos iniciales para seed ---
+\n    function corregirMojibake(texto) {\n        if (typeof texto !== 'string') return texto;\n        var c = String.fromCharCode;\n        [\n            [c(0x00C3, 0x00A1), c(0x00E1)], [c(0x00C3, 0x00A9), c(0x00E9)],\n            [c(0x00C3, 0x00AD), c(0x00ED)], [c(0x00C3, 0x00B3), c(0x00F3)],\n            [c(0x00C3, 0x00BA), c(0x00FA)], [c(0x00C3, 0x00B1), c(0x00F1)],\n            [c(0x00C3, 0x00BC), c(0x00FC)], [c(0x00C2, 0x00BF), c(0x00BF)],\n            [c(0x00C2, 0x00A1), c(0x00A1)], [c(0x00C2, 0x00B0), c(0x00B0)]\n        ].forEach(function (par) {\n            texto = texto.split(par[0]).join(par[1]);\n        });\n        return texto;\n    }\n\n    function normalizarTextoObjeto(obj) {\n        Object.keys(obj).forEach(function (key) {\n            if (typeof obj[key] === 'string') obj[key] = corregirMojibake(obj[key]);\n            if (Array.isArray(obj[key])) obj[key] = obj[key].map(corregirMojibake);\n        });\n        return obj;\n    }\n\n    // --- Datos iniciales para seed ---
     var DATOS_INICIALES = [
-        { nombre: 'Chaqueta Americana Negra', precio: 117000, tallas: 'S,M,L,XL', colores: 'Negro,Negro Mate', descripcion: 'Chaqueta tipo biker en cuero sintÃ©tico negro con cierre diagonal, solapas con broches metÃ¡licos y mÃºltiples cremalleras decorativas. Forro interior suave. Estilo rockero y urbano.', categoria: 'americana', imagenes: ['img/americana-negra.jpg', 'img/americana-negra-2.jpg', 'img/americana-negra-3.jpg'], orden: 1 },
-        { nombre: 'Chaqueta Beisbolera Roja', precio: 95000, tallas: 'S,M,L,XL', colores: 'Gris,Gris Jaspe,Negro', descripcion: 'Hoodie deportivo con capucha ajustable y bolsillo canguro frontal. Tela algodÃ³n french terry suave y cÃ¡lida. Corte holgado ideal para el dÃ­a a dÃ­a y clima fresco.', categoria: 'beisbolera', imagenes: ['img/beisbolera-roja.jpg', 'img/beisbolera-roja-2.jpg'], orden: 2 },
-        { nombre: 'Parka Impermeable Azul', precio: 135000, tallas: 'S,M,L,XL', colores: 'Azul Claro,Azul Medio,Celeste', descripcion: 'Chaqueta de jean desteÃ±ida en tono azul claro con botones metÃ¡licos cobrizos, bolsillos de parche al pecho y detalle de pin decorativo. Tela denim 100% algodÃ³n. Look casual y fresco.', categoria: 'parka', imagenes: ['img/parka-azul.jpg', 'img/parka-azul-2.jpg', 'img/parka-azul-3.jpg'], orden: 3 },
-        { nombre: 'Chaqueta Unicolor Gris', precio: 89000, tallas: 'S,M,L,XL,XXL', colores: 'Azul Oscuro,Negro,Gris Oxford', descripcion: 'Blazer formal de corte entallado en azul marino oscuro con solapas de muesca. Tela premium con caÃ­da elegante. Ideal para oficina, reuniones y ocasiones especiales. Combina con camisa y corbata.', categoria: 'unicolor', imagenes: ['img/unicolor-gris.jpg', 'img/unicolor-gris-2.jpg', 'img/unicolor-gris-3.jpg'], orden: 4 },
-        { nombre: 'Chaqueta Combinada Negro/Blanco', precio: 110000, tallas: 'S,M,L,XL', colores: 'Negro,Negro/Plateado', descripcion: 'Chaqueta biker de cuero con textura natural, cierre diagonal cromado y solapas con broches a presiÃ³n. MÃºltiples bolsillos con cremallera. Estilo rebelde y moderno con acabado semi-brillante.', categoria: 'combinada', imagenes: ['img/combinada-negra.jpg', 'img/combinada-negra-2.jpg', 'img/combinada-negra-3.jpg'], orden: 5 },
-        { nombre: 'Chaqueta LeÃ±adora CafÃ©', precio: 105000, tallas: 'M,L,XL', colores: 'Azul Claro,Azul DesteÃ±ido', descripcion: 'Chaqueta de jean estilo oversized en denim claro lavado. Corte relajado con botones frontales y bolsillos funcionales. Perfecta para layering sobre camisas estampadas. Look urbano casual.', categoria: 'lenador', imagenes: ['img/lenadora-cafe.jpg', 'img/lenadora-cafe-2.jpg', 'img/lenadora-cafe-3.jpg'], orden: 6 },
-        { nombre: 'Chaqueta Americana CafÃ©', precio: 120000, tallas: 'S,M,L,XL', colores: 'Verde Militar,Caqui,Oliva', descripcion: 'Chaqueta militar estilo field jacket en verde oliva con mÃºltiples bolsillos de parche con solapa. Tela resistente tipo canvas. Corte amplio y cÃ³modo con cuello alto. Ideal para looks streetwear.', categoria: 'americana', imagenes: ['img/americana-cafe.jpg', 'img/americana-cafe-2.jpg', 'img/americana-cafe-3.jpg'], orden: 7 },
-        { nombre: 'Chaqueta Beisbolera Azul', precio: 98000, tallas: 'S,M,L,XL', colores: 'CafÃ©/Crema,Negro/Crema,MarrÃ³n/Blanco', descripcion: 'Chaqueta aviador tipo shearling en cuero con forro interior de borrego sintÃ©tico crema. Cuello de piel voluminoso y cÃ¡lido. Cierre frontal con cremallera. Estilo vintage clÃ¡sico para invierno.', categoria: 'beisbolera', imagenes: ['img/beisbolera-azul.jpg', 'img/beisbolera-azul-2.jpg', 'img/beisbolera-azul-3.jpg'], orden: 8 }
+        { nombre: 'Chaqueta Americana Negra', precio: 117000, tallas: 'S,M,L,XL', colores: 'Negro,Negro Mate', descripcion: 'Chaqueta tipo biker en cuero sintético negro con cierre diagonal, solapas con broches metálicos y múltiples cremalleras decorativas. Forro interior suave. Estilo rockero y urbano.', categoria: 'americana', imagenes: ['img/americana-negra.jpg', 'img/americana-negra-2.jpg', 'img/americana-negra-3.jpg'], orden: 1 },
+        { nombre: 'Chaqueta Beisbolera Roja', precio: 95000, tallas: 'S,M,L,XL', colores: 'Gris,Gris Jaspe,Negro', descripcion: 'Hoodie deportivo con capucha ajustable y bolsillo canguro frontal. Tela algodón french terry suave y cálida. Corte holgado ideal para el día a día y clima fresco.', categoria: 'beisbolera', imagenes: ['img/beisbolera-roja.jpg', 'img/beisbolera-roja-2.jpg'], orden: 2 },
+        { nombre: 'Parka Impermeable Azul', precio: 135000, tallas: 'S,M,L,XL', colores: 'Azul Claro,Azul Medio,Celeste', descripcion: 'Chaqueta de jean desteñida en tono azul claro con botones metálicos cobrizos, bolsillos de parche al pecho y detalle de pin decorativo. Tela denim 100% algodón. Look casual y fresco.', categoria: 'parka', imagenes: ['img/parka-azul.jpg', 'img/parka-azul-2.jpg', 'img/parka-azul-3.jpg'], orden: 3 },
+        { nombre: 'Chaqueta Unicolor Gris', precio: 89000, tallas: 'S,M,L,XL,XXL', colores: 'Azul Oscuro,Negro,Gris Oxford', descripcion: 'Blazer formal de corte entallado en azul marino oscuro con solapas de muesca. Tela premium con caída elegante. Ideal para oficina, reuniones y ocasiones especiales. Combina con camisa y corbata.', categoria: 'unicolor', imagenes: ['img/unicolor-gris.jpg', 'img/unicolor-gris-2.jpg', 'img/unicolor-gris-3.jpg'], orden: 4 },
+        { nombre: 'Chaqueta Combinada Negro/Blanco', precio: 110000, tallas: 'S,M,L,XL', colores: 'Negro,Negro/Plateado', descripcion: 'Chaqueta biker de cuero con textura natural, cierre diagonal cromado y solapas con broches a presión. Múltiples bolsillos con cremallera. Estilo rebelde y moderno con acabado semi-brillante.', categoria: 'combinada', imagenes: ['img/combinada-negra.jpg', 'img/combinada-negra-2.jpg', 'img/combinada-negra-3.jpg'], orden: 5 },
+        { nombre: 'Chaqueta Leñadora Café', precio: 105000, tallas: 'M,L,XL', colores: 'Azul Claro,Azul Desteñido', descripcion: 'Chaqueta de jean estilo oversized en denim claro lavado. Corte relajado con botones frontales y bolsillos funcionales. Perfecta para layering sobre camisas estampadas. Look urbano casual.', categoria: 'lenador', imagenes: ['img/lenadora-cafe.jpg', 'img/lenadora-cafe-2.jpg', 'img/lenadora-cafe-3.jpg'], orden: 6 },
+        { nombre: 'Chaqueta Americana Café', precio: 120000, tallas: 'S,M,L,XL', colores: 'Verde Militar,Caqui,Oliva', descripcion: 'Chaqueta militar estilo field jacket en verde oliva con múltiples bolsillos de parche con solapa. Tela resistente tipo canvas. Corte amplio y cómodo con cuello alto. Ideal para looks streetwear.', categoria: 'americana', imagenes: ['img/americana-cafe.jpg', 'img/americana-cafe-2.jpg', 'img/americana-cafe-3.jpg'], orden: 7 },
+        { nombre: 'Chaqueta Beisbolera Azul', precio: 98000, tallas: 'S,M,L,XL', colores: 'Café/Crema,Negro/Crema,Marrón/Blanco', descripcion: 'Chaqueta aviador tipo shearling en cuero con forro interior de borrego sintético crema. Cuello de piel voluminoso y cálido. Cierre frontal con cremallera. Estilo vintage clásico para invierno.', categoria: 'beisbolera', imagenes: ['img/beisbolera-azul.jpg', 'img/beisbolera-azul-2.jpg', 'img/beisbolera-azul-3.jpg'], orden: 8 }
     ];
 
     // =============================================
@@ -178,19 +178,19 @@
             })
             .finally(function () {
                 btn.classList.remove('btn-loading');
-                btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Iniciar SesiÃ³n';
+                btn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Iniciar Sesión';
             });
     }
 
     function traducirError(code) {
         var errores = {
             'auth/user-not-found': 'No existe una cuenta con ese correo.',
-            'auth/wrong-password': 'ContraseÃ±a incorrecta.',
-            'auth/invalid-email': 'Correo no vÃ¡lido.',
+            'auth/wrong-password': 'Contraseña incorrecta.',
+            'auth/invalid-email': 'Correo no válido.',
             'auth/too-many-requests': 'Demasiados intentos. Espera un momento.',
             'auth/invalid-credential': 'Credenciales incorrectas.'
         };
-        return errores[code] || 'Error al iniciar sesiÃ³n. Intenta de nuevo.';
+        return errores[code] || 'Error al iniciar sesión. Intenta de nuevo.';
     }
 
     // =============================================
@@ -222,7 +222,7 @@
             container.innerHTML = '';
 
             if (snapshot.empty) {
-                container.innerHTML = '<div class="empty-state"><i class="fas fa-box-open"></i><p>No hay productos todavÃ­a.</p></div>';
+                container.innerHTML = '<div class="empty-state"><i class="fas fa-box-open"></i><p>No hay productos todavía.</p></div>';
                 document.getElementById('seedBanner').style.display = 'flex';
                 return;
             }
@@ -230,7 +230,7 @@
             document.getElementById('seedBanner').style.display = 'none';
 
             snapshot.forEach(function (doc) {
-                var p = doc.data();
+                var p = normalizarTextoObjeto(doc.data());
                 container.innerHTML += renderProductCard(doc.id, p);
             });
         }).catch(function (err) {
@@ -286,7 +286,7 @@
             document.getElementById('modalProductoTitulo').textContent = 'Editar Producto';
             db.collection('productos').doc(productId).get().then(function (doc) {
                 if (!doc.exists) return;
-                var p = doc.data();
+                var p = normalizarTextoObjeto(doc.data());
                 document.getElementById('prodNombre').value = p.nombre || '';
                 document.getElementById('prodPrecio').value = p.precio || '';
                 document.getElementById('prodTallas').value = p.tallas || '';
@@ -310,7 +310,7 @@
                     document.getElementById('prodCategoriaOtra').value = p.categoria;
                 }
 
-                // Cargar rutas de imÃ¡genes
+                // Cargar rutas de imágenes
                 if (p.imagenes) {
                     if (p.imagenes[0]) document.getElementById('prodImg1').value = p.imagenes[0];
                     if (p.imagenes[1]) document.getElementById('prodImg2').value = p.imagenes[1];
@@ -349,9 +349,9 @@
             categoria = document.getElementById('prodCategoriaOtra').value.trim().toLowerCase();
         }
 
-        // Validar mÃ­nimos
+        // Validar mínimos
         if (!nombre || !precio || !tallas || !categoria) {
-            showToast('Completa nombre, precio, tallas y categorÃ­a antes de previsualizar', 'error');
+            showToast('Completa nombre, precio, tallas y categoría antes de previsualizar', 'error');
             return;
         }
 
@@ -359,7 +359,7 @@
         var tallasFmt = tallas.replace(/,/g, ' - ');
         var imgSrc = img1 || 'img/logo.png';
 
-        // --- Tarjeta del catÃ¡logo ---
+        // --- Tarjeta del catálogo ---
         var cardHtml = '<img class="pv-img" src="' + escapeHtml(imgSrc) + '" alt="' + escapeHtml(nombre) + '" onerror="this.src=\'img/logo.png\'">' +
             '<div class="pv-body">' +
                 '<p class="pv-name">' + escapeHtml(nombre) + '</p>' +
@@ -368,10 +368,10 @@
             '</div>';
         document.getElementById('previewCard').innerHTML = cardHtml;
 
-        // --- Vista RÃ¡pida (drawer) ---
+        // --- Vista Rápida (drawer) ---
         var drawerHtml = '';
 
-        // ImÃ¡genes en fila
+        // Imágenes en fila
         var imgs = [img1, img2, img3, img4].filter(function (i) { return i; });
         if (imgs.length > 0) {
             drawerHtml += '<div class="pv-imgs-row">';
@@ -384,7 +384,7 @@
         drawerHtml += '<p class="pv-cat">' + escapeHtml(categoria) + '</p>';
         drawerHtml += '<h4 class="pv-title">' + escapeHtml(nombre) + '</h4>';
         drawerHtml += '<p class="pv-price-big">' + precioFmt + '</p>';
-        drawerHtml += '<p class="pv-status"><i class="fas fa-check-circle"></i> Disponible - EnvÃ­o a todo Colombia</p>';
+        drawerHtml += '<p class="pv-status"><i class="fas fa-check-circle"></i> Disponible - Envío a todo Colombia</p>';
 
         if (descripcion) {
             drawerHtml += '<p class="pv-desc">' + escapeHtml(descripcion) + '</p>';
@@ -413,7 +413,7 @@
         // Mostrar modal preview
         document.getElementById('modalPreview').classList.add('visible');
 
-        // Asignar evento al botÃ³n confirmar
+        // Asignar evento al botón confirmar
         document.getElementById('btnConfirmarGuardar').onclick = function () {
             document.getElementById('modalPreview').classList.remove('visible');
             saveProduct();
@@ -435,7 +435,7 @@
         if (categoria === 'otra') {
             categoria = document.getElementById('prodCategoriaOtra').value.trim().toLowerCase();
             if (!categoria) {
-                showToast('Ingresa el nombre de la categorÃ­a', 'error');
+                showToast('Ingresa el nombre de la categoría', 'error');
                 return;
             }
         }
@@ -449,7 +449,7 @@
         btn.classList.add('btn-loading');
         btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Guardando...';
 
-        // Recoger rutas de imÃ¡genes
+        // Recoger rutas de imágenes
         var imagenes = [];
         var img1 = document.getElementById('prodImg1').value.trim();
         var img2 = document.getElementById('prodImg2').value.trim();
@@ -497,7 +497,7 @@
     // =============================================
     window._eliminarProducto = function (id, nombre) {
         deleteId = id;
-        document.getElementById('confirmMsg').textContent = 'Â¿Eliminar "' + nombre + '"? Esta acciÃ³n no se puede deshacer.';
+        document.getElementById('confirmMsg').textContent = '¿Eliminar "' + nombre + '"? Esta acción no se puede deshacer.';
         document.getElementById('confirmDelete').classList.add('visible');
         // Restore product delete handler
         document.getElementById('btnConfirmDelete').onclick = function () { doDelete(); };
@@ -549,18 +549,18 @@
     function renderConfigPreview(data) {
         var preview = document.getElementById('configPreview');
         if (!preview) return;
-        var wa1 = data.whatsapp || 'â€”';
-        var wa2 = data.whatsapp2 || 'â€”';
-        var nequi = data.nequi || 'â€”';
-        var cuenta = data.cuenta || 'â€”';
-        var email = data.email || 'â€”';
-        var instagram = data.instagram || 'â€”';
-        var facebook = data.facebook || 'â€”';
-        var direccion = data.direccion || 'â€”';
+        var wa1 = data.whatsapp || '"';
+        var wa2 = data.whatsapp2 || '"';
+        var nequi = data.nequi || '"';
+        var cuenta = data.cuenta || '"';
+        var email = data.email || '"';
+        var instagram = data.instagram || '"';
+        var facebook = data.facebook || '"';
+        var direccion = data.direccion || '"';
 
         // Formatear WhatsApp para mostrar
         function fmtWa(num) {
-            if (!num || num === 'â€”') return 'â€”';
+            if (!num || num === '"') return '"';
             var d = num.replace(/[^0-9]/g, '');
             if (d.length === 12 && d.startsWith('57')) {
                 return d.substring(2, 5) + ' ' + d.substring(5, 8) + ' ' + d.substring(8, 10) + ' ' + d.substring(10);
@@ -577,7 +577,7 @@
             '<tr><td style="padding:6px 8px;font-weight:600;"><i class="fas fa-envelope" style="color:#EA4335;margin-right:6px;"></i>Email</td><td style="padding:6px 8px;">' + escapeHtml(email) + '</td></tr>' +
             '<tr><td style="padding:6px 8px;font-weight:600;"><i class="fab fa-instagram" style="color:#E1306C;margin-right:6px;"></i>Instagram</td><td style="padding:6px 8px;">' + escapeHtml(instagram) + '</td></tr>' +
             '<tr><td style="padding:6px 8px;font-weight:600;"><i class="fab fa-facebook" style="color:#1877F2;margin-right:6px;"></i>Facebook</td><td style="padding:6px 8px;">' + escapeHtml(facebook) + '</td></tr>' +
-            '<tr><td style="padding:6px 8px;font-weight:600;"><i class="fas fa-map-marker-alt" style="color:#EF4444;margin-right:6px;"></i>DirecciÃ³n</td><td style="padding:6px 8px;">' + escapeHtml(direccion) + '</td></tr>' +
+            '<tr><td style="padding:6px 8px;font-weight:600;"><i class="fas fa-map-marker-alt" style="color:#EF4444;margin-right:6px;"></i>Dirección</td><td style="padding:6px 8px;">' + escapeHtml(direccion) + '</td></tr>' +
             '</table>';
     }
 
@@ -591,24 +591,24 @@
         var rawFacebook = document.getElementById('cfgFacebook').value.trim();
         var rawDireccion = document.getElementById('cfgDireccion').value.trim();
 
-        // Sanitizar: WhatsApp solo dÃ­gitos
+        // Sanitizar: WhatsApp solo dígitos
         var whatsapp = rawWhatsapp.replace(/[^0-9]/g, '');
         if (whatsapp.length < 10 || whatsapp.length > 15) {
-            showToast('WhatsApp principal debe tener entre 10 y 15 dÃ­gitos', 'error');
+            showToast('WhatsApp principal debe tener entre 10 y 15 dígitos', 'error');
             return;
         }
 
         // WhatsApp 2 opcional
         var whatsapp2 = rawWhatsapp2.replace(/[^0-9]/g, '');
         if (rawWhatsapp2 && (whatsapp2.length < 10 || whatsapp2.length > 15)) {
-            showToast('WhatsApp secundario debe tener entre 10 y 15 dÃ­gitos', 'error');
+            showToast('WhatsApp secundario debe tener entre 10 y 15 dígitos', 'error');
             return;
         }
 
-        // Sanitizar: Nequi solo dÃ­gitos y espacios
+        // Sanitizar: Nequi solo dígitos y espacios
         var nequi = rawNequi.replace(/[^0-9\s]/g, '');
         if (nequi.replace(/\s/g, '').length < 7) {
-            showToast('NÃºmero Nequi no vÃ¡lido', 'error');
+            showToast('Número Nequi no válido', 'error');
             return;
         }
 
@@ -626,7 +626,7 @@
         var instagram = rawInstagram.replace(/[<>"'`;]/g, '').substring(0, 200);
         var facebook = rawFacebook.replace(/[<>"'`;]/g, '').substring(0, 200);
 
-        // Sanitizar: DirecciÃ³n
+        // Sanitizar: Dirección
         var direccion = rawDireccion.replace(/[<>"'`;]/g, '').substring(0, 300);
 
         var data = {
@@ -642,7 +642,7 @@
 
         db.collection('config').doc('negocio').set(data)
             .then(function () {
-                showToast('ConfiguraciÃ³n guardada', 'success');
+                showToast('Configuración guardada', 'success');
             })
             .catch(function (err) {
                 showToast('Error: ' + err.message, 'error');
@@ -687,14 +687,14 @@
             direccion: 'Direccion generica, Ciudad generica, Local 123'
         });
 
-        // CategorÃ­as iniciales
+        // Categorías iniciales
         var categoriasIniciales = [
             { nombre: 'Americana', slug: 'americana', icono: 'fas fa-vest', orden: 1 },
             { nombre: 'Beisbolera', slug: 'beisbolera', icono: 'fas fa-baseball-ball', orden: 2 },
             { nombre: 'Parka', slug: 'parka', icono: 'fas fa-cloud-rain', orden: 3 },
             { nombre: 'Unicolor', slug: 'unicolor', icono: 'fas fa-palette', orden: 4 },
             { nombre: 'Combinada', slug: 'combinada', icono: 'fas fa-swatchbook', orden: 5 },
-            { nombre: 'LeÃ±adora', slug: 'lenador', icono: 'fas fa-tree', orden: 6 }
+            { nombre: 'Leñadora', slug: 'lenador', icono: 'fas fa-tree', orden: 6 }
         ];
         categoriasIniciales.forEach(function (c) {
             var ref = db.collection('categorias').doc();
@@ -735,10 +735,10 @@
             { nombre: 'Parka', slug: 'parka', icono: 'fas fa-cloud-rain', orden: 3 },
             { nombre: 'Unicolor', slug: 'unicolor', icono: 'fas fa-palette', orden: 4 },
             { nombre: 'Combinada', slug: 'combinada', icono: 'fas fa-swatchbook', orden: 5 },
-            { nombre: 'LeÃ±adora', slug: 'lenador', icono: 'fas fa-tree', orden: 6 }
+            { nombre: 'Leñadora', slug: 'lenador', icono: 'fas fa-tree', orden: 6 }
         ];
 
-        // Primero ver cuÃ¡les ya existen
+        // Primero ver cuáles ya existen
         db.collection('categorias').get().then(function (snapshot) {
             var existentes = {};
             snapshot.forEach(function (doc) {
@@ -762,20 +762,20 @@
             });
 
             if (count === 0) {
-                showToast('Todas las categorÃ­as ya estÃ¡n en Firebase', 'info');
+                showToast('Todas las categorías ya están en Firebase', 'info');
                 loadCategories();
                 return Promise.resolve();
             }
 
             return batch.commit().then(function () {
-                showToast(count + ' categorÃ­as agregadas a Firebase', 'success');
+                showToast(count + ' categorías agregadas a Firebase', 'success');
                 loadCategories();
             });
         }).catch(function (err) {
             showToast('Error: ' + err.message, 'error');
         }).finally(function () {
             btn.classList.remove('btn-loading');
-            btn.innerHTML = '<i class="fas fa-sync-alt"></i> Traer categorÃ­as de la pÃ¡gina';
+            btn.innerHTML = '<i class="fas fa-sync-alt"></i> Traer categorías de la página';
         });
     };
 
@@ -811,7 +811,7 @@
                 return Promise.resolve();
             }
             return batch.commit().then(function () {
-                showToast(count + ' productos actualizados con descripciÃ³n y colores', 'success');
+                showToast(count + ' productos actualizados con descripción y colores', 'success');
                 loadProducts();
             });
         }).catch(function (err) {
@@ -831,14 +831,14 @@
             container.innerHTML = '';
 
             if (snapshot.empty) {
-                container.innerHTML = '<div class="empty-state"><i class="fas fa-tags"></i><p>No hay categorÃ­as. Agrega la primera.</p></div>';
+                container.innerHTML = '<div class="empty-state"><i class="fas fa-tags"></i><p>No hay categorías. Agrega la primera.</p></div>';
                 updateProductCategorySelect([]);
                 return;
             }
 
             var cats = [];
             snapshot.forEach(function (doc) {
-                var c = doc.data();
+                var c = normalizarTextoObjeto(doc.data());
                 c._id = doc.id;
                 cats.push(c);
                 container.innerHTML += renderCategoryCard(doc.id, c);
@@ -846,7 +846,7 @@
 
             updateProductCategorySelect(cats);
         }).catch(function (err) {
-            showToast('Error cargando categorÃ­as: ' + err.message, 'error');
+            showToast('Error cargando categorías: ' + err.message, 'error');
         });
     }
 
@@ -868,13 +868,13 @@
     // Update product form category dropdown
     function updateProductCategorySelect(cats) {
         var select = document.getElementById('prodCategoria');
-        // Si no hay categorÃ­as en Firebase, mantener las hardcodeadas
+        // Si no hay categorías en Firebase, mantener las hardcodeadas
         if (!cats || cats.length === 0) return;
         select.innerHTML = '<option value="">Seleccionar...</option>';
         cats.forEach(function (c) {
             select.innerHTML += '<option value="' + escapeHtml(c.slug) + '">' + escapeHtml(c.nombre) + '</option>';
         });
-        select.innerHTML += '<option value="otra">+ Nueva categorÃ­a</option>';
+        select.innerHTML += '<option value="otra">+ Nueva categoría</option>';
     }
 
     // =============================================
@@ -891,10 +891,10 @@
         document.querySelectorAll('.icon-picker-item').forEach(function (i) { i.classList.remove('selected'); });
 
         if (catId) {
-            document.getElementById('modalCategoriaTitulo').textContent = 'Editar CategorÃ­a';
+            document.getElementById('modalCategoriaTitulo').textContent = 'Editar Categoría';
             db.collection('categorias').doc(catId).get().then(function (doc) {
                 if (!doc.exists) return;
-                var c = doc.data();
+                var c = normalizarTextoObjeto(doc.data());
                 document.getElementById('catNombre').value = c.nombre || '';
                 document.getElementById('catSlug').value = c.slug || '';
                 document.getElementById('catOrden').value = c.orden || 1;
@@ -908,7 +908,7 @@
                 });
             });
         } else {
-            document.getElementById('modalCategoriaTitulo').textContent = 'Agregar CategorÃ­a';
+            document.getElementById('modalCategoriaTitulo').textContent = 'Agregar Categoría';
         }
 
         document.getElementById('modalCategoria').classList.add('visible');
@@ -954,7 +954,7 @@
         }
 
         docPromise.then(function () {
-            showToast(editingCatId ? 'CategorÃ­a actualizada' : 'CategorÃ­a creada', 'success');
+            showToast(editingCatId ? 'Categoría actualizada' : 'Categoría creada', 'success');
             closeCategoryModal();
             loadCategories();
         }).catch(function (err) {
@@ -974,13 +974,13 @@
 
     window._eliminarCategoria = function (id, nombre) {
         deleteId = id;
-        document.getElementById('confirmMsg').textContent = 'Â¿Eliminar categorÃ­a "' + nombre + '"? Los productos con esta categorÃ­a no se eliminarÃ¡n.';
+        document.getElementById('confirmMsg').textContent = '¿Eliminar categoría "' + nombre + '"? Los productos con esta categoría no se eliminarán.';
         document.getElementById('confirmDelete').classList.add('visible');
         // Override delete to use categorias collection
         document.getElementById('btnConfirmDelete').onclick = function () {
             closeConfirm();
             db.collection('categorias').doc(id).delete().then(function () {
-                showToast('CategorÃ­a eliminada', 'success');
+                showToast('Categoría eliminada', 'success');
                 loadCategories();
             }).catch(function (err) {
                 showToast('Error: ' + err.message, 'error');

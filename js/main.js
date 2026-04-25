@@ -1,4 +1,4 @@
-﻿/* ============================================
+/* ============================================
    Diegu's Fashion - JavaScript
    ============================================ */
 (function () {
@@ -9,7 +9,7 @@
         if (e.key === 'Escape' && window.cerrarDrawer) { window.cerrarDrawer(); }
     });
 
-    // --- Datos del negocio (se actualizan desde Firebase si estÃ¡ configurado) ---
+    // --- Datos del negocio (se actualizan desde Firebase si está configurado) ---
     var CONFIG = {
         whatsapp: '1234567890',
         nequi: '123 456 7890',
@@ -28,19 +28,27 @@
         return limpio;
     }
 
-    // --- CatÃ¡logo (se actualiza desde Firebase si estÃ¡ configurado) ---
+    function corregirMojibake(texto) {\n        if (typeof texto !== 'string') return texto;\n        var c = String.fromCharCode;\n        [\n            [c(0x00C3, 0x00A1), c(0x00E1)], [c(0x00C3, 0x00A9), c(0x00E9)],\n            [c(0x00C3, 0x00AD), c(0x00ED)], [c(0x00C3, 0x00B3), c(0x00F3)],\n            [c(0x00C3, 0x00BA), c(0x00FA)], [c(0x00C3, 0x00B1), c(0x00F1)],\n            [c(0x00C3, 0x00BC), c(0x00FC)], [c(0x00C2, 0x00BF), c(0x00BF)],\n            [c(0x00C2, 0x00A1), c(0x00A1)], [c(0x00C2, 0x00B0), c(0x00B0)]\n        ].forEach(function (par) {\n            texto = texto.split(par[0]).join(par[1]);\n        });\n        return texto;\n    }\n\n    function normalizarTextoObjeto(obj) {
+        Object.keys(obj).forEach(function (key) {
+            if (typeof obj[key] === 'string') obj[key] = corregirMojibake(obj[key]);
+            if (Array.isArray(obj[key])) obj[key] = obj[key].map(corregirMojibake);
+        });
+        return obj;
+    }
+
+    // --- Catálogo (se actualiza desde Firebase si está configurado) ---
     var CATALOGO = {
-        'Chaqueta Americana Negra': { precio: 117000, tallas: 'S,M,L,XL', colores: 'Negro,Negro Mate', descripcion: 'Chaqueta tipo biker en cuero sintÃ©tico negro con cierre diagonal, solapas con broches metÃ¡licos y mÃºltiples cremalleras decorativas. Forro interior suave. Estilo rockero y urbano.', categoria: 'americana' },
-        'Chaqueta Beisbolera Roja': { precio: 95000, tallas: 'S,M,L,XL', colores: 'Gris,Gris Jaspe,Negro', descripcion: 'Hoodie deportivo con capucha ajustable y bolsillo canguro frontal. Tela algodÃ³n french terry suave y cÃ¡lida. Corte holgado ideal para el dÃ­a a dÃ­a y clima fresco.', categoria: 'beisbolera' },
-        'Parka Impermeable Azul': { precio: 135000, tallas: 'S,M,L,XL', colores: 'Azul Claro,Azul Medio,Celeste', descripcion: 'Chaqueta de jean desteÃ±ida en tono azul claro con botones metÃ¡licos cobrizos, bolsillos de parche al pecho y detalle de pin decorativo. Tela denim 100% algodÃ³n. Look casual y fresco.', categoria: 'parka' },
-        'Chaqueta Unicolor Gris': { precio: 89000, tallas: 'S,M,L,XL,XXL', colores: 'Azul Oscuro,Negro,Gris Oxford', descripcion: 'Blazer formal de corte entallado en azul marino oscuro con solapas de muesca. Tela premium con caÃ­da elegante. Ideal para oficina, reuniones y ocasiones especiales. Combina con camisa y corbata.', categoria: 'unicolor' },
-        'Chaqueta Combinada Negro/Blanco': { precio: 110000, tallas: 'S,M,L,XL', colores: 'Negro,Negro/Plateado', descripcion: 'Chaqueta biker de cuero con textura natural, cierre diagonal cromado y solapas con broches a presiÃ³n. MÃºltiples bolsillos con cremallera. Estilo rebelde y moderno con acabado semi-brillante.', categoria: 'combinada' },
-        'Chaqueta LeÃ±adora CafÃ©': { precio: 105000, tallas: 'M,L,XL', colores: 'Azul Claro,Azul DesteÃ±ido', descripcion: 'Chaqueta de jean estilo oversized en denim claro lavado. Corte relajado con botones frontales y bolsillos funcionales. Perfecta para layering sobre camisas estampadas. Look urbano casual.', categoria: 'lenador' },
-        'Chaqueta Americana CafÃ©': { precio: 120000, tallas: 'S,M,L,XL', colores: 'Verde Militar,Caqui,Oliva', descripcion: 'Chaqueta militar estilo field jacket en verde oliva con mÃºltiples bolsillos de parche con solapa. Tela resistente tipo canvas. Corte amplio y cÃ³modo con cuello alto. Ideal para looks streetwear.', categoria: 'americana' },
-        'Chaqueta Beisbolera Azul': { precio: 98000, tallas: 'S,M,L,XL', colores: 'CafÃ©/Crema,Negro/Crema,MarrÃ³n/Blanco', descripcion: 'Chaqueta aviador tipo shearling en cuero con forro interior de borrego sintÃ©tico crema. Cuello de piel voluminoso y cÃ¡lido. Cierre frontal con cremallera. Estilo vintage clÃ¡sico para invierno.', categoria: 'beisbolera' }
+        'Chaqueta Americana Negra': { precio: 117000, tallas: 'S,M,L,XL', colores: 'Negro,Negro Mate', descripcion: 'Chaqueta tipo biker en cuero sintético negro con cierre diagonal, solapas con broches metálicos y múltiples cremalleras decorativas. Forro interior suave. Estilo rockero y urbano.', categoria: 'americana' },
+        'Chaqueta Beisbolera Roja': { precio: 95000, tallas: 'S,M,L,XL', colores: 'Gris,Gris Jaspe,Negro', descripcion: 'Hoodie deportivo con capucha ajustable y bolsillo canguro frontal. Tela algodón french terry suave y cálida. Corte holgado ideal para el día a día y clima fresco.', categoria: 'beisbolera' },
+        'Parka Impermeable Azul': { precio: 135000, tallas: 'S,M,L,XL', colores: 'Azul Claro,Azul Medio,Celeste', descripcion: 'Chaqueta de jean desteñida en tono azul claro con botones metálicos cobrizos, bolsillos de parche al pecho y detalle de pin decorativo. Tela denim 100% algodón. Look casual y fresco.', categoria: 'parka' },
+        'Chaqueta Unicolor Gris': { precio: 89000, tallas: 'S,M,L,XL,XXL', colores: 'Azul Oscuro,Negro,Gris Oxford', descripcion: 'Blazer formal de corte entallado en azul marino oscuro con solapas de muesca. Tela premium con caída elegante. Ideal para oficina, reuniones y ocasiones especiales. Combina con camisa y corbata.', categoria: 'unicolor' },
+        'Chaqueta Combinada Negro/Blanco': { precio: 110000, tallas: 'S,M,L,XL', colores: 'Negro,Negro/Plateado', descripcion: 'Chaqueta biker de cuero con textura natural, cierre diagonal cromado y solapas con broches a presión. Múltiples bolsillos con cremallera. Estilo rebelde y moderno con acabado semi-brillante.', categoria: 'combinada' },
+        'Chaqueta Leñadora Café': { precio: 105000, tallas: 'M,L,XL', colores: 'Azul Claro,Azul Desteñido', descripcion: 'Chaqueta de jean estilo oversized en denim claro lavado. Corte relajado con botones frontales y bolsillos funcionales. Perfecta para layering sobre camisas estampadas. Look urbano casual.', categoria: 'lenador' },
+        'Chaqueta Americana Café': { precio: 120000, tallas: 'S,M,L,XL', colores: 'Verde Militar,Caqui,Oliva', descripcion: 'Chaqueta militar estilo field jacket en verde oliva con múltiples bolsillos de parche con solapa. Tela resistente tipo canvas. Corte amplio y cómodo con cuello alto. Ideal para looks streetwear.', categoria: 'americana' },
+        'Chaqueta Beisbolera Azul': { precio: 98000, tallas: 'S,M,L,XL', colores: 'Café/Crema,Negro/Crema,Marrón/Blanco', descripcion: 'Chaqueta aviador tipo shearling en cuero con forro interior de borrego sintético crema. Cuello de piel voluminoso y cálido. Cierre frontal con cremallera. Estilo vintage clásico para invierno.', categoria: 'beisbolera' }
     };
 
-    // --- Mapa de Ã­conos por categorÃ­a ---
+    // --- Mapa de íconos por categoría ---
     var ICONOS_CATEGORIAS = {
         'todas': 'fas fa-th-large',
         'americana': 'fas fa-vest',
@@ -59,7 +67,7 @@
         cantidad: 1
     };
 
-    // --- Filtrar por categorÃ­a ---
+    // --- Filtrar por categoría ---
     window.filtrarCategoria = function (categoria, evt) {
         var cards = document.querySelectorAll('.producto-card');
         var items = document.querySelectorAll('.categoria-item');
@@ -79,15 +87,15 @@
         });
     };
 
-    // --- Mapa de imÃ¡genes multi-Ã¡ngulo (fallback, se reemplaza con datos de Firebase) ---
+    // --- Mapa de imágenes multi-ángulo (fallback, se reemplaza con datos de Firebase) ---
     var IMAGENES = {
         'Chaqueta Americana Negra': ['img/americana-negra.jpg', 'img/americana-negra-2.jpg', 'img/americana-negra-3.jpg'],
         'Chaqueta Beisbolera Roja': ['img/beisbolera-roja.jpg', 'img/beisbolera-roja-2.jpg'],
         'Parka Impermeable Azul': ['img/parka-azul.jpg', 'img/parka-azul-2.jpg', 'img/parka-azul-3.jpg'],
         'Chaqueta Unicolor Gris': ['img/unicolor-gris.jpg', 'img/unicolor-gris-2.jpg', 'img/unicolor-gris-3.jpg'],
         'Chaqueta Combinada Negro/Blanco': ['img/combinada-negra.jpg', 'img/combinada-negra-2.jpg', 'img/combinada-negra-3.jpg'],
-        'Chaqueta LeÃ±adora CafÃ©': ['img/lenadora-cafe.jpg', 'img/lenadora-cafe-2.jpg', 'img/lenadora-cafe-3.jpg'],
-        'Chaqueta Americana CafÃ©': ['img/americana-cafe.jpg', 'img/americana-cafe-2.jpg', 'img/americana-cafe-3.jpg'],
+        'Chaqueta Leñadora Café': ['img/lenadora-cafe.jpg', 'img/lenadora-cafe-2.jpg', 'img/lenadora-cafe-3.jpg'],
+        'Chaqueta Americana Café': ['img/americana-cafe.jpg', 'img/americana-cafe-2.jpg', 'img/americana-cafe-3.jpg'],
         'Chaqueta Beisbolera Azul': ['img/beisbolera-azul.jpg', 'img/beisbolera-azul-2.jpg', 'img/beisbolera-azul-3.jpg']
     };
 
@@ -112,18 +120,18 @@
             }
         });
 
-        // Escuchar categorÃ­as en tiempo real
+        // Escuchar categorías en tiempo real
         db.collection('categorias').orderBy('orden', 'asc').onSnapshot(function (snapshot) {
             categoriasFirebase = [];
             ICONOS_FIREBASE = {};
             snapshot.forEach(function (doc) {
-                var c = doc.data();
+                var c = normalizarTextoObjeto(doc.data());
                 ICONOS_FIREBASE[c.slug] = c.icono || 'fas fa-tag';
                 ICONOS_CATEGORIAS[c.slug] = c.icono || 'fas fa-tag';
                 NOMBRES_CATEGORIAS[c.slug] = c.nombre || c.slug;
                 categoriasFirebase.push(c);
             });
-            // Re-renderizar categorÃ­as con los productos actuales
+            // Re-renderizar categorías con los productos actuales
             var grid = document.getElementById('productos-grid');
             if (grid && grid.querySelector('.producto-card')) {
                 renderizarCategorias(null, categoriasFirebase);
@@ -139,7 +147,7 @@
             var productos = [];
 
             snapshot.forEach(function (doc) {
-                var p = doc.data();
+                var p = normalizarTextoObjeto(doc.data());
                 nuevoCatalogo[p.nombre] = {
                     precio: p.precio,
                     tallas: p.tallas,
@@ -159,7 +167,7 @@
         });
     }
 
-    // --- Renderizar tarjetas de productos dinÃ¡micamente ---
+    // --- Renderizar tarjetas de productos dinámicamente ---
     function renderizarProductos(productos) {
         var grid = document.getElementById('productos-grid');
         if (!grid) return;
@@ -176,7 +184,7 @@
                     '<div class="card-img-wrapper">' +
                         '<img src="' + img + '" class="card-img-top" alt="' + p.nombre + '">' +
                         '<span class="badge-disponible">Disponible</span>' +
-                        '<button class="btn-vista-rapida" onclick="verDetalle(\'' + nombreEscaped + '\')">Vista RÃ¡pida</button>' +
+                        '<button class="btn-vista-rapida" onclick="verDetalle(\'' + nombreEscaped + '\')">Vista Rápida</button>' +
                     '</div>' +
                     '<div class="card-body">' +
                         '<h6 class="card-title">' + p.nombre + '</h6>' +
@@ -189,7 +197,7 @@
             grid.innerHTML += html;
         });
 
-        // AnimaciÃ³n de entrada
+        // Animación de entrada
         var cards = grid.querySelectorAll('.producto-card');
         cards.forEach(function (card, index) {
             card.style.opacity = '0';
@@ -198,23 +206,23 @@
         });
     }
 
-    // --- Renderizar categorÃ­as dinÃ¡micamente ---
+    // --- Renderizar categorías dinámicamente ---
     function renderizarCategorias(productos, categoriasFirebase) {
         var scroll = document.querySelector('.categorias-scroll');
         if (!scroll) return;
 
         scroll.innerHTML = '';
 
-        // BotÃ³n "Todas" siempre primero
+        // Botón "Todas" siempre primero
         scroll.innerHTML += crearBotonCategoria('todas', 'Todas', ICONOS_CATEGORIAS['todas'] || 'fas fa-th-large');
 
-        // Si hay categorÃ­as de Firebase, usarlas (con nombre, icono y orden reales)
+        // Si hay categorías de Firebase, usarlas (con nombre, icono y orden reales)
         if (categoriasFirebase && categoriasFirebase.length > 0) {
             categoriasFirebase.forEach(function (cat) {
                 scroll.innerHTML += crearBotonCategoria(cat.slug, cat.nombre, cat.icono || 'fas fa-tag');
             });
         } else if (productos && productos.length > 0) {
-            // Fallback: extraer categorÃ­as Ãºnicas de los productos
+            // Fallback: extraer categorías únicas de los productos
             var categoriasMap = {};
             productos.forEach(function (p) {
                 if (p.categoria && !categoriasMap[p.categoria]) {
@@ -273,7 +281,7 @@
         document.getElementById('modalProductoCategoria').textContent = capitalizarCategoria(producto.categoria);
         document.getElementById('cantidad').value = 1;
 
-        // DescripciÃ³n
+        // Descripción
         var descEl = document.getElementById('modalProductoDescripcion');
         if (producto.descripcion) {
             descEl.textContent = producto.descripcion;
@@ -305,7 +313,7 @@
             coloresSection.style.display = 'none';
         }
 
-        // GalerÃ­a de imÃ¡genes apiladas verticalmente
+        // Galería de imágenes apiladas verticalmente
         var imagenes = IMAGENES[nombre] || [];
         var galeriaContainer = document.getElementById('drawerGaleria');
         var vistas = ['Frontal', 'Trasera', 'Lateral', 'Detalle'];
@@ -321,7 +329,7 @@
             galeriaContainer.appendChild(item);
         });
 
-        // Generar botones de talla desde el catÃ¡logo
+        // Generar botones de talla desde el catálogo
         var tallasContainer = document.getElementById('modalTallas');
         tallasContainer.innerHTML = '';
         producto.tallas.split(',').forEach(function (talla) {
@@ -358,7 +366,7 @@
         abrirDrawer();
     };
 
-    // --- Toggle campos segÃºn mÃ©todo de pago ---
+    // --- Toggle campos según método de pago ---
     window.togglePagoOpciones = function () {
         var camposEntrega = document.getElementById('camposEntrega');
         var camposComprobante = document.getElementById('camposComprobante');
@@ -369,7 +377,7 @@
 
         camposEntrega.style.display = esContraEntrega ? 'block' : 'none';
         camposComprobante.style.display = (esNequi || esCuenta) ? 'block' : 'none';
-        // BotÃ³n abrir Nequi solo si es Nequi
+        // Botón abrir Nequi solo si es Nequi
         btnNequi.style.display = esNequi ? 'grid' : 'none';
     };
 
@@ -381,7 +389,7 @@
         var inicio = Date.now();
         window.location = nequiApp;
         setTimeout(function () {
-            // Si pasÃ³ mÃ¡s de 2s sin salir, es que no tiene la app â†’ abrir web
+            // Si pasó más de 2s sin salir, es que no tiene la app â†’ abrir web
             if (Date.now() - inicio < 2500) {
                 window.open(nequiWeb, '_blank');
             }
@@ -417,10 +425,10 @@
 
     // --- Enviar pedido por WhatsApp ---
     window.enviarWhatsApp = function () {
-        // Obtener producto del catÃ¡logo
+        // Obtener producto del catálogo
         var producto = CATALOGO[_productoActual.nombre];
         if (!producto) {
-            mostrarAlerta('error', 'Error', 'Producto no vÃ¡lido.');
+            mostrarAlerta('error', 'Error', 'Producto no válido.');
             return;
         }
 
@@ -441,7 +449,7 @@
         var precioReal = producto.precio;
         var totalReal = precioReal * cantidad;
 
-        // Obtener mÃ©todo de pago
+        // Obtener método de pago
         var metodoPago = '';
         var infoPago = '';
         var esContraEntrega = document.getElementById('pagoContraEntrega').checked;
@@ -462,7 +470,7 @@
         if (esNequi || esCuenta) {
             var nombreConsignante = document.getElementById('nombreConsignante').value.trim();
             if (!nombreConsignante) {
-                mostrarAlerta('warning', 'Dato requerido', 'Por favor ingresa a nombre de quiÃ©n llega la consignaciÃ³n.');
+                mostrarAlerta('warning', 'Dato requerido', 'Por favor ingresa a nombre de quién llega la consignación.');
                 return;
             }
             var archivoInput = document.getElementById('comprobanteArchivo');
@@ -479,9 +487,9 @@
             var formaPago = document.getElementById('formaPagoEntrega').value;
             var horario = document.getElementById('horarioEntrega').value.trim();
 
-            if (!direccion) { mostrarAlerta('warning', 'Dato requerido', 'Por favor ingresa la direcciÃ³n de entrega.'); return; }
-            if (!recibe) { mostrarAlerta('warning', 'Dato requerido', 'Por favor ingresa quiÃ©n recibe el pedido.'); return; }
-            if (!formaPago) { mostrarAlerta('warning', 'Dato requerido', 'Por favor selecciona cÃ³mo pagarÃ¡s al recibir.'); return; }
+            if (!direccion) { mostrarAlerta('warning', 'Dato requerido', 'Por favor ingresa la dirección de entrega.'); return; }
+            if (!recibe) { mostrarAlerta('warning', 'Dato requerido', 'Por favor ingresa quién recibe el pedido.'); return; }
+            if (!formaPago) { mostrarAlerta('warning', 'Dato requerido', 'Por favor selecciona cómo pagarás al recibir.'); return; }
             if (!horario) { mostrarAlerta('warning', 'Dato requerido', 'Por favor ingresa un horario de entrega.'); return; }
         }
 
@@ -530,18 +538,18 @@
         var url = 'https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent(mensaje);
         window.open(url, '_blank');
 
-        // Si pagÃ³ con Nequi o Cuenta, mostrar alerta para que envÃ­e el comprobante
+        // Si pagó con Nequi o Cuenta, mostrar alerta para que envíe el comprobante
         if (esNequi || esCuenta) {
             setTimeout(function () {
-                mostrarAlerta('info', 'EnvÃ­a tu comprobante', 'Ahora envÃ­a la foto del comprobante de pago en el chat de WhatsApp que se acaba de abrir. Tu pedido NO serÃ¡ procesado hasta que el vendedor verifique el pago.');
+                mostrarAlerta('info', 'Envía tu comprobante', 'Ahora envía la foto del comprobante de pago en el chat de WhatsApp que se acaba de abrir. Tu pedido NO será procesado hasta que el vendedor verifique el pago.');
             }, 1500);
         }
     };
 
     // --- Utilidades internas ---
-    // --- Actualizar datos de contacto en la pÃ¡gina en tiempo real ---
+    // --- Actualizar datos de contacto en la página en tiempo real ---
     function actualizarContactoEnPagina(data) {
-        // Formatear nÃºmero para mostrar
+        // Formatear número para mostrar
         function fmtTel(num) {
             if (!num) return '';
             var d = num.replace(/[^0-9]/g, '');
@@ -557,7 +565,7 @@
         var lblCuenta = document.getElementById('lblCuenta');
         if (lblCuenta && data.cuenta) lblCuenta.textContent = data.cuenta;
 
-        // WhatsApp principal â€” footer + botÃ³n flotante
+        // WhatsApp principal " footer + botón flotante
         if (data.whatsapp) {
             var waUrl = 'https://wa.me/' + data.whatsapp.replace(/[^0-9]/g, '');
             var footerWa1 = document.getElementById('footerWa1');
@@ -567,7 +575,7 @@
             var footerWaIcon = document.getElementById('footerWaIcon');
             if (footerWaIcon) footerWaIcon.href = waUrl;
             var whatsappFloat = document.getElementById('whatsappFloat');
-            if (whatsappFloat) whatsappFloat.href = waUrl + '?text=Hola%2C%20quiero%20informaciÃ³n%20sobre%20chaquetas';
+            if (whatsappFloat) whatsappFloat.href = waUrl + '?text=Hola%2C%20quiero%20información%20sobre%20chaquetas';
         }
 
         // WhatsApp secundario
@@ -610,7 +618,7 @@
             }
         }
 
-        // DirecciÃ³n
+        // Dirección
         var footerDireccion = document.getElementById('footerDireccion');
         if (footerDireccion && data.direccion) {
             footerDireccion.textContent = data.direccion;
@@ -666,11 +674,11 @@
     });
 
     document.addEventListener('DOMContentLoaded', function () {
-        // Activar categorÃ­a "Todas"
+        // Activar categoría "Todas"
         var primerCategoria = document.querySelector('.categoria-item');
         if (primerCategoria) primerCategoria.classList.add('activa');
 
-        // AnimaciÃ³n de entrada
+        // Animación de entrada
         var cards = document.querySelectorAll('.producto-card');
         cards.forEach(function (card, index) {
             card.style.opacity = '0';
@@ -690,7 +698,7 @@
             });
         }
 
-        // Cargar desde Firebase (si estÃ¡ configurado, reemplaza los datos hardcoded)
+        // Cargar desde Firebase (si está configurado, reemplaza los datos hardcoded)
         cargarDesdeFirebase();
     });
 

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -16,12 +16,12 @@
         <div class="login-card">
             <img src="img/logo.png" alt="Logo" class="login-logo">
             <h3 class="login-title">Diegu's Fashion</h3>
-            <p class="login-subtitle">Panel de AdministraciÃ³n</p>
+            <p class="login-subtitle">Panel de Administración</p>
             <form id="loginForm">
-                <input type="email" id="loginEmail" class="login-input" placeholder="Correo electrÃ³nico" required>
-                <input type="password" id="loginPassword" class="login-input" placeholder="ContraseÃ±a" required>
+                <input type="email" id="loginEmail" class="login-input" placeholder="Correo electrónico" required>
+                <input type="password" id="loginPassword" class="login-input" placeholder="Contraseña" required>
                 <button type="submit" class="login-btn" id="loginBtn">
-                    <i class="fas fa-sign-in-alt"></i> Iniciar SesiÃ³n
+                    <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
                 </button>
             </form>
             <p id="loginError" class="login-error"></p>
@@ -31,7 +31,7 @@
     <!-- ========== ADMIN PANEL ========== -->
     <div id="adminPanel" class="admin-layout" style="display:none;">
 
-        <!-- BotÃ³n toggle sidebar (mÃ³vil) -->
+        <!-- Botón toggle sidebar (móvil) -->
         <button class="sidebar-toggle" id="sidebarToggle">
             <i class="fas fa-bars"></i>
         </button>
@@ -49,15 +49,15 @@
                     <i class="fas fa-box"></i> Productos
                 </div>
                 <div class="nav-item" data-section="categorias">
-                    <i class="fas fa-tags"></i> CategorÃ­as
+                    <i class="fas fa-tags"></i> Categorías
                 </div>
                 <div class="nav-item" data-section="config">
-                    <i class="fas fa-cog"></i> ConfiguraciÃ³n
+                    <i class="fas fa-cog"></i> Configuración
                 </div>
             </nav>
             <div class="sidebar-footer">
                 <button class="btn-logout" id="btnLogout">
-                    <i class="fas fa-sign-out-alt"></i> Cerrar SesiÃ³n
+                    <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
                 </button>
             </div>
         </aside>
@@ -65,11 +65,11 @@
         <!-- Main Content -->
         <main class="admin-main">
 
-            <!-- === SecciÃ³n Productos === -->
+            <!-- === Sección Productos === -->
             <section id="seccion-productos" class="admin-section">
                 <div class="seed-banner" id="seedBanner" style="display:none;">
                     <div>
-                        <strong><i class="fas fa-database"></i> Base de datos vacÃ­a</strong>
+                        <strong><i class="fas fa-database"></i> Base de datos vacía</strong>
                         <p>Carga los 8 productos actuales a Firebase para empezar a trabajar desde el panel.</p>
                     </div>
                     <button class="btn-seed" id="btnSeed">
@@ -79,7 +79,7 @@
 
                 <div class="seed-banner" id="updateBanner" style="display:flex; background:linear-gradient(135deg,#1a1a2e,#16213e);">
                     <div>
-                        <strong><i class="fas fa-sync-alt"></i> Actualizar catÃ¡logo</strong>
+                        <strong><i class="fas fa-sync-alt"></i> Actualizar catálogo</strong>
                         <p>Agrega descripciones y colores a los productos existentes en Firebase.</p>
                     </div>
                     <button class="btn-seed" id="btnUpdateProducts" onclick="window._updateExistingProducts()" style="background:#22C55E;">
@@ -102,40 +102,40 @@
                 </div>
             </section>
 
-            <!-- === SecciÃ³n CategorÃ­as === -->
+            <!-- === Sección Categorías === -->
             <section id="seccion-categorias" class="admin-section" style="display:none;">
                 <div class="seed-banner" id="syncCatsBanner" style="display:flex; background:linear-gradient(135deg,#1a1a2e,#16213e);">
                     <div>
-                        <strong><i class="fas fa-tags"></i> Sincronizar categorÃ­as</strong>
-                        <p>Trae las categorÃ­as que ya estÃ¡n en la pÃ¡gina (Americana, Beisbolera, Parka, etc.) para administrarlas aquÃ­.</p>
+                        <strong><i class="fas fa-tags"></i> Sincronizar categorías</strong>
+                        <p>Trae las categorías que ya están en la página (Americana, Beisbolera, Parka, etc.) para administrarlas aquí.</p>
                     </div>
                     <button class="btn-seed" id="btnSyncCats" onclick="window._syncCategories()" style="background:#22C55E;">
-                        <i class="fas fa-sync-alt"></i> Traer categorÃ­as de la pÃ¡gina
+                        <i class="fas fa-sync-alt"></i> Traer categorías de la página
                     </button>
                 </div>
 
                 <div class="section-header">
-                    <h2>CategorÃ­as</h2>
+                    <h2>Categorías</h2>
                     <button class="btn-primary-admin" id="btnAgregarCategoria">
-                        <i class="fas fa-plus"></i> Agregar CategorÃ­a
+                        <i class="fas fa-plus"></i> Agregar Categoría
                     </button>
                 </div>
-                <p class="form-hint" style="margin-bottom:1rem;">Administra las categorÃ­as de productos. El icono y nombre se muestran en la pÃ¡gina principal.</p>
+                <p class="form-hint" style="margin-bottom:1rem;">Administra las categorías de productos. El icono y nombre se muestran en la página principal.</p>
                 <div id="categoriasGrid" class="admin-categorias-grid">
                     <div class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Cargando...</p></div>
                 </div>
             </section>
 
-            <!-- === SecciÃ³n ConfiguraciÃ³n === -->
+            <!-- === Sección Configuración === -->
             <section id="seccion-config" class="admin-section" style="display:none;">
                 <div class="section-header">
-                    <h2>ConfiguraciÃ³n del Negocio</h2>
+                    <h2>Configuración del Negocio</h2>
                 </div>
                 <div class="config-card">
                     <h5><i class="fas fa-credit-card"></i> Datos de Pago</h5>
                     <form id="formConfig">
                         <div class="form-group">
-                            <label>NÃºmero Nequi</label>
+                            <label>Número Nequi</label>
                             <input type="text" id="cfgNequi" class="form-control-admin" placeholder="123 456 7890">
                         </div>
                         <div class="form-group">
@@ -145,16 +145,16 @@
 
                         <h5 style="margin-top:20px;"><i class="fas fa-address-book"></i> Contacto y Redes</h5>
                         <div class="form-group">
-                            <label>WhatsApp principal (con cÃ³digo de paÃ­s)</label>
+                            <label>WhatsApp principal (con código de país)</label>
                             <input type="text" id="cfgWhatsapp" class="form-control-admin" placeholder="1234567890">
-                            <p class="form-hint">Ejemplo: 1234567890 (57 = Colombia). Se usa para pedidos y botÃ³n flotante.</p>
+                            <p class="form-hint">Ejemplo: 1234567890 (57 = Colombia). Se usa para pedidos y botón flotante.</p>
                         </div>
                         <div class="form-group">
                             <label>WhatsApp secundario (opcional)</label>
                             <input type="text" id="cfgWhatsapp2" class="form-control-admin" placeholder="0987654321">
                         </div>
                         <div class="form-group">
-                            <label>Correo electrÃ³nico</label>
+                            <label>Correo electrónico</label>
                             <input type="email" id="cfgEmail" class="form-control-admin" placeholder="contacto@example.com">
                         </div>
                         <div class="form-group">
@@ -166,19 +166,19 @@
                             <input type="text" id="cfgFacebook" class="form-control-admin" placeholder="https://facebook.com/diegufashion">
                         </div>
                         <div class="form-group">
-                            <label>DirecciÃ³n del local</label>
+                            <label>Dirección del local</label>
                             <input type="text" id="cfgDireccion" class="form-control-admin" placeholder="Direccion generica, Ciudad generica, Local 123">
                         </div>
 
                         <button type="submit" class="btn-primary-admin" style="margin-top:12px;">
-                            <i class="fas fa-save"></i> Guardar ConfiguraciÃ³n
+                            <i class="fas fa-save"></i> Guardar Configuración
                         </button>
                     </form>
                 </div>
 
-                <!-- Datos actuales en la pÃ¡gina -->
+                <!-- Datos actuales en la página -->
                 <div class="config-card" style="margin-top:16px;">
-                    <h5><i class="fas fa-globe"></i> Datos actuales en la pÃ¡gina</h5>
+                    <h5><i class="fas fa-globe"></i> Datos actuales en la página</h5>
                     <div id="configPreview" style="font-size:0.85rem;color:#64748B;">
                         <p><i class="fas fa-spinner fa-spin"></i> Cargando datos...</p>
                     </div>
@@ -207,7 +207,7 @@
                             <input type="number" id="prodPrecio" class="form-control-admin" placeholder="117000" required min="1">
                         </div>
                         <div class="form-group">
-                            <label>CategorÃ­a</label>
+                            <label>Categoría</label>
                             <select id="prodCategoria" class="form-control-admin" required>
                                 <option value="">Seleccionar...</option>
                                 <option value="americana">Americana</option>
@@ -215,18 +215,18 @@
                                 <option value="parka">Parka</option>
                                 <option value="unicolor">Unicolor</option>
                                 <option value="combinada">Combinada</option>
-                                <option value="lenador">LeÃ±adora</option>
+                                <option value="lenador">Leñadora</option>
                                 <option value="otra">Otra</option>
                             </select>
                         </div>
                     </div>
                     <div id="categoriaOtraGroup" class="form-group" style="display:none;">
-                        <label>Nombre de la nueva categorÃ­a</label>
+                        <label>Nombre de la nueva categoría</label>
                         <input type="text" id="prodCategoriaOtra" class="form-control-admin" placeholder="Ej: Bomber">
                     </div>
                     <div class="form-group">
-                        <label>DescripciÃ³n de la prenda</label>
-                        <textarea id="prodDescripcion" class="form-control-admin" rows="3" placeholder="Ej: Chaqueta americana de corte clÃ¡sico, tela impermeable con forro interior..."></textarea>
+                        <label>Descripción de la prenda</label>
+                        <textarea id="prodDescripcion" class="form-control-admin" rows="3" placeholder="Ej: Chaqueta americana de corte clásico, tela impermeable con forro interior..."></textarea>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
@@ -235,17 +235,17 @@
                         </div>
                         <div class="form-group">
                             <label>Colores disponibles (separados por coma)</label>
-                            <input type="text" id="prodColores" class="form-control-admin" placeholder="Negro,Rojo,Azul,CafÃ©">
+                            <input type="text" id="prodColores" class="form-control-admin" placeholder="Negro,Rojo,Azul,Café">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>Orden (posiciÃ³n)</label>
+                        <label>Orden (posición)</label>
                         <input type="number" id="prodOrden" class="form-control-admin" placeholder="1" min="1" value="1" style="max-width:120px;">
                     </div>
                     <div class="form-group">
                         <label>Imagen principal</label>
                         <div class="img-upload-row">
-                            <input type="text" id="prodImg1" class="form-control-admin" placeholder="Pega aquÃ­ la URL de la imagen...">
+                            <input type="text" id="prodImg1" class="form-control-admin" placeholder="Pega aquí la URL de la imagen...">
                             <a href="https://imgbb.com/" target="_blank" rel="noopener noreferrer" class="btn-imgbb" title="Subir imagen a ImgBB">
                                 <i class="fas fa-cloud-upload-alt"></i> Subir a ImgBB
                             </a>
@@ -297,7 +297,7 @@
         <div class="confirm-box">
             <div class="confirm-icon"><i class="fas fa-trash-alt"></i></div>
             <h5>Eliminar Producto</h5>
-            <p id="confirmMsg">Â¿EstÃ¡s seguro de eliminar este producto?</p>
+            <p id="confirmMsg">¿Estás seguro de eliminar este producto?</p>
             <div class="confirm-actions">
                 <button class="btn-confirm-cancel" id="btnCancelDelete">Cancelar</button>
                 <button class="btn-confirm-delete" id="btnConfirmDelete">
@@ -307,30 +307,30 @@
         </div>
     </div>
 
-    <!-- ========== MODAL CATEGORÃA ========== -->
+    <!-- ========== MODAL CATEGORÍA ========== -->
     <div id="modalCategoria" class="admin-modal-overlay">
         <div class="admin-modal">
             <div class="admin-modal-header">
-                <h4 id="modalCategoriaTitulo">Agregar CategorÃ­a</h4>
+                <h4 id="modalCategoriaTitulo">Agregar Categoría</h4>
                 <button class="admin-modal-close" id="btnCerrarCategoria"><i class="fas fa-times"></i></button>
             </div>
             <form id="formCategoria">
                 <div class="admin-modal-body">
                     <div class="form-group">
-                        <label>Nombre de la categorÃ­a</label>
+                        <label>Nombre de la categoría</label>
                         <input type="text" id="catNombre" class="form-control-admin" placeholder="Ej: Bomber, Cortavientos..." required>
                     </div>
                     <div class="form-group">
-                        <label>Slug (identificador Ãºnico)</label>
-                        <input type="text" id="catSlug" class="form-control-admin" placeholder="Se genera automÃ¡tico" required>
-                        <p class="form-hint">Solo letras minÃºsculas y guiones. Se genera del nombre.</p>
+                        <label>Slug (identificador único)</label>
+                        <input type="text" id="catSlug" class="form-control-admin" placeholder="Se genera automático" required>
+                        <p class="form-hint">Solo letras minúsculas y guiones. Se genera del nombre.</p>
                     </div>
                     <div class="form-group">
-                        <label>Orden de apariciÃ³n</label>
+                        <label>Orden de aparición</label>
                         <input type="number" id="catOrden" class="form-control-admin" placeholder="1" min="1" value="1">
                     </div>
                     <div class="form-group">
-                        <label>Icono de la categorÃ­a <small>(clic para seleccionar)</small></label>
+                        <label>Icono de la categoría <small>(clic para seleccionar)</small></label>
                         <div class="icon-selected-display" id="iconSelectedDisplay">
                             <i id="iconSelectedPreview" class="fas fa-tag"></i>
                             <span id="iconSelectedName">fas fa-tag</span>
@@ -343,13 +343,13 @@
                             <div class="icon-picker-item" data-icon="fas fa-cloud-rain"><i class="fas fa-cloud-rain"></i><span>Parka</span></div>
                             <div class="icon-picker-item" data-icon="fas fa-palette"><i class="fas fa-palette"></i><span>Unicolor</span></div>
                             <div class="icon-picker-item" data-icon="fas fa-swatchbook"><i class="fas fa-swatchbook"></i><span>Combinada</span></div>
-                            <div class="icon-picker-item" data-icon="fas fa-tree"><i class="fas fa-tree"></i><span>LeÃ±adora</span></div>
+                            <div class="icon-picker-item" data-icon="fas fa-tree"><i class="fas fa-tree"></i><span>Leñadora</span></div>
                             <div class="icon-picker-item" data-icon="fas fa-snowflake"><i class="fas fa-snowflake"></i><span>Invierno</span></div>
                             <div class="icon-picker-item" data-icon="fas fa-wind"><i class="fas fa-wind"></i><span>Cortavientos</span></div>
                             <div class="icon-picker-item" data-icon="fas fa-umbrella"><i class="fas fa-umbrella"></i><span>Impermeable</span></div>
                             <div class="icon-picker-item" data-icon="fas fa-fire"><i class="fas fa-fire"></i><span>Trending</span></div>
                             <div class="icon-picker-item" data-icon="fas fa-bolt"><i class="fas fa-bolt"></i><span>Sport</span></div>
-                            <div class="icon-picker-item" data-icon="fas fa-shield-alt"><i class="fas fa-shield-alt"></i><span>ProtecciÃ³n</span></div>
+                            <div class="icon-picker-item" data-icon="fas fa-shield-alt"><i class="fas fa-shield-alt"></i><span>Protección</span></div>
                             <div class="icon-picker-item" data-icon="fas fa-gem"><i class="fas fa-gem"></i><span>Premium</span></div>
                             <div class="icon-picker-item" data-icon="fas fa-crown"><i class="fas fa-crown"></i><span>Exclusiva</span></div>
                             <div class="icon-picker-item" data-icon="fas fa-star"><i class="fas fa-star"></i><span>Destacada</span></div>
@@ -383,18 +383,18 @@
                 <button class="admin-modal-close" onclick="document.getElementById('modalPreview').classList.remove('visible')"><i class="fas fa-times"></i></button>
             </div>
             <div class="admin-modal-body" style="padding:0;">
-                <!-- Preview como se ve en la pÃ¡gina -->
+                <!-- Preview como se ve en la página -->
                 <div class="preview-layout">
-                    <!-- Tarjeta del catÃ¡logo -->
+                    <!-- Tarjeta del catálogo -->
                     <div class="preview-card-section">
-                        <p class="preview-section-label"><i class="fas fa-th-large"></i> Tarjeta en el catÃ¡logo</p>
+                        <p class="preview-section-label"><i class="fas fa-th-large"></i> Tarjeta en el catálogo</p>
                         <div class="preview-card-wrapper">
                             <div id="previewCard" class="preview-product-card"></div>
                         </div>
                     </div>
-                    <!-- Vista rÃ¡pida (drawer) -->
+                    <!-- Vista rápida (drawer) -->
                     <div class="preview-drawer-section">
-                        <p class="preview-section-label"><i class="fas fa-expand"></i> Vista RÃ¡pida (detalle)</p>
+                        <p class="preview-section-label"><i class="fas fa-expand"></i> Vista Rápida (detalle)</p>
                         <div id="previewDrawer" class="preview-drawer"></div>
                     </div>
                 </div>
