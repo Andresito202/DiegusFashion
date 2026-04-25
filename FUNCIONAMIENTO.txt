@@ -1,4 +1,4 @@
-================================================================
+﻿================================================================
    DIEGU'S FASHION - MANUAL DE FUNCIONAMIENTO
    Version: 2.0 | Fecha: Marzo 2026
 ================================================================
@@ -42,7 +42,7 @@ EN LOCAL (para pruebas):
    4. Abre: http://localhost:8080/admin.html
 
 EN PRODUCCION (cuando este publicado):
-   1. Abre: https://tudominio.com/admin.html
+   1. Abre: https://example.com/admin.html
    2. Pon tu email y contrasena de Firebase
    3. Ya estas dentro
 
@@ -134,7 +134,7 @@ En admin, seccion Configuracion:
 
 DATOS DE PAGO:
    - Numero Nequi: el numero que ven los clientes para pagar
-   - Cuenta Bancaria: datos de Bancolombia u otro banco
+   - Cuenta Bancaria: datos de Banco Demo u otro banco
 
 CONTACTO Y REDES:
    - WhatsApp principal: numero con codigo de pais (573...)
@@ -218,9 +218,9 @@ Cuando un cliente quiere comprar:
    2. Selecciona color, talla y cantidad
    3. Selecciona metodo de pago:
       - Nequi: muestra boton "Abrir Nequi" (abre la app)
-      - Bancolombia: muestra campo para comprobante
+      - Banco Demo: muestra campo para comprobante
       - Contra Entrega: no pide comprobante
-   4. Si es Nequi o Bancolombia:
+   4. Si es Nequi o Banco Demo:
       - Ingresa nombre del consignante
       - Sube foto del comprobante
    5. Ingresa direccion de entrega
@@ -252,7 +252,7 @@ OPCION B - CPANEL (si ya tienes hosting):
    1. Entra a cPanel --> Administrador de archivos
    2. Ve a public_html/
    3. Sube TODOS los archivos del proyecto
-   4. Listo: https://tudominio.com
+   4. Listo: https://example.com
 
 DESPUES DE SUBIR:
    1. Publica las reglas de seguridad en Firebase:
@@ -335,11 +335,11 @@ CAMBIOS DE CODIGO (css, js, html):
 ================================================================
 
    FIREBASE:
-   - Proyecto: diegusfashion-98961
+   - Proyecto: demo-proyecto
    - Consola: https://console.firebase.google.com/
    - Email admin: ______________________________
    - Contrasena: _______________________________
-   - UID admin: 7msFXakLaNgYzOURykfynC2Py972
+   - UID admin: UID_ADMIN_DEMO
 
    DOMINIO:
    - Proveedor: ________________________________
@@ -360,3 +360,4 @@ CAMBIOS DE CODIGO (css, js, html):
 ================================================================
    FIN DEL MANUAL DE FUNCIONAMIENTO
 ================================================================
+

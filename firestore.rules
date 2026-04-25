@@ -1,35 +1,36 @@
-rules_version = '2';
+﻿rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // UID del administrador — REEMPLAZA con tu UID real de Firebase Auth
-    // Para obtenerlo: Firebase Console → Authentication → Users → copia el UID
+    // UID del administrador â€” REEMPLAZA con tu UID real de Firebase Auth
+    // Para obtenerlo: Firebase Console â†’ Authentication â†’ Users â†’ copia el UID
     function isAdmin() {
       return request.auth != null
-          && request.auth.uid == '7msFXakLaNgYzOURykfynC2Py972';
+          && request.auth.uid == 'UID_ADMIN_DEMO';
     }
 
-    // Productos: lectura pública, escritura solo admin
+    // Productos: lectura pÃºblica, escritura solo admin
     match /productos/{docId} {
       allow read: if true;
       allow write: if isAdmin();
     }
 
-    // Categorías: lectura pública, escritura solo admin
+    // CategorÃ­as: lectura pÃºblica, escritura solo admin
     match /categorias/{docId} {
       allow read: if true;
       allow write: if isAdmin();
     }
 
-    // Config (Nequi, cuenta, WhatsApp): lectura pública, escritura solo admin
+    // Config (Nequi, cuenta, WhatsApp): lectura pÃºblica, escritura solo admin
     match /config/{docId} {
       allow read: if true;
       allow write: if isAdmin();
     }
 
-    // Bloquear todo lo demás
+    // Bloquear todo lo demÃ¡s
     match /{document=**} {
       allow read, write: if false;
     }
   }
 }
+

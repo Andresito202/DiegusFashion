@@ -1,4 +1,4 @@
-================================================================
+﻿================================================================
    DIEGU'S FASHION - DOCUMENTO DE VERSION
    Version: 2.0 | Fecha: Marzo 2026
 ================================================================
@@ -9,7 +9,7 @@
 ================================================================
 
 Diegu's Fashion es una tienda online de chaquetas por mayor y
-detal ubicada en el C.C. Gran San, San Victorino, Bogota D.C.
+detal ubicada en el Centro Comercial Demo, Sector Demo, Ciudad Demo D.C.
 
 Pagina web tipo catalogo con panel de administracion, pedidos
 por WhatsApp y pagos por Nequi, cuenta bancaria o contra entrega.
@@ -101,11 +101,11 @@ COLECCION: categorias
 - actualizado (timestamp)
 
 COLECCION: config (documento: "negocio")
-- whatsapp (string)        Ej: "573137439870"
-- whatsapp2 (string)       Ej: "573135526226"
-- nequi (string)           Ej: "3004521300"
-- cuenta (string)          Ej: "Bancolombia - Ahorros 123-456789-00"
-- email (string)           Ej: "diegufashion@gmail.com"
+- whatsapp (string)        Ej: "1234567890"
+- whatsapp2 (string)       Ej: "0987654321"
+- nequi (string)           Ej: "1234567890"
+- cuenta (string)          Ej: "Banco Demo - Cuenta 123456789"
+- email (string)           Ej: "contacto@example.com"
 - instagram (string)       URL de Instagram
 - facebook (string)        URL de Facebook
 - direccion (string)       Direccion del local
@@ -183,7 +183,7 @@ CODIGO:
   - Selector de color (pills)
   - Selector de talla (pills)
   - Selector de cantidad
-  - Metodo de pago (Nequi, Bancolombia, Contra entrega)
+  - Metodo de pago (Nequi, Banco Demo, Contra entrega)
   - Boton "Abrir Nequi" (abre la app en celular)
   - Campo comprobante de pago
   - Envio de pedido por WhatsApp
@@ -227,9 +227,9 @@ CODIGO:
 ================================================================
 
 FIREBASE:
-- Proyecto: diegusfashion-98961
+- Proyecto: demo-proyecto
 - Consola: https://console.firebase.google.com/
-- UID Admin: 7msFXakLaNgYzOURykfynC2Py972
+- UID Admin: UID_ADMIN_DEMO
 
 ARCHIVOS DE CONFIGURACION:
 - Firebase: firebase-config.js
@@ -246,7 +246,7 @@ ARCHIVOS DE CONFIGURACION:
 - [ ] Actualizar precios reales en Firebase
 - [ ] Configurar datos reales de Nequi y cuenta bancaria
 - [ ] Agregar URLs reales de Instagram y Facebook
-- [ ] Comprar dominio (diegufashion.com o similar)
+- [ ] Comprar dominio (example.com o similar)
 - [ ] Subir a hosting (Netlify o cPanel)
 - [ ] Publicar firestore.rules en la consola de Firebase
 - [ ] Activar SSL/HTTPS en el hosting
@@ -255,3 +255,4 @@ ARCHIVOS DE CONFIGURACION:
 ================================================================
    FIN DEL DOCUMENTO DE VERSION
 ================================================================
+

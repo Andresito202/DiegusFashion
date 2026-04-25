@@ -1,4 +1,4 @@
-# Informe tecnico - DiegusFashion
+﻿# Informe tecnico - DiegusFashion
 
 Fecha de revision local: 24 de abril de 2026  
 Ruta del proyecto: `E:\todo\Proyectos\DiegusFashion`  
@@ -7,7 +7,7 @@ Panel administrador: `http://127.0.0.1:8000/admin.html`
 
 ## 1. Resumen ejecutivo
 
-DiegusFashion es una tienda online tipo catalogo para una marca de chaquetas llamada **Diegu's Fashion**, orientada a ventas por mayor y detal en Bogota, especificamente asociada al sector de San Victorino / C.C. Gran San.
+DiegusFashion es una tienda online tipo catalogo para una marca de chaquetas llamada **Diegu's Fashion**, orientada a ventas por mayor y detal en Ciudad Demo, especificamente asociada al sector de Sector Demo / Centro Comercial Demo.
 
 El proyecto no usa un backend tradicional propio. Esta construido como un sitio web estatico con HTML, CSS y JavaScript, conectado a Firebase para datos dinamicos, autenticacion del administrador y actualizacion en tiempo real. El cliente ve el catalogo publico en `index.html`, mientras que el propietario administra productos, categorias y datos comerciales desde `admin.html`.
 
@@ -38,7 +38,7 @@ http://127.0.0.1:8000/
 El titulo detectado del sitio es:
 
 ```text
-Diegu's Fashion - Chaquetas por Mayor y Detal en Bogota
+Diegu's Fashion - Chaquetas por Mayor y Detal en Ciudad Demo
 ```
 
 ## 3. Proposito del sistema
@@ -428,3 +428,4 @@ El proyecto incluye una guia `SUBIR-A-CPANEL.txt`. El flujo previsto es:
 DiegusFashion es una tienda online estatica con administracion en Firebase. Esta bien orientada para un negocio pequeno o mediano que necesita publicar un catalogo, actualizar productos facilmente y cerrar ventas por WhatsApp sin mantener infraestructura backend.
 
 El proyecto esta listo para pruebas locales y tiene una ruta clara de despliegue a cPanel. La parte mas critica para produccion es asegurar que Firebase Authentication y las reglas de Firestore esten correctamente configuradas, porque ahi se concentra la seguridad real del sistema.
+

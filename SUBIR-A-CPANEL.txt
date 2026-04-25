@@ -1,4 +1,4 @@
-================================================================
+﻿================================================================
    COMO SUBIR DiegusFashion-HOSTING.zip A CPANEL
 ================================================================
 
@@ -11,7 +11,7 @@ PASO 1 - ENTRAR A CPANEL
 ================================================================
 
    1. Abre tu navegador
-   2. Ve a: https://tudominio.com:2083
+   2. Ve a: https://example.com:2083
       o entra desde el panel de tu proveedor de hosting
    3. Ingresa tu usuario y contrasena de cPanel
    4. Ya estas en el dashboard
@@ -94,10 +94,10 @@ PASO 6 - ELIMINAR EL ZIP
 PASO 7 - PROBAR
 ================================================================
 
-   1. Abre: https://tudominio.com
+   1. Abre: https://example.com
       --> Debe cargar la tienda con productos
 
-   2. Abre: https://tudominio.com/admin.html
+   2. Abre: https://example.com/admin.html
       --> Debe mostrar la pantalla de login
 
    3. Inicia sesion en el admin
@@ -111,7 +111,7 @@ PASO 8 - PUBLICAR REGLAS DE FIREBASE (obligatorio)
 ================================================================
 
    1. Abre: https://console.firebase.google.com/
-   2. Entra al proyecto diegusfashion-98961
+   2. Entra al proyecto demo-proyecto
    3. Menu izquierdo --> Firestore Database --> Rules
    4. Borra todo lo que hay y pega esto:
 
@@ -120,7 +120,7 @@ service cloud.firestore {
   match /databases/{database}/documents {
     function isAdmin() {
       return request.auth != null
-          && request.auth.uid == '7msFXakLaNgYzOURykfynC2Py972';
+          && request.auth.uid == 'UID_ADMIN_DEMO';
     }
     match /productos/{docId} {
       allow read: if true;
@@ -146,3 +146,4 @@ service cloud.firestore {
 ================================================================
    LISTO - TU PAGINA ESTA EN LINEA
 ================================================================
+
