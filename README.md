@@ -1,6 +1,6 @@
 ﻿# Diegu's Fashion - Tienda online de chaquetas por mayor y detal
 
-Sitio web tipo catalogo para Diegu's Fashion, una tienda de chaquetas por mayor y detal en Ciudad Demo. El proyecto incluye pagina publica, panel administrativo, catalogo dinamico, configuracion del negocio y pedidos por WhatsApp.
+Sitio web tipo catalogo para Diegu's Fashion, una tienda de chaquetas por mayor y detal en Ciudad generica. El proyecto incluye pagina publica, panel administrativo, catalogo dinamico, configuracion del negocio y pedidos por WhatsApp.
 
 ## URL local
 
@@ -86,7 +86,7 @@ DiegusFashion/
 Proyecto configurado:
 
 ```text
-demo-proyecto
+diegusfashion-98961
 ```
 
 Colecciones esperadas:

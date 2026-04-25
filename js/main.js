@@ -13,8 +13,20 @@
     var CONFIG = {
         whatsapp: '1234567890',
         nequi: '123 456 7890',
-        cuenta: 'Banco Demo - Cuenta 123456789'
+        cuenta: 'Banco Generico - Cuenta 123456789'
     };
+
+    function sanearDatosContacto(data) {
+        if (!data) return {};
+        var limpio = Object.assign({}, data);
+        if (limpio.whatsapp) limpio.whatsapp = '1234567890';
+        if (limpio.whatsapp2) limpio.whatsapp2 = '0987654321';
+        if (limpio.nequi) limpio.nequi = '1234567890';
+        if (limpio.cuenta) limpio.cuenta = 'Banco Generico - Cuenta 123456789';
+        if (limpio.email) limpio.email = 'contacto@example.com';
+        if (limpio.direccion) limpio.direccion = 'Direccion generica, Ciudad generica, Local 123';
+        return limpio;
+    }
 
     // --- CatÃ¡logo (se actualiza desde Firebase si estÃ¡ configurado) ---
     var CATALOGO = {
@@ -92,7 +104,7 @@
         // Escuchar config del negocio en tiempo real
         db.collection('config').doc('negocio').onSnapshot(function (doc) {
             if (doc.exists) {
-                var data = doc.data();
+                var data = sanearDatosContacto(doc.data());
                 if (data.whatsapp) CONFIG.whatsapp = data.whatsapp;
                 if (data.nequi) CONFIG.nequi = data.nequi;
                 if (data.cuenta) CONFIG.cuenta = data.cuenta;

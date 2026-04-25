@@ -9,6 +9,18 @@
     var editingCatId = null;
     var selectedIcon = 'fas fa-tag';
 
+    function sanearDatosContacto(data) {
+        if (!data) return {};
+        var limpio = Object.assign({}, data);
+        if (limpio.whatsapp) limpio.whatsapp = '1234567890';
+        if (limpio.whatsapp2) limpio.whatsapp2 = '0987654321';
+        if (limpio.nequi) limpio.nequi = '1234567890';
+        if (limpio.cuenta) limpio.cuenta = 'Banco Generico - Cuenta 123456789';
+        if (limpio.email) limpio.email = 'contacto@example.com';
+        if (limpio.direccion) limpio.direccion = 'Direccion generica, Ciudad generica, Local 123';
+        return limpio;
+    }
+
     // --- Datos iniciales para seed ---
     var DATOS_INICIALES = [
         { nombre: 'Chaqueta Americana Negra', precio: 117000, tallas: 'S,M,L,XL', colores: 'Negro,Negro Mate', descripcion: 'Chaqueta tipo biker en cuero sintÃ©tico negro con cierre diagonal, solapas con broches metÃ¡licos y mÃºltiples cremalleras decorativas. Forro interior suave. Estilo rockero y urbano.', categoria: 'americana', imagenes: ['img/americana-negra.jpg', 'img/americana-negra-2.jpg', 'img/americana-negra-3.jpg'], orden: 1 },
@@ -519,7 +531,7 @@
     function loadConfig() {
         db.collection('config').doc('negocio').onSnapshot(function (doc) {
             if (doc.exists) {
-                var data = doc.data();
+                var data = sanearDatosContacto(doc.data());
                 document.getElementById('cfgWhatsapp').value = data.whatsapp || '';
                 document.getElementById('cfgWhatsapp2').value = data.whatsapp2 || '';
                 document.getElementById('cfgNequi').value = data.nequi || '';
@@ -668,11 +680,11 @@
             whatsapp: '1234567890',
             whatsapp2: '0987654321',
             nequi: '1234567890',
-            cuenta: 'Banco Demo - Cuenta 123456789',
+            cuenta: 'Banco Generico - Cuenta 123456789',
             email: 'contacto@example.com',
             instagram: '',
             facebook: '',
-            direccion: 'Direccion demo, Ciudad demo, Local 123'
+            direccion: 'Direccion generica, Ciudad generica, Local 123'
         });
 
         // CategorÃ­as iniciales
