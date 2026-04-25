@@ -56,6 +56,19 @@ El proyecto esta pensado para despliegue estatico en `public_html`. El repositor
 - `SUBIR-A-CPANEL.txt`
 - `INFORME-TECNICO-DIEGUSFASHION.md`
 
+## Publicacion
+
+URL publica esperada:
+`https://andresito202.github.io/DiegusFashion/`
+
+Pasos de despliegue:
+- `Settings -> Pages -> Deploy from branch -> main -> /(root)`
+
+Notas:
+- Si mantienes la rama historica `master`, GitHub Pages tambien puede publicarse desde `master -> /(root)`.
+- `admin.html` queda disponible por URL directa, pero no se expone como enlace principal del catalogo.
+- `firebase-config.js` contiene configuracion publica de cliente. La seguridad real depende de Authentication y reglas de Firestore, no de ocultar ese archivo.
+
 ## Estructura principal
 
 ```text
